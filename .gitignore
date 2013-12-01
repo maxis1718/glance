@@ -2,7 +2,6 @@ venv
 *.pyc
 *.png
 *.jpg
-*.json
 *.db
 *.db3
 .DS_Store
