@@ -1,6 +1,11 @@
 $(document).ready(function(){
+	init();
 	events();
 });
+
+function init() {
+	$('.search').focus();
+}
 
 function events () {
 	
