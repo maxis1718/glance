@@ -5,3 +5,4 @@ venv
 *.json
 *.db
 *.db3
+.DS_Store
