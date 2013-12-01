@@ -1,13 +1,19 @@
 # -*- coding: UTF-8 -*-
 
 from flask import Flask, render_template, request, redirect, Response
+import json, os, sys
 
 app = Flask(__name__)
 
-### ---------------------------- Functions ---------------------------- ###
-def load_json(): return json.load(open('data/bnc.word.filter.json'))
 
+### ---------------------------- Functions ---------------------------- ###
+def load_json(): return json.load(open('static/data/bnc.word.filter.json'))
+# print os.getcwd()
+# raw_input()
+print '# loading bnc.word.filter.json ...',
+sys.stdout.flush()
 js = load_json()
+print 'done.'
 
 ### ---------------------------- UI ---------------------------- ###
 
@@ -37,5 +43,5 @@ def pos_count(query):
 	return Response(json.dumps(return_data), mimetype='application/json')
 
 if __name__ == "__main__":
-	app.debug = True
+	# app.debug = True
 	app.run(host="0.0.0.0")

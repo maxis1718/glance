@@ -31,7 +31,11 @@ function events () {
 						percent = list[2];
 
 						var li = $('<tr/>').appendTo( $('#content-pos') );
-						$('<td/>').addClass('pos').text(pos).appendTo(li);
+
+						
+
+						var li_pos = $('<td/>').addClass('pos').appendTo(li);
+						$('<span/>').text(pos).appendTo(li_pos);
 						$('<td/>').addClass('count').text(count).appendTo(li);
 
 						
@@ -39,11 +43,8 @@ function events () {
 
 						var w = parseFloat(percent)/100*400;
 
-						
-						$('<div/>').css({'width':w, 'height':24, 'background':'orange'}).appendTo(p);
-						$('<div/>').text(percent).appendTo(p)
-						// $('<td/>').
-						// console.log(list.length);
+						$('<div/>').addClass('pos-percent-bar').width(w).appendTo(p);
+						$('<div/>').addClass('pos-percent-label').text(percent.toString() + ' %').appendTo(p);
 					});					
 				}
 			}).error(function(){

@@ -1,98 +1,65 @@
 
 body {clear: both; margin: 0; padding: 0;}
-#container {
-	width: 960px; height: 600px; position: relative; margin: 0 auto; top: 24px; /*border: 1px solid #CCC; */
-}
+.container { width: 960px; position: relative; margin: 0 auto; top: 24px; /*border: 1px solid #CCC;*/ }
+a { text-decoration: none;}
+
+
+#page-index {background: #11586f;}
+/*#index-nav {clear: both; font-size: 18px; color: white; width: 100%; height: 32px; background: black; position: absolute; bottom: -10px; }*/
+/*#index-nav a {color: white;}*/
+/*#index-nav a:hover {text-decoration: underline;}*/
+
+
+/*#container h1, #container h3 { text-align: center; width: 100%;}*/
+#slogan, #slogan-describe { width: 100%;  text-align: center; height: 108px;}
+#slogan {font-weight: bold; margin-top: 108px; color: white; }
+#slogan-describe {font-size: 24px; letter-spacing: 1px; margin-top: 72px; color: #ddd;}
+
 #title {
-	/*font-family: "Lucida Grande";*/
 	font-size: 32px;
 	margin-bottom: 32px;
 }
 
 .search {
-	width: 384px;
-	height: 72px;
+	width: 384px; height: 72px;
+
 	border: 0;
-	border-bottom: 1px solid #444;
+	border-bottom: 1px solid #666;
 	outline: 0;
-	font-size: 28px;
 	padding-left: 6px;
 	margin-bottom: 32px;
 
+	background: none;
+	color: #222;
+
+	font-size: 32px;
+	font-family: "Lucida Grande";
+	letter-spacing: 1px;
 }
 
 #content-pos {}
 #content-pos tr td { 
-	min-width:128px;
-	height: 32px;
-	font-size: 24px;
-	font-family: Verdana;
+	height: 40px;
 }
-#content-pos .percent div {display: inline-block; margin-right: 20px;}
-/*#content-pos .percent div:nth-child(0) {}*/
-/*#content-pos .percent div:nth-child(1) {}*/
-/*#content-pos */
-/*.wrap { position: absolute; }
-.time-wrap { max-width: 320px; height: 108px; background: none; }
-.date-wrap { text-align: right; width: 280px; height: 40px; background: none;}
-.forecast-wrap { text-align: right; width: 360px; height: 40px; background: none;}
-#event { top: 96px; left:228px; width: 480px; height: 320px;  background: none;}
-#people { top: 256px; left: 660px; color:#9bcb01; font-size: 24px;}*/
+#content-pos tr td:nth-child(1) { width:64px;}
+#content-pos tr td:nth-child(2) { width:64px; border-right: 1px solid #333;}
+#content-pos tr td:nth-child(3) { min-width:128px; }
 
-/* ---------------- wrap container ---------------- */
-/*	#t1 { right: 128px; top: 320px; }
-	#t1:hover { cursor: pointer}
-	#d1 { right: 138px; top: 415px; }
-	#f1 { right: 138px; top: 456px; }
+#content-pos tr td .pos-percent-bar, #content-pos tr td .pos-percent-label {
+	height: 28px;
+	line-height: 32px;
+	float: left;
+}
 
-	#t2 { left:64px; top:140px;}
-	#t2 .time {font-size: 64px;}
-	#d2 { right: 280px; top: 4px;}
-	#d2 .date { font-size: 18px}
-	#f2 { right: 48px; top: 4px;}
-	#f2 .forecast {font-size: 18px;}
-	#f2 .forecast-icon img { width: 32px; height: 32px; margin-top: 4px;}
+#content-pos tr td .pos-percent-bar {
+	background:orange;
+	border-right: 2px solid darkorange;
+	margin-right: 5px;
+}
 
-	/* people */
-	#people-total { width: 280px; height: 48px; background: none;}
-	#people-total:hover {cursor: pointer; color: #80b704;}
-	#people-total img, #people-total div { float:left; position: relative; line-height: 48px;}
-	.people-arrow { width: 32px; height: 32px; top:8px;}
-	#people-sum {height: 32px; padding-left: 12px; }
-	.who {width: 256px; height: 54px; background: none; clear: both; margin-top: 24px;}
-	.who div {float: left; }
-	.p-name { font-size: 20px; padding-left: 12px;}
-	.p-icon img {width: 48px; height: 48px; border: 2px dashed #9bcb01;}
+#content-pos tr .pos { font-size: 20px;  }
+#content-pos tr .pos span { padding: 1px 5px 1px 5px; background: #eee; border: 1px solid #DDD; border-radius: 2px;}
+#content-pos tr .count { font-size: 16px; }
+#content-pos tr .percent { font-size: 16px; }
 
-/* ---------------- contents ---------------- */
-.time, .date, .forecast {display: inline-block; color:#9bcb01;}
-.time {font-size: 72px;  }
-.time-s { width: 20px; height:100%;}
-
-.date-w {padding-left: 6px;}
-.date, .forecast {font-size: 24px; height: 40px; line-height: 40px;}
-
-.forecast {padding-right: 6px;}
-.forecast-icon {clear: both; position: absolute;}
-.forecast-icon img {clear: both; margin: 0; padding: 0;}
-
-#circle {position: absolute; width: 320px; height: 320px; left: 80px;}
-
-#event-title {position: absolute; height: 48px; line-height: 48px; font-size: 24px; left: 24px; top: 140px; background: white; color: #9bcb01; cursor: pointer;}
-#event-title:hover {color: #80b704}
-#event-title:active {color: #9bcb01;}
-#event-icon {position: absolute; left:200px; top:115px; width: 96px; height: 96px;}
-
-
-/*#enter-wrap {width: 40px; height: 40px; top: 238px; left: 447px; position: absolute; z-index: 4;}*/
-#enter-wrap img {width: 32px; height: 32px;}
-#enter-wrap {
-width: 32px;
-height: 32px;
-bottom: 24px;
-right: 24px;
-position: absolute;
-z-index: 4;	
-opacity: 0.85;
-}*/
-/* ------------ event circle, image and text ------------ 
+/*#content-pos .percent div {line-height: 24px; height:24px; display: inline-block; margin-right: 20px;}*/
