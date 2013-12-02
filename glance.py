@@ -5,14 +5,12 @@ import json, os, sys
 
 app = Flask(__name__)
 
-
 ### ---------------------------- Functions ---------------------------- ###
-def load_json(): return json.load(open('static/data/bnc.word.filter.json'))
-# print os.getcwd()
-# raw_input()
-print '# loading bnc.word.filter.json ...',
+
+print '# loading json ...',
 sys.stdout.flush()
-js = load_json()
+bnc_pos  = json.load(open('static/data/bnc.word.filter.json'))
+bnc_test = json.load(open('static/data/bnc.word.test.json'))
 print 'done.'
 
 ### ---------------------------- UI ---------------------------- ###
@@ -33,10 +31,10 @@ def show_test():
 	return render_template('test.html')
 
 ### ---------------------------- API ---------------------------- ###
-# pos API
+### pos API
 @app.route('/api/pos/<query>')
 def pos_count(query):
-	return_data = [] if query not in js else js[query]
+	return_data = [] if query not in bnc_pos else bnc_pos[query]
 	if return_data:
 		r = []
 		for x in return_data:
@@ -44,6 +42,12 @@ def pos_count(query):
 			p = "%.2f" % p
 			r.append((x[0], x[1], p))
 		return_data = r
+	return Response(json.dumps(return_data), mimetype='application/json')
+
+### test API
+@app.route('/api/test/<query>')
+def test_level(query):
+	return_data = [] if query not in bnc_test else bnc_test[query]
 	return Response(json.dumps(return_data), mimetype='application/json')
 
 if __name__ == "__main__":

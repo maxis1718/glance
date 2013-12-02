@@ -7,15 +7,20 @@ function init() {
 	$('.search').focus();
 }
 
-function use(q) {
+function _ajaxGetTestLevel(q) {
 
-	$('#exam-type-wrap').find('span').removeClass('show').addClass('hide');
-	var groups = W[q];
-	if (groups.length) {
-		$.each( W[q], function(i){
-			$('#'+W[q][i]).addClass('show');
-		});	
-	}
+	$.getJSON('/api/test/'+q, function(data){
+		
+		$('#exam-type-wrap').find('span').removeClass('show').addClass('hide');
+
+		if (data.length){
+			$.each( data, function(k, level){
+				$('#'+level).addClass('show').removeClass('hide');
+			});
+		}
+	}).error(function(err){
+		// catch error
+	});
 }
 
 function events () {
@@ -27,18 +32,18 @@ function events () {
 	$('#pick-wrap').find('span').click(function(e){
 		var q = $(this).text();
 		$('#search-test').val(q);
-		use(q);
+		_ajaxGetTestLevel(q);
 	});
 
 
 	$('.search').keyup(function(){
 
 		var val = $.trim($(this).val());
-
+		if(val.length == 0) return false;
 		// do
 		if( $(this).attr('id') == 'search-test' )
 		{
-			use(val);
+			_ajaxGetTestLevel(val);
 		}
 		else if( $(this).attr('id') == 'search-pos' )
 		{

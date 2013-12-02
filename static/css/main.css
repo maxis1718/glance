@@ -63,6 +63,8 @@ a { text-decoration: none;}
 
 /* ------------------------------------------ */
 
+#header h2 {font-family: inherit;}
+
 #input-wrap {
 	width: 480px;
 	height: 72px;
