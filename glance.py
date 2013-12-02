@@ -32,6 +32,7 @@ def show_test():
 
 ### ---------------------------- API ---------------------------- ###
 ### pos API
+
 @app.route('/api/pos/<query>')
 def pos_count(query):
 	return_data = [] if query not in bnc_pos else bnc_pos[query]
