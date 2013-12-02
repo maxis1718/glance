@@ -3,7 +3,6 @@ body {clear: both; margin: 0; padding: 0;}
 .container { width: 960px; position: relative; margin: 0 auto; top: 24px; /*border: 1px solid #CCC;*/ }
 a { text-decoration: none;}
 
-
 #page-index {background: #11586f;}
 /*#index-nav {clear: both; font-size: 18px; color: white; width: 100%; height: 32px; background: black; position: absolute; bottom: -10px; }*/
 /*#index-nav a {color: white;}*/
@@ -61,5 +60,63 @@ a { text-decoration: none;}
 #content-pos tr .pos span { padding: 1px 5px 1px 5px; background: #eee; border: 1px solid #DDD; border-radius: 2px;}
 #content-pos tr .count { font-size: 16px; }
 #content-pos tr .percent { font-size: 16px; }
+
+/* ------------------------------------------ */
+
+#input-wrap {
+	width: 480px;
+	height: 72px;
+}
+#pick-wrap {
+	width: 300px;	
+	height: 72px;
+	padding-bottom: 6px;
+	line-height: 36px;
+	/*vertical-align:bottom;*/
+}	
+
+#pick-wrap span, #exam-type-wrap span {
+	font-family: "Segoe UI light";
+	
+	padding: 3px 10px;
+	border-radius: 3px;
+	/*background: white;*/
+
+	border-top: 1px solid #EEE;
+	border-left: 1px solid #EEE;
+
+	border-right: 1px solid #DDD;
+	border-bottom: 1px solid #DDD;
+}
+
+#pick-wrap span {
+	font-size: 16px;
+	margin-right: 10px;
+}
+#pick-wrap span:hover {
+	cursor: pointer;
+	background: honeydew;
+}
+#exam-type-wrap {
+	margin-top: 48px;
+}
+
+#exam-type-wrap span {
+	font-size: 18px;
+	margin-right: 12px;
+}
+
+
+
+#GRE 	{background: navajowhite}
+#TOEFL 	{background: moccasin}
+#IELTS 	{background: bisque}
+#SAT 	{background: blanchedalmond}
+#GMAT 	{background: papayawhip}
+#TOEIC	{background: antiquewhite}
+#China-6	{background: floralwhite}
+#China-4	{background: whitesmoke}
+#China-Senior	{background: #EEE}
+#China-Junior	{background: white}
 
 /*#content-pos .percent div {line-height: 24px; height:24px; display: inline-block; margin-right: 20px;}*/

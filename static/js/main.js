@@ -7,23 +7,45 @@ function init() {
 	$('.search').focus();
 }
 
+function use(q) {
+
+	$('#exam-type-wrap').find('span').removeClass('show').addClass('hide');
+	var groups = W[q];
+	if (groups.length) {
+		$.each( W[q], function(i){
+			$('#'+W[q][i]).addClass('show');
+		});	
+	}
+}
+
 function events () {
 	
 	// pos.html
 	var prev_query = '';
 
+
+	$('#pick-wrap').find('span').click(function(e){
+		var q = $(this).text();
+		$('#search-test').val(q);
+		use(q);
+	});
+
+
 	$('.search').keyup(function(){
 
 		var val = $.trim($(this).val());
 
-		// prevent sening the same query
-		if(val == prev_query){ return false;}
-		else { prev_query = val; }
-
 		// do
-		if( $(this).attr('id') == 'search-pos' )
+		if( $(this).attr('id') == 'search-test' )
 		{
-			
+			use(val);
+		}
+		else if( $(this).attr('id') == 'search-pos' )
+		{
+			// prevent sening the same query
+			if(val == prev_query){ return false;}
+			else { prev_query = val; }
+
 			$.getJSON('/api/pos/'+val, function(data){
 
 				$('#content-pos').html('');

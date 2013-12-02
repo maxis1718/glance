@@ -23,10 +23,14 @@ def hello():
 
 @app.route("/pos")
 @app.route("/pos/")
-def pos():
+def show_pos():
 	return render_template('pos.html')
 
 
+@app.route("/test")
+@app.route("/test/")
+def show_test():
+	return render_template('test.html')
 
 ### ---------------------------- API ---------------------------- ###
 # pos API
