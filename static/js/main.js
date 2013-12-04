@@ -97,6 +97,7 @@ function chart(X, Y) {
 		datasets : [
 			{
 				fillColor : "rgba(023, 091, 106, 1)",
+				// strokeColor : "rgba(220,220,220,1)",
 				data : Y
 			}
 		]
@@ -104,22 +105,22 @@ function chart(X, Y) {
 
 	// set options
 	var options = {
-		// animation: false,
+
 		scaleShowGridLines: false,
 		scaleLineWidth: 0,
-		scaleLineColor: "rgba(255,255,255,0)",
+		// scaleLineColor: "rgba(023, 091, 106, 0.5)",
 		// scaleFontSize: 8,
-		barShowStroke: false,
-		barStrokeWidth: 0,
-
-		barDatasetSpacing: 0,
-		barValueSpacing: 0,
-
 		// Y-axis label
 		scaleShowLabels: false,
 
 		// X-axis grid
 		scaleGridLineColor: "rgba(0,0,0,0)",
+
+
+		barShowStroke: false,
+		barStrokeWidth: 0,
+		barDatasetSpacing: 0,
+		barValueSpacing: 0,
 
 		animationSteps: 10,
 	}
