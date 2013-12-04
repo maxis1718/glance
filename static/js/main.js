@@ -1,3 +1,4 @@
+var C;
 $(document).ready(function(){
 	init();
 	events();
@@ -5,6 +6,9 @@ $(document).ready(function(){
 
 function init() {
 	$('.search').focus();
+
+	ctx = $("#wp-chart").get(0).getContext("2d");
+	C = new Chart(ctx);
 }
 
 function _ajaxGetTestLevel(q) {
@@ -63,8 +67,6 @@ function _ajaxGetPOS(q) {
 
 function _ajaxGetWordPosition(q) {
 
-	// $('#exam-type-wrap').find('span').removeClass('show').addClass('hide');
-
 	$.getJSON('/api/wp/'+q, function(data){
 		// clear chart
 		chart([],[]);
@@ -89,7 +91,7 @@ function _ajaxGetWordPosition(q) {
 function chart(X, Y) {
 
 	// get canvas object
-	ctx = $("#wp-chart").get(0).getContext("2d");
+	
 
 	// set data
 	var data = {
@@ -110,6 +112,7 @@ function chart(X, Y) {
 		scaleLineWidth: 0,
 		// scaleLineColor: "rgba(023, 091, 106, 0.5)",
 		// scaleFontSize: 8,
+
 		// Y-axis label
 		scaleShowLabels: false,
 
@@ -126,7 +129,7 @@ function chart(X, Y) {
 	}
 
 	// draw
-	new Chart(ctx).Bar(data, options);
+	C.Bar(data, options);
 }
 
 function events () {
