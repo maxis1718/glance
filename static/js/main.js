@@ -60,6 +60,25 @@ function _ajaxGetPOS(q) {
 	});
 }
 
+
+function _ajaxGetWordPosition(q) {
+
+	$('#exam-type-wrap').find('span').removeClass('show').addClass('hide');
+
+	$.getJSON('/api/test/'+q, function(data){
+
+		if (data.length){
+			$.each( data, function(k, level){
+				$('#'+level).addClass('show').removeClass('hide');
+			});
+		}
+	}).error(function(err){
+		// catch "no page found" --> clear results
+		$('#exam-type-wrap').find('span').removeClass('show').addClass('hide');
+	});
+}
+
+
 function events () {
 	
 	// pos.html
@@ -86,12 +105,15 @@ function events () {
 		else { prev_query = val; }
 
 		// do
-		if( $(this).attr('id') == 'search-test' ) {
+		if($(this).attr('id') == 'search-test') {
 			_ajaxGetTestLevel(val);
 		}
-		else if( $(this).attr('id') == 'search-pos' ) {
+		else if($(this).attr('id') == 'search-pos') {
 			_ajaxGetPOS(val);
 
+		}
+		else if($(this).attr('id') == 'search-wp'){
+			_ajaxGetWordPosition(val);
 		}
 	});
 }

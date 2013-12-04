@@ -9,8 +9,12 @@ app = Flask(__name__)
 
 print '# loading json ...',
 sys.stdout.flush()
+## word pos filter
 bnc_pos  = json.load(open('static/data/bnc.word.filter.json'))
+## word test
 bnc_test = json.load(open('static/data/bnc.word.test.json'))
+## word position
+bnc_wp = json.load(open('static/data/XY/pure/h.pure.json'))
 print 'done.'
 
 ### ---------------------------- UI ---------------------------- ###
@@ -29,6 +33,11 @@ def show_pos():
 @app.route("/test/")
 def show_test():
 	return render_template('test.html')
+
+@app.route("/wp")
+@app.route("/wp/")
+def show_test():
+	return render_template('wp.html')
 
 ### ---------------------------- API ---------------------------- ###
 ### pos API
@@ -50,6 +59,14 @@ def pos_count(query):
 def test_level(query):
 	return_data = [] if query not in bnc_test else bnc_test[query]
 	return Response(json.dumps(return_data), mimetype='application/json')
+
+### test API
+@app.route('/api/wp/<query>')
+def word_position(query):
+	return_data = [] if query not in bnc_wp else bnc_wp[query]
+	# return_data = [] if query not in bnc_test else bnc_test[query]
+	return Response(json.dumps(return_data), mimetype='application/json')
+
 
 if __name__ == "__main__":
 	# app.debug = True
