@@ -63,21 +63,70 @@ function _ajaxGetPOS(q) {
 
 function _ajaxGetWordPosition(q) {
 
-	$('#exam-type-wrap').find('span').removeClass('show').addClass('hide');
+	// $('#exam-type-wrap').find('span').removeClass('show').addClass('hide');
 
-	$.getJSON('/api/test/'+q, function(data){
+	$.getJSON('/api/wp/'+q, function(data){
+		// clear chart
+		chart([],[]);
 
 		if (data.length){
-			$.each( data, function(k, level){
-				$('#'+level).addClass('show').removeClass('hide');
-			});
+			// drop 0
+			data[0].shift();
+			data[1].shift();
+
+			X = data[0];
+			Y = data[1];
+
+			for(var i = 0; i < X.length; i++){ X[i] = "";} // clear X-axis label
+			chart(X, Y);
 		}
 	}).error(function(err){
-		// catch "no page found" --> clear results
-		$('#exam-type-wrap').find('span').removeClass('show').addClass('hide');
+		// clear chart
+		chart([],[]);
 	});
 }
 
+function chart(X, Y) {
+
+	// get canvas object
+	ctx = $("#wp-chart").get(0).getContext("2d");
+
+	// set data
+	var data = {
+		labels : X,
+		datasets : [
+			{
+				fillColor : "rgba(023, 091, 106, 1)",
+				data : Y
+			}
+		]
+	}
+
+	// set options
+	var options = {
+		// animation: false,
+		scaleShowGridLines: false,
+		scaleLineWidth: 0,
+		scaleLineColor: "rgba(255,255,255,0)",
+		// scaleFontSize: 8,
+		barShowStroke: false,
+		barStrokeWidth: 0,
+
+		barDatasetSpacing: 0,
+		barValueSpacing: 0,
+
+		// Y-axis label
+		scaleShowLabels: false,
+
+		// X-axis grid
+		scaleGridLineColor: "rgba(0,0,0,0)",
+
+		animationSteps: 10,
+	}
+
+	// draw
+	new Chart(ctx).Bar(data, options);
+}
 
 function events () {
 	
