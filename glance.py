@@ -23,23 +23,23 @@ print 'done.'
 def hello():
     return render_template('index.html')
 
-@app.route("/pos")
-@app.route("/pos/")
-@app.route('/postag')
-@app.route('/postag/')
+@app.route("/demo/pos")
+@app.route("/demo/pos/")
+@app.route('/demo/postag')
+@app.route('/demo/postag/')
 def show_pos():
 	return render_template('pos.html')
 
 
-@app.route("/test")
-@app.route("/test/")
-@app.route('/difficulty')
-@app.route('/difficulty/')
+@app.route("/demo/test")
+@app.route("/demo/test/")
+@app.route('/demo/difficulty')
+@app.route('/demo/difficulty/')
 def show_test():
 	return render_template('test.html')
 
-@app.route("/wp")
-@app.route("/wp/")
+@app.route("/demo/wp")
+@app.route("/demo/wp/")
 def show_wp():
 	return render_template('wp.html')
 
