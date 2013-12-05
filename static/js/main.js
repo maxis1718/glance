@@ -15,7 +15,7 @@ function _ajaxGetTestLevel(q) {
 
 	$('#exam-type-wrap').find('span').removeClass('show').addClass('hide');
 
-	$.getJSON('/api/test/'+q, function(data){
+	$.getJSON('/api/'+q+'/test/', function(data){
 
 		if (data.length){
 			$.each( data, function(k, level){
@@ -30,7 +30,7 @@ function _ajaxGetTestLevel(q) {
 
 function _ajaxGetPOS(q) {
 
-	$.getJSON('/api/pos/'+q, function(data){
+	$.getJSON('/api/'+q+'/pos/', function(data){
 
 		$('#content-pos').html('');
 		
@@ -67,7 +67,7 @@ function _ajaxGetPOS(q) {
 
 function _ajaxGetWordPosition(q) {
 
-	$.getJSON('/api/wp/'+q, function(data){
+	$.getJSON('/api/'+q+'/wp/', function(data){
 		// clear chart
 		chart([],[]);
 

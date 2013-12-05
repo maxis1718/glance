@@ -42,7 +42,9 @@ def show_test():
 ### ---------------------------- API ---------------------------- ###
 ### pos API
 
-@app.route('/api/pos/<query>')
+# @app.route('/api/<query>/pos')
+@app.route('/api/<query>/pos/')
+@app.route('/api/<query>/pos')
 def pos_count(query):
 	return_data = [] if query not in bnc_pos else bnc_pos[query]
 	if return_data:
@@ -55,13 +57,17 @@ def pos_count(query):
 	return Response(json.dumps(return_data), mimetype='application/json')
 
 ### test API
-@app.route('/api/test/<query>')
+# @app.route('/api/test/<query>')
+@app.route('/api/<query>/test/')
+@app.route('/api/<query>/test')
 def test_level(query):
 	return_data = [] if query not in bnc_test else bnc_test[query]
 	return Response(json.dumps(return_data), mimetype='application/json')
 
 ### test API
-@app.route('/api/wp/<query>')
+# @app.route('/api/wp/<query>')
+@app.route('/api/<query>/wp/')
+@app.route('/api/<query>/wp')
 def word_position(query):
 	return_data = [] if query not in bnc_wp else bnc_wp[query]
 	# return_data = [] if query not in bnc_test else bnc_test[query]
