@@ -1,21 +1,36 @@
-var C;
+
 $(document).ready(function(){
 	init();
 	events();
 });
 
+// initial function
 function init() {
 	$('.search').focus();
-	
-	ctx = $("#wp-chart").get(0).getContext("2d");
-	C = new Chart(ctx);
+	if($('#wp-chart').length > 0){
+		ctx = $("#wp-chart").get(0).getContext("2d");	
+		C = new Chart(ctx);
+	}
 }
 
+// global variables
+var C; //// Canvas object
+var interfaces = {	//// API route
+	'difficulty': ['/api/word', 'difficulty'],
+	'postag': ['/api/word', 'postag'],
+	'wp': ['/api/word', 'wp'],
+}
+
+// generate API route for the given query
+function api_for(func, query) { return [interfaces[func][0], query, interfaces[func][1]].join('/'); }
+
+
+// request API: difficulty
 function _ajaxGetTestLevel(q) {
 
 	$('#exam-type-wrap').find('span').removeClass('show').addClass('hide');
 
-	$.getJSON('/api/word/'+q+'/test/', function(data){
+	$.getJSON(api_for('difficulty', q), function(data){
 
 		if (data.length){
 			$.each( data, function(k, level){
@@ -28,9 +43,10 @@ function _ajaxGetTestLevel(q) {
 	});
 }
 
+// request API: postag
 function _ajaxGetPOS(q) {
 
-	$.getJSON('/api/word/'+q+'/pos/', function(data){
+	$.getJSON(api_for('postag', q), function(data){
 
 		$('#content-pos').html('');
 		
@@ -64,10 +80,10 @@ function _ajaxGetPOS(q) {
 	});
 }
 
-
+// request API: wp
 function _ajaxGetWordPosition(q) {
 
-	$.getJSON('/api/word/'+q+'/wp/', function(data){
+	$.getJSON(api_for('wp', q), function(data){
 		// clear chart
 		chart([],[]);
 
@@ -88,6 +104,7 @@ function _ajaxGetWordPosition(q) {
 	});
 }
 
+// chart drawing function
 function chart(X, Y) {
 
 	// get canvas object
@@ -132,11 +149,11 @@ function chart(X, Y) {
 	C.Bar(data, options);
 }
 
+// control all user events
 function events () {
 	
 	// pos.html
 	var prev_query = '';
-
 
 	$('#pick-wrap').find('span').click(function(e){
 		var q = $(this).text();
@@ -151,7 +168,6 @@ function events () {
 	$('.search').keyup(function(){
 
 		var val = $.trim($(this).val());
-		// if(val.length == 0) return false;
 
 		// prevent sening the same query
 		if(val == prev_query){ return false;}

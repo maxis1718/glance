@@ -25,12 +25,16 @@ def hello():
 
 @app.route("/pos")
 @app.route("/pos/")
+@app.route('/postag')
+@app.route('/postag/')
 def show_pos():
 	return render_template('pos.html')
 
 
 @app.route("/test")
 @app.route("/test/")
+@app.route('/difficulty')
+@app.route('/difficulty/')
 def show_test():
 	return render_template('test.html')
 
@@ -43,8 +47,8 @@ def show_wp():
 ### pos API
 
 # @app.route('/api/<query>/pos')
-@app.route('/api/word/<query>/pos/')
-@app.route('/api/word/<query>/pos')
+@app.route('/api/word/<query>/postag/')
+@app.route('/api/word/<query>/postag')
 def pos_count(query):
 	return_data = [] if query not in bnc_pos else bnc_pos[query]
 	if return_data:
@@ -58,8 +62,8 @@ def pos_count(query):
 
 ### test API
 # @app.route('/api/test/<query>')
-@app.route('/api/word/<query>/test/')
-@app.route('/api/word/<query>/test')
+@app.route('/api/word/<query>/difficulty/')
+@app.route('/api/word/<query>/difficulty')
 def test_level(query):
 	return_data = [] if query not in bnc_test else bnc_test[query]
 	return Response(json.dumps(return_data), mimetype='application/json')
