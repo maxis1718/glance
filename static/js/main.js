@@ -6,7 +6,7 @@ $(document).ready(function(){
 
 function init() {
 	$('.search').focus();
-
+	
 	ctx = $("#wp-chart").get(0).getContext("2d");
 	C = new Chart(ctx);
 }

@@ -36,7 +36,7 @@ def show_test():
 
 @app.route("/wp")
 @app.route("/wp/")
-def show_test():
+def show_wp():
 	return render_template('wp.html')
 
 ### ---------------------------- API ---------------------------- ###
