@@ -19,11 +19,36 @@ var interfaces = {	//// API route
 	'difficulty': ['/api/word', 'difficulty'],
 	'postag': ['/api/word', 'postag'],
 	'wp': ['/api/word', 'wp'],
+	'translation': ['/api/word', 'translation'],
 }
 
 // generate API route for the given query
 function api_for(func, query) { return [interfaces[func][0], query, interfaces[func][1]].join('/'); }
 
+// request API: translation
+function _ajaxGetTranslation (q, run) {
+	$('#content-translation').html('');
+
+	if(run)
+	{
+		$.getJSON(api_for('translation', q), function(data){
+
+			if (data.length){
+				cht = data[0];
+				console.log(data);
+				// $.each( data, function(k, cht){
+
+				$('<li/>').text(cht).appendTo($('#content-translation'));
+					// $('#'+level).addClass('show').removeClass('hide');
+				// });
+			}
+		}).error(function(err){
+			// catch "no page found" --> clear results
+			// $('#exam-type-wrap').find('span').removeClass('show').addClass('hide');
+		});			
+	}
+
+}
 
 // request API: difficulty
 function _ajaxGetTestLevel(q) {
@@ -165,13 +190,18 @@ function events () {
 		_ajaxGetTestLevel(q);
 	});
 
-	$('.search').keyup(function(){
+	$('.search').keyup(function(e){
 
 		var val = $.trim($(this).val());
 
-		// prevent sening the same query
-		if(val == prev_query){ return false;}
-		else { prev_query = val; }
+		run = (e.keyCode == 13)
+		// console.log(e.keyCode);
+		// console.log(run);
+		if(!run){
+			// prevent sening the same query if not run yet
+			if(val == prev_query){ return false;}
+			else { prev_query = val; }
+		}
 
 		// do
 		if($(this).attr('id') == 'search-test') {
@@ -183,6 +213,12 @@ function events () {
 		}
 		else if($(this).attr('id') == 'search-wp'){
 			_ajaxGetWordPosition(val);
+		}
+		else if($(this).attr('id') == 'search-translation'){
+			// e.preventDefault();
+			// console.log(e.keyCode);
+			_ajaxGetTranslation(val, run);
+			
 		}
 	});
 }

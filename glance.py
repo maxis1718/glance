@@ -1,10 +1,12 @@
 # -*- coding: UTF-8 -*-
 
-
 from flask import Flask, render_template, request, redirect, Response
 import json, os, sys
 
+import fetch_mongo as DB  # fetch data from MongoDB running on moon
+
 app = Flask(__name__)
+
 
 ### ---------------------------- Functions ---------------------------- ###
 
@@ -12,10 +14,12 @@ print '# loading json ...',
 sys.stdout.flush()
 ## word pos filter
 bnc_pos  = json.load(open('static/data/bnc.word.filter.json'))
+
 ## word test
 bnc_test = json.load(open('static/data/bnc.word.test.json'))
+
 ## word position
-bnc_wp = json.load(open('static/data/XY/pure/h.pure.json'))
+# bnc_wp = json.load(open('static/data/XY/pure/h.pure.json'))
 print 'done.'
 
 ### ---------------------------- UI ---------------------------- ###
@@ -44,6 +48,11 @@ def show_test():
 def show_wp():
 	return render_template('wp.html')
 
+@app.route('/demo/translation')
+@app.route('/demo/translation/')
+def show_translation_cht():
+	return render_template('translation.html')
+
 ### ---------------------------- API ---------------------------- ###
 ### pos API
 
@@ -61,6 +70,13 @@ def pos_count(query):
 		return_data = r
 	return Response(json.dumps(return_data), mimetype='application/json')
 
+@app.route('/api/word/<query>/translation/')
+@app.route('/api/word/<query>/translation')
+def translate_first_cht(query):
+	res = DB.translation(query)
+	return_data = [] if res == None else res
+	return Response(json.dumps(return_data), mimetype='application/json')
+
 ### test API
 # @app.route('/api/test/<query>')
 @app.route('/api/word/<query>/difficulty/')
@@ -74,7 +90,9 @@ def test_level(query):
 @app.route('/api/word/<query>/wp/')
 @app.route('/api/word/<query>/wp')
 def word_position(query):
-	return_data = [] if query not in bnc_wp else bnc_wp[query]
+	res = DB.position(query)
+	return_data = [] if res == None else res
+	# return_data = [] if query not in bnc_wp else bnc_wp[query]
 	# return_data = [] if query not in bnc_test else bnc_test[query]
 	return Response(json.dumps(return_data), mimetype='application/json')
 
