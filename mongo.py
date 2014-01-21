@@ -1,27 +1,23 @@
 import pymongo
-mc = pymongo.Connection('moon.nlpweb.org')
-mc.admin.authenticate('nlplab', 'nlplab634')
+mc = pymongo.Connection('lost.nlpweb.org')
 
 def position(query):
-	# print mc.database_names()
 	db = mc['glance_word']
-	# print mc.glance_word.collection_names()
-	position = db.word
-	return position.find_one({ "word": query})[u'position']
+	position = db.position
+	suggestion = list(position.find({"word": query}))[0][u'position']
+	return suggestion
 
 def translation(query):
-	# print mc.database_names()
 	db = mc['glance_word']
-	# print mc.glance_word.collection_names()
-	position = db.word
-	return position.find_one({ "word": query})[u'translation']
+	translation = db.translation
+	suggestion = [word[0] for word in list(translation.find({"word": query}))[0][u'translation']]
+	return suggestion
 
-# def family(query):
-# 	# print mc.database_names()
-# 	db = mc['glance_word']
-# 	# print mc.glance_word.collection_names()
-# 	position = db.families
-# 	return position.find_one({ "word": query})[u'PoS']
+def family(query):
+	db = mc['glance_word']
+	families = db.families
+	suggestion = [word[u'family'] for word in list(families.find({"word": query}))]
+	return suggestion
 
 if __name__ == '__main__':
 	print position("study")
