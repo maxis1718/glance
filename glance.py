@@ -2,7 +2,7 @@
 
 from flask import Flask, render_template, request, redirect, Response
 import json, os, sys
-
+import language_kit as LK
 import mongo as DB  # fetch data from MongoDB running on moon
 
 app = Flask(__name__)
@@ -76,6 +76,20 @@ def translate_first_cht(query):
 	res = DB.translation(query)
 	return_data = [] if res == None else res
 	return Response(json.dumps(return_data), mimetype='application/json')
+
+### wordnet related 
+# sense to word
+# input: sense ( e.g 'dog.n.1' )
+@app.route('/api/sense/<query>/word')
+def sense_to_word( query ):
+	return LK.synset_to_words( query )
+
+# query hypernym and hyponym and definition of a word 
+# input: word 
+@app.route('/api/word/<query>')
+def query_word_info( query ):
+
+	return Response(json.dumps( LK.query_word( query ) ), mimetype='application/json')
 
 ### test API
 # @app.route('/api/test/<query>')
