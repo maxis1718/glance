@@ -26,27 +26,22 @@ var interfaces = {	//// API route
 function api_for(func, query) { return [interfaces[func][0], query, interfaces[func][1]].join('/'); }
 
 // request API: translation
-function _ajaxGetTranslation (q, run) {
+function _ajaxGetTranslation (q) {
 	$('#content-translation').html('');
 
-	if(run)
-	{
-		$.getJSON(api_for('translation', q), function(data){
+	$.getJSON(api_for('translation', q), function(data){
 
-			if (data.length){
-				cht = data[0];
-				console.log(data);
-				// $.each( data, function(k, cht){
+		console.log('>> data:',data);
 
-				$('<li/>').text(cht).appendTo($('#content-translation'));
-					// $('#'+level).addClass('show').removeClass('hide');
-				// });
-			}
-		}).error(function(err){
-			// catch "no page found" --> clear results
-			// $('#exam-type-wrap').find('span').removeClass('show').addClass('hide');
-		});			
-	}
+		if (data.length){
+			cht = data[0];
+
+			$('<li/>').text(cht).appendTo($('#content-translation'));
+		}
+	}).error(function(err){
+		// catch "no page found" --> clear results
+		// $('#exam-type-wrap').find('span').removeClass('show').addClass('hide');
+	});
 
 }
 
@@ -174,6 +169,25 @@ function chart(X, Y) {
 	C.Bar(data, options);
 }
 
+
+function sent_request(this_id, val, run){ 
+
+	// sent request
+	if(this_id == 'search-test') {
+		_ajaxGetTestLevel(val);
+	}
+	else if(this_id == 'search-pos') {
+		_ajaxGetPOS(val);
+
+	}
+	else if(this_id == 'search-wp'){
+		_ajaxGetWordPosition(val);
+	}
+	else if(this_id == 'search-translation'){
+		_ajaxGetTranslation(val);
+	}
+}
+
 // control all user events
 function events () {
 	
@@ -190,35 +204,46 @@ function events () {
 		_ajaxGetTestLevel(q);
 	});
 
-	$('.search').keyup(function(e){
+	// ===================== begin-Timer =====================
+	//// wait 3 sec
+	// var timer = setTimeout(sent_request,3000);
+	//// any other kepressed (except enter), clear timer
+	// clearTimeout(timer)
+	// ===================== end-Timer =====================
 
+	// keyup:
+	// 	 倒數, enter 的話停止倒數 直接送
+	// keydown:
+	//		clear timer
+	var DELAY = 300;  	// minimum interval between two characters pressed
+	var timer = null;	// timer
+
+	$('.search').keydown(function(e){
+		if(timer != null){
+			clearTimeout(timer); // stop timer
+		}
+	});
+
+	$('.search').keyup(function(e){
+		// get user input
 		var val = $.trim($(this).val());
 
-		run = (e.keyCode == 13)
-		// console.log(e.keyCode);
-		// console.log(run);
-		if(!run){
-			// prevent sening the same query if not run yet
-			if(val == prev_query){ return false;}
-			else { prev_query = val; }
-		}
+		// detect Enter
+		enter = (e.keyCode == 13)
+		var this_id = $(this).attr('id');
 
-		// do
-		if($(this).attr('id') == 'search-test') {
-			_ajaxGetTestLevel(val);
-		}
-		else if($(this).attr('id') == 'search-pos') {
-			_ajaxGetPOS(val);
-
-		}
-		else if($(this).attr('id') == 'search-wp'){
-			_ajaxGetWordPosition(val);
-		}
-		else if($(this).attr('id') == 'search-translation'){
-			// e.preventDefault();
-			// console.log(e.keyCode);
-			_ajaxGetTranslation(val, run);
-			
+		// "Enter" not detected
+		if(!enter){
+			// if content not changed (prevent sening the same query)
+			if(val == prev_query){ return false; }
+			// if content changed, start timer, ready to sent request
+			else { 
+				prev_query = val;
+				timer = setTimeout(function(){ sent_request(this_id , val); }, DELAY);
+			}
+		// "Enter" detected
+		}else {
+			sent_request(this_id, val); // sent request directly
 		}
 	});
 }

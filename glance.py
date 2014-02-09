@@ -3,7 +3,7 @@
 from flask import Flask, render_template, request, redirect, Response
 import json, os, sys
 
-import fetch_mongo as DB  # fetch data from MongoDB running on moon
+import mongo as DB  # fetch data from MongoDB running on moon
 
 app = Flask(__name__)
 
