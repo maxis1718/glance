@@ -8,11 +8,14 @@ import sentiwordnet as sw
 ## path to the SentiWordNet raw text dump
 _SentiWordNet_path = 'data/SentiWordNet_3.0.0_20130122.txt'
 
-## load SentiWordNet
-print >> sys.stderr, 'loading SentiWordNet ...',
-sys.stderr.flush()
-swn = sw.SentiWordNetCorpusReader(_SentiWordNet_path)
-print >> sys.stderr, 'done'
+try:
+	## load SentiWordNet
+	print >> sys.stderr, 'loading SentiWordNet ...',
+	sys.stderr.flush()
+	swn = sw.SentiWordNetCorpusReader(_SentiWordNet_path)
+	print >> sys.stderr, 'done'
+except:
+	print 'failed to load SentiWordNet'
 
 def query_word( word ):
 
