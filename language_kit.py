@@ -2,20 +2,43 @@
 import sys
 
 # substitute WordNet with SentiWordNet
-#from nltk.corpus import wordnet as wn
+from nltk.corpus import wordnet as wn
 # import sentiwordnet as sw
 
 ## path to the SentiWordNet raw text dump
 # _SentiWordNet_path = 'data/SentiWordNet_3.0.0_20130122.txt'
-
-
 ## load SentiWordNet
 # print >> sys.stderr, '(language_kit) loading SentiWordNet ...',
 # sys.stderr.flush()
 # swn = sw.SentiWordNetCorpusReader(_SentiWordNet_path)
 # print >> sys.stderr, 'done'
 
-def query_word(swn, word ):
+def query_word(word ):
+
+	output_dic = {}
+
+	synset_lst = wn.synsets(word)
+
+	if not synset_lst: return output_dic
+
+	sense_lst = []
+	for syn in synset_lst:
+		# extract WordNet Synset
+		syn_dic = {}
+		syn_dic[ 'example' ] = syn.examples
+		syn_dic[ 'definition' ] = syn.definition
+		syn_dic[ 'lemma' ] = syn.lemma_names
+
+		syn_dic[ 'sense' ] = syn.name
+		
+		sense_lst.append( syn_dic )
+
+	output_dic[ 'query' ] = word
+	output_dic[ 'contents' ] = sense_lst
+
+	return output_dic
+
+def senti_query_word(swn, word ):
 
 	# global swn
 
