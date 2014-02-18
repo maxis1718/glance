@@ -2,6 +2,9 @@
 import sys
 
 # substitute WordNet with SentiWordNet
+import nltk
+nltk.data.path.append('./nltk_data/')
+
 from nltk.corpus import wordnet as wn
 # import sentiwordnet as sw
 
@@ -30,7 +33,7 @@ def query_word(word ):
 		syn_dic[ 'lemma' ] = syn.lemma_names
 
 		syn_dic[ 'sense' ] = syn.name
-		
+
 		sense_lst.append( syn_dic )
 
 	output_dic[ 'query' ] = word
