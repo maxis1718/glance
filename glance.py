@@ -5,6 +5,15 @@ import json, os, sys
 import language_kit as LK
 import mongo as DB  # fetch data from MongoDB running on moon
 
+### [start] senti-wordnet
+import sentiwordnet as sw
+_SentiWordNet_path = 'data/SentiWordNet_3.0.0_20130122.txt'
+print >> sys.stderr, '(glance) loading SentiWordNet ...',
+sys.stderr.flush()
+swn = sw.SentiWordNetCorpusReader(_SentiWordNet_path)
+print >> sys.stderr, 'done'
+### [end] senti-wordnet
+
 app = Flask(__name__)
 
 
@@ -90,7 +99,7 @@ def sense_to_word( query ):
 @app.route('/api/word/<query>/info/')
 @app.route('/api/word/<query>/info')
 def query_word_info( query ):
-	res = LK.query_word( query )
+	res = LK.query_word(swn, query )
 	if 'status' in res and not res['status']: return res
 	return Response(json.dumps( res ), mimetype='application/json')
 

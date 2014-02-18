@@ -3,21 +3,21 @@ import sys
 
 # substitute WordNet with SentiWordNet
 #from nltk.corpus import wordnet as wn
-import sentiwordnet as sw
+# import sentiwordnet as sw
 
 ## path to the SentiWordNet raw text dump
-_SentiWordNet_path = 'data/SentiWordNet_3.0.0_20130122.txt'
+# _SentiWordNet_path = 'data/SentiWordNet_3.0.0_20130122.txt'
 
 
 ## load SentiWordNet
-print >> sys.stderr, '(language_kit) loading SentiWordNet ...',
-sys.stderr.flush()
-swn = sw.SentiWordNetCorpusReader(_SentiWordNet_path)
-print >> sys.stderr, 'done'
+# print >> sys.stderr, '(language_kit) loading SentiWordNet ...',
+# sys.stderr.flush()
+# swn = sw.SentiWordNetCorpusReader(_SentiWordNet_path)
+# print >> sys.stderr, 'done'
 
-def query_word( word ):
+def query_word(swn, word ):
 
-	global swn
+	# global swn
 
 	output_dic = {}
 
@@ -49,7 +49,7 @@ def query_word( word ):
 		syn_dic[ 'polarity' ] = { 'positive': senti_syn.pos_score, 'negative': senti_syn.neg_score, 'objective': senti_syn.obj_score}
 
 		sense_lst.append( syn_dic )
-	
+
 	output_dic[ 'query' ] = word
 	output_dic[ 'contents' ] = sense_lst
 
