@@ -10,7 +10,7 @@ app = Flask(__name__)
 
 ### ---------------------------- Functions ---------------------------- ###
 
-print '# loading json ...',
+print >> sys.stderr, '(glance) loading json ...',
 sys.stdout.flush()
 ## word pos filter
 bnc_pos  = json.load(open('static/data/bnc.word.filter.json'))
@@ -20,7 +20,7 @@ bnc_test = json.load(open('static/data/bnc.word.test.json'))
 
 ## word position
 # bnc_wp = json.load(open('static/data/XY/pure/h.pure.json'))
-print 'done.'
+print >> sys.stderr, 'done.'
 
 ### ---------------------------- UI ---------------------------- ###
 

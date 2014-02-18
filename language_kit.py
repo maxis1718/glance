@@ -8,48 +8,48 @@ import sentiwordnet as sw
 ## path to the SentiWordNet raw text dump
 _SentiWordNet_path = 'data/SentiWordNet_3.0.0_20130122.txt'
 
-try:
-	## load SentiWordNet
-	print >> sys.stderr, 'loading SentiWordNet ...',
-	sys.stderr.flush()
-	swn = sw.SentiWordNetCorpusReader(_SentiWordNet_path)
-	print >> sys.stderr, 'done'
-except:
-	print 'failed to load SentiWordNet'
+
+## load SentiWordNet
+print >> sys.stderr, '(language_kit) loading SentiWordNet ...',
+sys.stderr.flush()
+swn = sw.SentiWordNetCorpusReader(_SentiWordNet_path)
+print >> sys.stderr, 'done'
 
 def query_word( word ):
 
+	global swn
+
 	output_dic = {}
 
-	try:
-		senti_synset_lst = swn.senti_synsets(word)
-	except:
-		return {'msg': 'failed to senti_synsets', 'status': False }
+	print >> sys.stderr, '(language_kit > query_word) receive a word', word
+
+	
+	senti_synset_lst = swn.senti_synsets(word)
+	print >> sys.stderr, '(language_kit > query_word) got sentiwordnet synsets', senti_synset_lst
+	# return {'msg': 'failed to senti_synsets', 'status': False }
 
 
-	if not senti_synset_lst: return output_dic
+	if not senti_synset_lst: 
+		print >> sys.stderr, '(language_kit > query_word) nothing inside the $senti_synset_lst'
+		return output_dic
 
 	sense_lst = []
-	try:
-		for senti_syn in senti_synset_lst:
+	for senti_syn in senti_synset_lst:
 
-			# extract WordNet Synset
-			syn = senti_syn.synset
+		# extract WordNet Synset
+		syn = senti_syn.synset
 
-			syn_dic = {}
-			syn_dic[ 'example' ] = syn.examples
-			syn_dic[ 'definition' ] = syn.definition
-			syn_dic[ 'lemma' ] = syn.lemma_names
+		syn_dic = {}
+		syn_dic[ 'example' ] = syn.examples
+		syn_dic[ 'definition' ] = syn.definition
+		syn_dic[ 'lemma' ] = syn.lemma_names
 
-			syn_dic[ 'sense' ] = syn.name
+		syn_dic[ 'sense' ] = syn.name
 
-			syn_dic[ 'polarity' ] = { 'positive': senti_syn.pos_score, 'negative': senti_syn.neg_score, 'objective': senti_syn.obj_score}
+		syn_dic[ 'polarity' ] = { 'positive': senti_syn.pos_score, 'negative': senti_syn.neg_score, 'objective': senti_syn.obj_score}
 
-			sense_lst.append( syn_dic )
-	except:
-		return {'msg': 'failed to traverse senti_synset_lst', 'status': False }
-
-
+		sense_lst.append( syn_dic )
+	
 	output_dic[ 'query' ] = word
 	output_dic[ 'contents' ] = sense_lst
 
