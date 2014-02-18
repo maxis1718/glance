@@ -90,7 +90,9 @@ def sense_to_word( query ):
 @app.route('/api/word/<query>/info/')
 @app.route('/api/word/<query>/info')
 def query_word_info( query ):
-	return Response(json.dumps( LK.query_word( query ) ), mimetype='application/json')
+	res = LK.query_word( query )
+	if 'status' in res and not res['status']: return res
+	return Response(json.dumps( res ), mimetype='application/json')
 
 ### test API
 # @app.route('/api/test/<query>')

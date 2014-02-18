@@ -18,26 +18,34 @@ def query_word( word ):
 
 	output_dic = {}
 
-	senti_synset_lst = swn.senti_synsets(word)
+	try:
+		senti_synset_lst = swn.senti_synsets(word)
+	except:
+		return {'msg': 'failed to senti_synsets', 'status': False }
+
 
 	if not senti_synset_lst: return output_dic
 
 	sense_lst = []
-	for senti_syn in senti_synset_lst:
+	try:
+		for senti_syn in senti_synset_lst:
 
-		# extract WordNet Synset
-		syn = senti_syn.synset
+			# extract WordNet Synset
+			syn = senti_syn.synset
 
-		syn_dic = {}
-		syn_dic[ 'example' ] = syn.examples
-		syn_dic[ 'definition' ] = syn.definition
-		syn_dic[ 'lemma' ] = syn.lemma_names
+			syn_dic = {}
+			syn_dic[ 'example' ] = syn.examples
+			syn_dic[ 'definition' ] = syn.definition
+			syn_dic[ 'lemma' ] = syn.lemma_names
 
-		syn_dic[ 'sense' ] = syn.name
+			syn_dic[ 'sense' ] = syn.name
 
-		syn_dic[ 'polarity' ] = { 'positive': senti_syn.pos_score, 'negative': senti_syn.neg_score, 'objective': senti_syn.obj_score}
+			syn_dic[ 'polarity' ] = { 'positive': senti_syn.pos_score, 'negative': senti_syn.neg_score, 'objective': senti_syn.obj_score}
 
-		sense_lst.append( syn_dic )
+			sense_lst.append( syn_dic )
+	except:
+		return {'msg': 'failed to traverse senti_synset_lst', 'status': False }
+
 
 	output_dic[ 'query' ] = word
 	output_dic[ 'contents' ] = sense_lst
