@@ -6,15 +6,15 @@ import nltk
 nltk.data.path.append('./nltk_data/')
 
 from nltk.corpus import wordnet as wn
-# import sentiwordnet as sw
+import sentiwordnet as sw
 
-## path to the SentiWordNet raw text dump
-# _SentiWordNet_path = 'data/SentiWordNet_3.0.0_20130122.txt'
-## load SentiWordNet
-# print >> sys.stderr, '(language_kit) loading SentiWordNet ...',
-# sys.stderr.flush()
-# swn = sw.SentiWordNetCorpusReader(_SentiWordNet_path)
-# print >> sys.stderr, 'done'
+# path to the SentiWordNet raw text dump
+_SentiWordNet_path = 'data/SentiWordNet_3.0.0_20130122.txt'
+# load SentiWordNet
+print >> sys.stderr, '(language_kit) loading SentiWordNet ...',
+sys.stderr.flush()
+swn = sw.SentiWordNetCorpusReader(_SentiWordNet_path)
+print >> sys.stderr, 'done'
 
 def query_word(word ):
 
@@ -41,9 +41,9 @@ def query_word(word ):
 
 	return output_dic
 
-def senti_query_word(swn, word ):
+def senti_query_word( word ):
 
-	# global swn
+	global swn
 
 	output_dic = {}
 

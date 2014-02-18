@@ -88,7 +88,7 @@ def sense_to_word( query ):
 @app.route('/api/word/<query>/info/')
 @app.route('/api/word/<query>/info')
 def query_word_info( query ):
-	return Response(json.dumps( LK.query_word( query ) ), mimetype='application/json')
+	return Response(json.dumps( LK.senti_query_word( query ) ), mimetype='application/json')
 
 ### test API
 # @app.route('/api/test/<query>')
