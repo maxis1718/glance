@@ -10,17 +10,15 @@ app = Flask(__name__)
 
 ### ---------------------------- Functions ---------------------------- ###
 
-print '# loading json ...',
+print >> sys.stderr, '(glance) loading json ...',
 sys.stdout.flush()
 ## word pos filter
 bnc_pos  = json.load(open('static/data/bnc.word.filter.json'))
-
 ## word test
 bnc_test = json.load(open('static/data/bnc.word.test.json'))
-
 ## word position
 # bnc_wp = json.load(open('static/data/XY/pure/h.pure.json'))
-print 'done.'
+print >> sys.stderr, 'done.'
 
 ### ---------------------------- UI ---------------------------- ###
 
@@ -80,16 +78,17 @@ def translate_first_cht(query):
 ### wordnet related 
 # sense to word
 # input: sense ( e.g 'dog.n.1' )
-@app.route('/api/sense/<query>/word')
+@app.route('/api/word/<query>/sense/')
+@app.route('/api/word/<query>/sense')
 def sense_to_word( query ):
 	return LK.synset_to_words( query )
 
 # query hypernym and hyponym and definition of a word 
 # input: word 
-@app.route('/api/word/<query>')
+@app.route('/api/word/<query>/info/')
+@app.route('/api/word/<query>/info')
 def query_word_info( query ):
-
-	return Response(json.dumps( LK.query_word( query ) ), mimetype='application/json')
+	return Response(json.dumps( LK.senti_query_word( query ) ), mimetype='application/json')
 
 ### test API
 # @app.route('/api/test/<query>')
