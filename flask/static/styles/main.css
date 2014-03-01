@@ -1,0 +1,142 @@
+
+body {clear: both; margin: 0; padding: 0;}
+.container { width: 960px; position: relative; margin: 0 auto; top: 24px; }
+a { text-decoration: none;}
+
+#page-index {background: #11586f;}
+
+#slogan, #slogan-describe { width: 100%;  text-align: center; height: 108px;}
+#slogan {font-weight: bold; margin-top: 108px; color: white; }
+#slogan-describe {font-size: 24px; letter-spacing: 1px; margin-top: 122px; color: #ddd;}
+
+#title {
+	font-size: 32px;
+	margin-bottom: 32px;
+}
+
+.search {
+	width: 384px; height: 72px;
+
+	border: 0;
+	border-bottom: 1px solid #666;
+	outline: 0;
+	padding-left: 6px;
+	margin-bottom: 32px;
+
+	background: none;
+	color: #222;
+
+	font-size: 32px;
+	font-family: "Lucida Grande";
+	letter-spacing: 1px;
+}
+
+#content-pos {}
+#content-pos tr td { 
+	height: 40px;
+}
+#content-pos tr td:nth-child(1) { width:64px;}
+#content-pos tr td:nth-child(2) { width:64px; border-right: 1px solid #333;}
+#content-pos tr td:nth-child(3) { min-width:128px; }
+
+#content-pos tr td .pos-percent-bar, #content-pos tr td .pos-percent-label {
+	height: 28px;
+	line-height: 32px;
+	float: left;
+}
+
+#content-pos tr td .pos-percent-bar {
+	background:orange;
+	border-right: 2px solid darkorange;
+	margin-right: 5px;
+}
+
+#content-pos tr .pos { font-size: 20px;  }
+#content-pos tr .pos span { padding: 1px 5px 1px 5px; background: #eee; border: 1px solid #DDD; border-radius: 2px;}
+#content-pos tr .count { font-size: 16px; }
+#content-pos tr .percent { font-size: 16px; }
+
+/* ------------------------------------------ */
+
+#header h2 {font-family: inherit;}
+
+#input-wrap {
+	width: 480px;
+	height: 72px;
+}
+#pick-wrap {
+	width: 300px;	
+	height: 72px;
+	padding-bottom: 6px;
+	line-height: 36px;
+	/*vertical-align:bottom;*/
+}	
+
+#pick-wrap span, #exam-type-wrap span {
+	font-family: "Segoe UI light";
+	
+	padding: 3px 10px;
+	border-radius: 3px;
+	/*background: white;*/
+
+	border-top: 1px solid #EEE;
+	border-left: 1px solid #EEE;
+
+	border-right: 1px solid #DDD;
+	border-bottom: 1px solid #DDD;
+}
+
+#pick-wrap span {
+	font-size: 16px;
+	margin-right: 10px;
+}
+#pick-wrap span:hover {
+	cursor: pointer;
+	background: honeydew;
+}
+#exam-type-wrap {
+	margin-top: 48px;
+}
+
+#exam-type-wrap span {
+	font-size: 18px;
+	margin-right: 12px;
+}
+
+
+
+#GRE 	{background: navajowhite}
+#TOEFL 	{background: moccasin}
+#IELTS 	{background: bisque}
+#SAT 	{background: blanchedalmond}
+#GMAT 	{background: papayawhip}
+#TOEIC	{background: antiquewhite}
+#China-6	{background: floralwhite}
+#China-4	{background: whitesmoke}
+#China-Senior	{background: #EEE}
+#China-Junior	{background: white}
+
+/*#content-pos .percent div {line-height: 24px; height:24px; display: inline-block; margin-right: 20px;}*/
+
+/* word.html */
+
+#translationTable li{
+	color: #FFF;
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
