@@ -51,8 +51,18 @@ def show_wp():
 def show_translation_cht():
 	return render_template('translation.html')
 
+
+@app.route("/demo/usages")
+@app.route("/demo/usages/")
+def show_wp():
+	return render_template('usages.html')
+
 ### ---------------------------- API ---------------------------- ###
 ### pos API
+@app.route('/api/word/<query>/usages/')
+@app.route('/api/word/<query>/usages')
+def word_usages(query):
+	pass
 
 # @app.route('/api/<query>/pos')
 @app.route('/api/word/<query>/postag/')

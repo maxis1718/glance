@@ -104,6 +104,37 @@ a { text-decoration: none;}
 }
 
 
+/* usages-container */
+
+#usages-container tr td {
+	height: 27px
+}
+
+#usages-container span {
+	margin-right: 5px;
+	font-family: Monaco;
+}
+#usages-container .anchor {
+	background: #FEFFCD;
+	padding: 3px;
+}
+
+#usages-container .person,
+#usages-container .something,
+#usages-container .doing_something {
+	font-weight: bold;
+}
+
+#usages-container .person { color: red; }
+#usages-container .something { color: green; }
+#usages-container .doing_something { color: blue; }
+
+#usages-container .usage-obj, 
+#usages-container .usage-count, 
+#usages-container .usage-percent {
+	/*display: inline-block;*/
+}
+
 
 #GRE 	{background: navajowhite}
 #TOEFL 	{background: moccasin}

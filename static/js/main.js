@@ -25,6 +25,77 @@ var interfaces = {	//// API route
 // generate API route for the given query
 function api_for(func, query) { return [interfaces[func][0], query, interfaces[func][1]].join('/'); }
 
+function _ajaxGetUsage (q) {
+	var url = '/static/usages/'+q+'.json';
+
+	var usages_container = $('#usages-container')
+
+	$.getJSON(url, function(data){
+		$.each(data, function(anchor, arrays){
+			var anchor_word = anchor.split('.')[0]
+			var anchor_pos = anchor.split('.')[1]
+
+
+
+			$.each(arrays, function(arr_idx, usage){
+
+				var ustr = usage[0];
+				var count = usage[1];
+				var percent = usage[2];
+
+
+
+				var usage_container = $('<tr/>').addClass('usage').appendTo(usages_container);
+
+				
+				var usage_obj = $('<td/>').addClass('usage-obj')
+											.appendTo(usage_container);
+
+				$('<td/>').addClass('usage-count')
+							.text( Math.round(count) )
+							.appendTo(usage_container);
+
+				$('<td/>').addClass('usage-percent')
+							.text( Math.round(percent*10000)/100 )
+							.appendTo(usage_container);
+
+
+				// transform usage_str to markedup format
+				$.each(ustr.split(' '), function(i, element){
+
+					var nodeText = element.replace('DOING_SOMETHING', 'V-ing')
+
+					var span = $('<span/>').text(nodeText);
+
+					if( element == anchor )
+					{
+						span.text( anchor_word.replace('#','') )
+							.addClass( 'anchor' )
+							.attr( 'pos', anchor_pos )
+					}
+					else if ( element == element.toUpperCase()) // capitalized words
+					{
+						if( element == "PERSON's" )
+						{
+							className = "person";
+						}else
+						{
+							className = element.toLowerCase();
+						}
+						span.addClass( className );
+					}
+
+
+					span.appendTo(usage_obj)
+				});
+
+				
+
+			});
+		})
+	})
+}
+
 // request API: translation
 function _ajaxGetTranslation (q) {
 	$('#content-translation').html('');
@@ -185,6 +256,9 @@ function sent_request(this_id, val, run){
 	}
 	else if(this_id == 'search-translation'){
 		_ajaxGetTranslation(val);
+	}
+	else if(this_id == 'search-usages'){
+		_ajaxGetUsage(val);
 	}
 }
 
