@@ -54,7 +54,7 @@ module.exports = function (grunt) {
                     livereload: '<%= connect.options.livereload %>'
                 },
                 files: [
-                    '<%= yeoman.app %>/templates/{,*/}*.html',
+                    '<%= yeoman.app %>/{,*/}*.html',
                     '.tmp/styles/{,*/}*.css',
                     '<%= yeoman.app %>/images/{,*/}*.{gif,jpeg,jpg,png,svg,webp}'
                 ]
@@ -189,6 +189,28 @@ module.exports = function (grunt) {
                 html: '<%= yeoman.app %>/index.html',
                 ignorePath: '<%= yeoman.app %>/'
             }
+        },
+
+        bowerInstall: {
+
+          app: {
+
+            // Point to the files that should be updated when
+            // you run `grunt bower-install`
+            src: [
+              '<%= yeoman.app %>/index.html',   // .html support...
+
+            ],
+
+            // Optional:
+            // ---------
+            cwd: '',
+            dependencies: true,
+            devDependencies: false,
+            exclude: [],
+            fileTypes: {},
+            ignorePath: ''
+          }
         },
 
         // Renames files for browser caching purposes
@@ -351,6 +373,7 @@ module.exports = function (grunt) {
         }
     });
 
+    grunt.loadNpmTasks('grunt-bower-install');
 
     grunt.registerTask('serve', function (target) {
         if (target === 'dist') {
