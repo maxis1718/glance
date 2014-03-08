@@ -2,62 +2,26 @@
 import sys
 
 # substitute WordNet with SentiWordNet
-import nltk
-nltk.data.path.append('./nltk_data/')
-
-from nltk.corpus import wordnet as wn
+#from nltk.corpus import wordnet as wn
 import sentiwordnet as sw
 
-# path to the SentiWordNet raw text dump
+## path to the SentiWordNet raw text dump
 _SentiWordNet_path = 'data/SentiWordNet_3.0.0_20130122.txt'
-# load SentiWordNet
-print >> sys.stderr, '(language_kit) loading SentiWordNet ...',
+
+## load SentiWordNet
+print >> sys.stderr, 'loading SentiWordNet ...',
 sys.stderr.flush()
 swn = sw.SentiWordNetCorpusReader(_SentiWordNet_path)
 print >> sys.stderr, 'done'
 
-def query_word(word ):
+def query_word( word ):
 
 	output_dic = {}
 
-	synset_lst = wn.synsets(word)
 
-	if not synset_lst: return output_dic
-
-	sense_lst = []
-	for syn in synset_lst:
-		# extract WordNet Synset
-		syn_dic = {}
-		syn_dic[ 'example' ] = syn.examples
-		syn_dic[ 'definition' ] = syn.definition
-		syn_dic[ 'lemma' ] = syn.lemma_names
-
-		syn_dic[ 'sense' ] = syn.name
-
-		sense_lst.append( syn_dic )
-
-	output_dic[ 'query' ] = word
-	output_dic[ 'contents' ] = sense_lst
-
-	return output_dic
-
-def senti_query_word( word ):
-
-	global swn
-
-	output_dic = {}
-
-	print >> sys.stderr, '(language_kit > query_word) receive a word', word
-
-	
 	senti_synset_lst = swn.senti_synsets(word)
-	print >> sys.stderr, '(language_kit > query_word) got sentiwordnet synsets', senti_synset_lst
-	# return {'msg': 'failed to senti_synsets', 'status': False }
 
-
-	if not senti_synset_lst: 
-		print >> sys.stderr, '(language_kit > query_word) nothing inside the $senti_synset_lst'
-		return output_dic
+	if not senti_synset_lst: return output_dic
 
 	sense_lst = []
 	for senti_syn in senti_synset_lst:
@@ -89,8 +53,8 @@ def query_hyponym( sense ):
 		return {}
 
 	syn_dic = {}
-
-	syn_dic[ 'hyponyms' ] = [ { 'name': s.name } for s in syn.hyponyms() ]
+	# dig into the second tree
+	syn_dic[ 'hyponyms' ] = [ { 'name': synset_to_words(s.name) , 'sense':s.name , '_hyponyms': [ { 'name': x.name } for x in s.hyponyms() ] } for s in syn.hyponyms() ]
 
 	syn_dic[ 'name' ] = syn.name
 

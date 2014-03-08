@@ -1,0 +1,231 @@
+<!-- <!DOCTYPE HTML> -->
+<html>
+<head>
+	<!-- coding : utf-8 -->
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+	<!-- cache : off -->
+	<meta http-equiv="cache-control" content="no-cache">
+	<meta http-equiv="pragma" content="no-cache">
+	<meta http-equiv="expires" content="0">
+
+	<!-- Lastest IE version -->
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+	<!-- Page title -->
+	<title>glance - visual dict</title>
+
+	<meta name="description" content="glance - a visualization dictionary">
+
+	<!-- CSS -->
+	
+	<link type="text/css" rel="stylesheet" href="/static/css/util.css" />
+	<link href="/static/css/bootstrap.min.css" rel="stylesheet">
+	<link type="text/css" rel="stylesheet" href="/static/css/index.css" />
+	<link type="text/css" rel="stylesheet" href="/static/css/main.css" />
+
+	<!-- jQuery -->
+	<script type="text/javascript" src="/static/js/jquery.js"></script>
+	<script type="text/javascript" src="/static/js/main.js"></script>
+    <script src="/static/js/d3.v3.min.js" charset="utf-8"></script>
+
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="/static/js/bootstrap.min.js"></script>
+
+    <!-- <link rel="shortcut icon" href="static/img/favicon.png" /> -->
+</head>
+
+<body>
+	
+	<pre id="slogan">
+         dP                                    
+         88                                    
+.d8888b. 88 .d8888b. 88d888b. .d8888b. .d8888b.
+88'  `88 88 88'  `88 88'  `88 88'  `"" 88ooood8
+88.  .88 88 88.  .88 88    88 88.  ... 88.  ...
+`8888P88 dP `88888P8 dP    dP `88888P' `88888P'
+     .88                                       
+ d8888P                                        
+	</pre>   
+	<div id="slogan-describe">dictionary visualization</div>
+
+
+
+
+
+
+    <div class="container">
+
+
+		<div class="row row-field">
+			<div class="col-md-12">
+		    	<input type="text" size=80 placeholder="input English word" />
+	    	</div>
+    	</div>
+
+    	<hr >
+		
+	    <div class="row row-field">
+			<div class="col-md-12"><h1>Translation</h1>
+
+			
+				<div id="translationTable">
+
+				</div>
+
+			</div>
+	      
+	    </div>
+
+	    <hr >
+
+	    <div class="row row-field">
+	    	
+			<div class="col-md-12"><h1>POS tags</h1>
+
+			  	<div id="posChart">
+					
+				</div>
+	      
+		    </div>
+
+	    </div>
+
+		<hr >
+
+	    <div class="row row-field">
+	    	
+	    	<div class="col-md-12"><h1>Position</h1>
+
+			  	<div id="wordPositionChart">
+					
+				</div>
+
+	    	</div>
+	      
+	    </div>
+
+		<hr >
+
+	    <div class="row row-field">
+	    	
+	      <div class="col-md-12"><h1>Semantic Role</h1></div>
+	      
+	    </div>
+
+		<hr >
+
+	    <div class="row row-field">
+	    	
+	      <div class="col-md-12"><h1>Word Frequency among Corpus</h1></div>
+	      
+	    </div>
+
+		<hr >
+
+	    <div class="row row-field">
+	    	
+	      <div class="col-md-12"><h1>Sense</h1></div>
+	      
+	    </div>
+
+		<hr >
+
+	    <div class="row row-field">
+	    	
+			<div class="col-md-12"><h1>Discourse</h1>
+
+			  	<div id="discoursePieChart">
+					
+				</div>
+
+			</div>
+	      
+	    </div>
+
+		<hr >
+
+
+
+
+	    <div class="row row-field">
+	    	
+			<div class="col-md-12" id="wordUsage"><h1>Word Usage</h1>
+
+
+
+
+
+
+
+
+			</div>
+
+	    </div>
+
+
+	    <hr > 
+
+	    <div class="row row-field">
+	    	
+	      <div class="col-md-12"><h1>Word Family</h1></div>
+	      
+	    </div>
+
+		<hr >
+
+	    <div class="row row-field">
+	    	
+	      <div class="col-md-12"><h1>Word Graph</h1>
+
+	      	<div id="wordGraphList">
+	      		
+
+	      	</div>
+
+
+
+	      </div>
+	      
+	    </div>
+
+
+		<hr >
+
+
+	    <div class="row row-field">
+	    	
+			<div class="col-md-12"><h1>Cluster</h1></div>
+
+	      	<div id="charCluster">
+
+			</div>
+
+	    </div>
+
+
+	    <hr >
+
+	    <div class="row row-field">
+	    	
+	      <div class="col-md-12"><h1>Difficulty</h1></div>
+	      
+	    </div>
+
+
+	    <hr >
+
+
+	    <div class="row row-field">
+	    	
+	      <div class="col-md-12"><h1>Age</h1></div>
+	      
+	    </div>
+
+
+    </div><!-- /.container -->
+
+
+</body>
+
+</html>
