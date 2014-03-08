@@ -1,13 +1,13 @@
 # -*- coding: UTF-8 -*-
 
-from flask import Flask, render_template, request, redirect, Response, jsonify
+from flask import Flask, render_template, request, redirect, Response, jsonify, url_for
 import json, os, sys
 import language_kit as LK
 import mongo as DB  # fetch data from MongoDB running on moon
 from flask_yeoman import flask_yeoman
 
 
-app = Flask(__name__, static_folder='app', template_folder='app')
+app = Flask(__name__, static_folder='app/static', template_folder='app/template', static_url_path='')
 app.register_blueprint(flask_yeoman)
 
 ### ---------------------------- Functions ---------------------------- ###
@@ -15,10 +15,10 @@ app.register_blueprint(flask_yeoman)
 print '# loading json ...',
 sys.stdout.flush()
 ## word pos filter
-bnc_pos  = json.load(open('app/data/bnc.word.filter.json'))
+bnc_pos  = json.load(open('app/static/data/bnc.word.filter.json'))
 
 ## word test
-bnc_test = json.load(open('app/data/bnc.word.test.json'))
+bnc_test = json.load(open('app/static/data/bnc.word.test.json'))
 
 
 print os.environ.get('FLASK_YEOMAN_DEBUG', False)
@@ -26,6 +26,9 @@ print os.environ.get('FLASK_YEOMAN_DEBUG', False)
 ## word position
 # bnc_wp = json.load(open('static/data/XY/pure/h.pure.json'))
 print 'done.'
+
+
+
 
 ### ---------------------------- UI ---------------------------- ###
 # ==== View ====
@@ -164,6 +167,12 @@ def word_position(query):
 	return Response(json.dumps(return_data), mimetype='application/json')
 
 
+
+
 if __name__ == "__main__":
-	app.debug = True
+	app.config.update(
+	    DEBUG=True,
+	    SEND_FILE_MAX_AGE_DEFAULT=0
+	)
+	
 	app.run(host="0.0.0.0")
