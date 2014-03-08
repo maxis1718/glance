@@ -2,7 +2,8 @@ $icon-font-path: "/bower_components/sass-bootstrap/fonts/";
 
 
 /* glance setting */
-$body-background-color: #11586f;
+/*$body-background-color: #11586f;*/
+$body-background-color: white;
 
 
 @import 'sass-bootstrap/lib/bootstrap';
@@ -111,7 +112,7 @@ body {
     div{
 
         h4{
-            color:#FFF;
+            color:#333;
         }
 
     }
@@ -119,6 +120,6 @@ body {
 }
 
 #wordDefinition{
-    color: #FFF;
+    color: #444;
 }
 

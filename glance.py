@@ -75,13 +75,6 @@ def show_wp():
 def show_translation_cht():
 	return render_template('translation.html')
 
-<<<<<<< HEAD
-
-@app.route("/demo/usages")
-@app.route("/demo/usages/")
-def show_wp():
-	return render_template('usages.html')
-=======
 @app.route("/demo/char")
 def show_wp():
 	return render_template('char.html')
@@ -93,7 +86,6 @@ def show_plot():
 @app.route("/demo/cluster")
 def show_cluster():
 	return render_template('cluster.html')
->>>>>>> b23dcbb86de01032d7e2f1b4d7b0ba7511161571
 
 ### ---------------------------- API ---------------------------- ###
 ### pos API
