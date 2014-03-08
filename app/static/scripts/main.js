@@ -1,34 +1,62 @@
 $( document ).ready(function() {
    
-	var pos_data = [
-		  [ 'Verb' , 3453, 0.1345 ],
-		  [ 'Adj' , 234, 0.81 ],
-		  [ 'Noun' , 1234, 0.81 ]
-	];
-
-	var genre_data = [
-		  [ 'Spoken' , 3453 ],
-		  [ 'Written' , 234 ]
-	];
-	drawGenreChart( genre_data );
-	drawPosChart( pos_data );
-
 	bindKeyboardActionToForm();
-
-
-
 
 });
 
+/* load tempalte file and render it to #entry */
+function loadTemplate( templateName , data , entry ){
+	
+    $.ajax({
+        url : "/hb-template/" + templateName + ".tpl" ,
+        dataType: "text",
+        success : function (source) {
+            
+			var template = Handlebars.compile(source);
+			var html    = template(data);
+
+			/* put html string into entry */
+			entry.html( html );	
+        }
+    });
+    
+}
+
+
+/* bind enter action to text input */
 function bindKeyboardActionToForm(){
 	$("#input-area").keyup(function(event){
 	    if(event.keyCode == 13){
-	    	queryWord( $("#input-area").val() );
-	        
-	        $("#input-area").val("");
+	    	
+	        fetchData( $("#input-area").val() );
+
+			$("#input-area").val("");
+
 	    }
 	});
 }
+
+
+/* function when user input a word or reload a page with a word */
+function fetchData( qWord ){
+
+	/* load difinition */
+	queryWord( qWord );
+
+	queryPOS( qWord );
+
+	queryGenre( qWord );
+
+}
+
+
+
+
+
+
+
+/* ===================== module specific =================== */
+
 
 function queryWord( qWord ){
 
@@ -36,22 +64,44 @@ function queryWord( qWord ){
 	$.get('/api/word/'+qWord, function(data) {
 		/*optional stuff to do after success */
 		console.log( data );
-		// d3.select("#wordDefinition").selectAll("p")
-		// 	.data( data.contents )
-		// 	.enter().append("li")
-		// 	.text(function(d) { console.log( d ); return d.definition; })
-		// 	.style("color", "white");
 
-
-		var output = Mustache.render( "{{#contents}}<li>{{definition}}</li>{{/contents}}" , data);
-
-		console.log( output );
-		$("#wordDefinition").html( output );
+		loadTemplate("definition", data , $("#wordDefinition") );
 
 	});
 
 
 }
+
+
+
+function queryPOS( qWord ){
+
+	var pos_data = [
+		  [ 'Verb' , 3453, 0.1345 ],
+		  [ 'Adj' , 234, 0.81 ],
+		  [ 'Noun' , 1234, 0.81 ]
+	];
+
+	drawPosChart( pos_data );
+
+
+}
+
+
+function queryGenre( qWord ){
+
+	var genre_data = [
+		  [ 'Spoken' , 3453 ],
+		  [ 'Written' , 234 ]
+	];
+
+
+	drawGenreChart( genre_data );	
+
+}
+
+
+/* d3 functions */
 
 
 /* draw a pie chart for POS tags */
