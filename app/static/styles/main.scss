@@ -28,8 +28,31 @@ $body-background-color: #FEFEFE;
 
 $glance-theme-color: #d60909;
 
+$glance-theme-color-dark: #9f010b;
+
 /*$glance-font-main: 'Gruppo';*/
 $glance-font-sans: 'Josefin Sans';
+
+/*  -------------------------------- mixins -------------------------------- */
+
+@mixin arrow-left($arrowColor, $op) {
+    @include opacity($op);
+    width: 0; 
+    height: 0;
+    border-top: 5px solid transparent;
+    border-bottom: 5px solid transparent;     
+    border-right: 8px solid $arrowColor;
+}
+@mixin arrow-right($arrowColor) {
+    border-color: transparent transparent transparent $arrowColor;
+    border-style: solid;
+    border-width: 7px;
+}
+@mixin arrow-right-border($borderColr) {
+    border-color: transparent transparent transparent $borderColr;
+    border-style: solid;
+    border-width: 8px;
+}
 
 .browsehappy {
     margin: 0.2em 0;
@@ -45,14 +68,6 @@ body {
     /*background: $body-background-color;*/
     background: url("../images/fabric_plaid.png");
 }
-
-/* Everything but the jumbotron gets side spacing for mobile first views */
-/*.header,
-.marketing,
-.footer {
-    padding-left: 15px;
-    padding-right: 15px;
-}*/
 
 a {
     text-decoration: none;
@@ -75,13 +90,6 @@ a {
         padding-bottom: 19px;
     }
 }
-
-/* Custom page footer */
-/*.footer {
-    padding-top: 19px;
-    color: #777;
-    border-top: 1px solid #e5e5e5;
-}*/
 
 .container-narrow > hr {
     margin: 30px 0;
@@ -109,20 +117,6 @@ a {
     }
 }
 
-
-.plot-module{
-    
-    div{
-
-        h4{
-            color:#333;
-        }
-
-    }
-
-}
-/* ================================================================ */
-
 .input-wrap {
     width: 100%;
     height: 30px;
@@ -144,21 +138,31 @@ a {
     .input-btn-wrap {
         width: 32px;
         height: 26px;
-        background: #d60909;
+        background: $glance-theme-color;
+        
+        /*border-top: 1px solid #a9010c;*/
+        border-top: 1px solid $glance-theme-color;
+        border-right: 1px solid $glance-theme-color-dark;
+        border-bottom: 1px solid $glance-theme-color;
+        border-left: 0;
+
         border-top-right-radius: 3px;
         border-bottom-right-radius: 3px;
+
         span {
             position: absolute;
         }
         .input-btn {
-            left: 10px;
-            line-height: 26px;
+            left: 9px;
+            line-height: 23px;
         }
         .input-btn-triangle {
+            @include arrow-left($glance-theme-color, 1.0);
             left: -7px;
             top: 7px;            
         }
     }
+
     #input-area {
         outline: none;
         border: 0;
@@ -169,58 +173,23 @@ a {
         border: 1px solid #ccc;
         font-family: $glance-font-thin;
         border-right: 0;   
-    }
-    #input-area:hover {
-        border: 1px solid #a8a8a8;
-        border-right: 0;       
-    }
-    #input-area:focus {
-        border: 1px solid #d60909;
-        border-right: 0;  
+        &:hover {
+            border: 1px solid #a8a8a8;
+            border-right: 0;
+        }
+        &:focus {
+            border: 1px solid #d60909;
+            border-right: 0;
+        }
     }
 }
 /* ================================================================ */
-/*@mixins triangle {
-    width: 0; 
-    height: 0;
-    border-top: 5px solid transparent;
-    border-bottom: 5px solid transparent;     
-    border-right: 8px solid $glance-theme-color;
-}*/
-.arrow-left {
-    width: 0; 
-    height: 0;
-    border-top: 5px solid transparent;
-    border-bottom: 5px solid transparent;     
-    border-right: 8px solid $glance-theme-color;
-}
-/*.arrow-right {
-    width: 0; 
-    height: 0;
-    border-top: 5px solid transparent;
-    border-bottom: 5px solid transparent;     
-    border-left: 8px solid ;
-}*/
 
-@mixin arrow-right($arrowColor) {
-/*    width: 0; 
-    height: 0;
-    border-top: 5px solid transparent;
-    border-bottom: 5px solid transparent;     
-    border-left: 8px solid $arrowColor;*/
-    border-color: transparent transparent transparent $arrowColor;
-    border-style: solid;
-    border-width: 7px;
-}
-@mixin arrow-right-border($borderColr) {
-    border-color: transparent transparent transparent $borderColr;
-    border-style: solid;
-    border-width: 8px;
- 
-}
+
+
 
 $function-nav-bgcolor: #ccc;
-$function-nav-bgcolor-highlight: #f3f3f3;
+$function-nav-bgcolor-highlight: #f4f4f4;
 $function-nav-bordercolor: #d0d0d0;
 
 $nav-arrow-position: 16.5px;
@@ -305,6 +274,7 @@ $nav-arrow-border-position: 15px;
                 font-size: 12px;
                 color: #888;
                 margin-left: $nav-left-margin;
+                padding-left: 6px;
             }
             #glance-logo{
                 /*font-family: $glance-font-thin;*/
@@ -337,22 +307,28 @@ $nav-arrow-border-position: 15px;
     }
 }
 
+@mixin nav-highlight($bdcolor, $bgcolor) {
+    border-top: 1px dotted $bdcolor;
+    border-bottom: 1px solid $bdcolor;
 
+    background: $bgcolor;
+    .nav-arrow, .nav-arrow-border {
+        visibility: visible;
+    }
+    cursor: pointer;  
+}
+#nav-container {
+    .selected {
+        @include nav-highlight( $function-nav-bgcolor, $function-nav-bgcolor-highlight );
+    }
+}
 .function-nav-block {
 
     border-top: 1px solid transparent;
     border-bottom: 1px dotted $function-nav-bgcolor;
-
     &:hover {
-        border-top: 1px dotted $function-nav-bgcolor;
-        border-bottom: 1px solid $function-nav-bgcolor;
-
-        background: $function-nav-bgcolor-highlight;
-        .nav-arrow, .nav-arrow-border {
-            visibility: visible;
-        }
-        cursor: pointer;
-    };
+        @include nav-highlight( $function-nav-bgcolor, $function-nav-bgcolor-highlight );
+    }
     .nav-arrow, .nav-arrow-border {
         position: absolute;
         visibility: hidden;
@@ -369,8 +345,6 @@ $nav-arrow-border-position: 15px;
         top: $nav-arrow-border-position;
         right: -16px;
         z-index: 2;
-
-        
     }
     .function-nav-content {
         position: relative;
@@ -387,9 +361,7 @@ $nav-arrow-border-position: 15px;
             /*font-family: 'Helvetica', $glance-font-sans, $glance-font-main;*/
             font-family: $glance-font-thin;
             margin-left: $nav-left-margin;
-
         }
-
         .content-head {
             color: $glance-theme-color;
         }

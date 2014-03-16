@@ -55,10 +55,10 @@
                     <div class="list-block" id="logo-wrap-block">
                         <div class="logo-wrap">
                             <div id="glance-logo">glance</div>
-                            <span>the visualized dictionary</span>
+                            <span>dictionary visualization</span>
                         </div>
                     </div>
-                    <div class="list-block" id="input-block">
+                    <div class="list-block function-nav-block" id="input-block">
                         <div class="input-wrap">
                             <div class="input-area-wrap">
                                 <input id="input-area" type="text" placeholder="search..."/>
@@ -67,13 +67,16 @@
                                 <span class="input-btn">
                                     <img src="images/search.png" width="14px" />
                                 </span>
-                                <span class="input-btn-triangle arrow-left"></span>
+                                <span class="input-btn-triangle"></span>
                             </div>
                         </div>
+                        <span class="nav-arrow"></span>
+                        <span class="nav-arrow-border"></span>                        
                     </div>
-                    <div class="list-block function-nav-block">
+                    <div class="list-block function-nav-block selected">
+
                         <div class="function-nav-content">
-                            <div class="content-head">Definition</div>
+                            <div class="content-head"><a href="#definition">Definition</a></div>
                             <div class="content-body">define the <span>word</span></div>
                         </div>
                         <span class="nav-arrow"></span>
@@ -81,15 +84,16 @@
                     </div>
                     <div class="list-block function-nav-block">
                         <div class="function-nav-content">
-                            <div class="content-head">Example</div>
-                            <div class="content-body">example of <span>word</span></div>
+                            <div class="content-head"><a href="#example">Examples</a></div>
+                            <div class="content-body">examples of <span>word</span></div>
                         </div>
                         <span class="nav-arrow"></span>
                         <span class="nav-arrow-border"></span>                        
                     </div>
                     <div class="list-block function-nav-block">
+                        
                         <div class="function-nav-content">
-                            <div class="content-head">Usage</div>
+                            <div class="content-head"><a href="#usage">Usage</a></div>
                             <div class="content-body">usage of <span>word</span></div>                    
                         </div>
                         <span class="nav-arrow"></span>
@@ -97,7 +101,7 @@
                     </div>
                     <div class="list-block function-nav-block">
                         <div class="function-nav-content">
-                            <div class="content-head">POS tag</div>
+                            <div class="content-head"><a href="#pos">POS tag</a></div>
                             <div class="content-body">part of speech of <span>word</span></div>
                         </div>
                         <span class="nav-arrow"></span>
@@ -105,7 +109,7 @@
                     </div>
                     <div class="list-block function-nav-block">
                         <div class="function-nav-content">
-                            <div class="content-head">Genre</div>
+                            <div class="content-head"><a href="#genre">Genre</a></div>
                             <div class="content-body">genre of <span>word</span></div>                    
                         </div>
                         <span class="nav-arrow"></span>
@@ -121,19 +125,23 @@
                             <!-- content header -->
                         </div>
                         <div class="function-content-block">
-                            <div class="function-tag">Example</div>
+                            <div class="function-tag" id="blockLabel-definition" >Definition</div>
+                            <div class="function-aera" id="wordExample"></div>
+                        </div>                        
+                        <div class="function-content-block">
+                            <div class="function-tag" id="blockLabel-example" >Example</div>
                             <div class="function-aera" id="wordExample"></div>
                         </div>
                         <div class="function-content-block">
-                            <div class="function-tag">Usage</div>
+                            <div class="function-tag" id="blockLabel-usage">Usage</div>
                             <div class="function-aera"></div>
                         </div>
                         <div class="function-content-block">
-                            <div class="function-tag">POS tag</div>
+                            <div class="function-tag" id="blockLabel-pos" >POS tag</div>
                             <div class="function-aera"></div>
                         </div>
                         <div class="function-content-block">
-                            <div class="function-tag">Genre</div>
+                            <div class="function-tag" id="blockLabel-genre" >Genre</div>
                             <div id="genrePieChart" class="function-aera"></div>
                         </div>               
                 </div>

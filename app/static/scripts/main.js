@@ -1,9 +1,32 @@
 $( document ).ready(function() {
    
    	init();
+   	events();
 	bindKeyboardActionToForm();
 
 });
+
+function events(){
+	navigation('.function-nav-block')
+}
+
+function navigation(selector) {
+	$(selector).click(function(e){
+		$(selector).removeClass('selected');
+		$(this).addClass('selected');
+
+		var name = $(this).find('.content-head').find('a').attr('href').slice(1);
+		
+		var block = $("#blockLabel-"+name).parents('.function-content-block')
+
+		var margin_padding_offset = block.outerHeight(true) - block.height();
+
+	    $('html, body').animate({
+    	    scrollTop: $("#blockLabel-"+name).offset().top - margin_padding_offset
+    	}, 250);
+
+	});
+}
 
 function init(){
 	$('#input-area').focus();
