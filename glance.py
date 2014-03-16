@@ -11,7 +11,6 @@ app = Flask(__name__, static_folder='app/static', template_folder='app/template'
 app.register_blueprint(flask_yeoman)
 # app.config.update(DEBUG=True)
 app.debug = True
-app.config.from_pyfile('config.py')
 
 ### ---------------------------- Functions ---------------------------- ###
 
