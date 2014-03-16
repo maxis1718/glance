@@ -34,18 +34,13 @@
 			    </div>
 			    <div id="collapse-{{@index}}" class="panel-collapse collapse {{#if @first}}in{{/if}}">
 			      <div class="panel-body">
-			      	<b>Example Sentences</b>
+			      	
 			      	<ul>
 					{{#example}}
 						<li>{{.}}</li>
 					{{/example}}
 
 					</ul>
-
-					<b>Polarity</b>
-					<div id="wordPolarity-{{@index}}">
-
-					</div>
 			        
 			      </div>
 			    </div>

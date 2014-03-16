@@ -36,15 +36,6 @@ print 'done.'
 def hello():
     return render_template('index.html')
 
-@app.route('/word')
-def query_single_word():
-	return render_template('word.html')
-
-
-@app.route('/structure')
-def query_structure():
-	return render_template('structure.html')
-
 
 # ==== API =====
 
@@ -111,6 +102,9 @@ def translate_first_cht(query):
 	return_data = [] if res == None else res
 	return Response(json.dumps(return_data), mimetype='application/json')
 
+
+
+
 ### wordnet related 
 # sense to word
 # input: sense ( e.g 'dog.n.1' )
@@ -150,10 +144,23 @@ def test_level(query):
 def word_position(query):
 	res = DB.position(query)
 	return_data = [] if res == None else res
+
+
+	step = 10
+
+	compact_data = [ [ i, sum(return_data[1][i*step:(i+1)*step]) ] for i,x in enumerate(return_data[0][::step]) ]
+
+
 	# return_data = [] if query not in bnc_wp else bnc_wp[query]
 	# return_data = [] if query not in bnc_test else bnc_test[query]
-	return Response(json.dumps(return_data), mimetype='application/json')
+	return Response(json.dumps(compact_data), mimetype='application/json')
 
+@app.route('/api/cword/<query>/translation/')
+@app.route('/api/cword/<query>/translation')
+def translate_to_english(query):
+	res = DB.translation(query)
+	return_data = [] if res == None else res
+	return Response(json.dumps(return_data), mimetype='application/json')
 
 
 
@@ -164,4 +171,4 @@ if __name__ == "__main__":
 	    SEND_FILE_MAX_AGE_DEFAULT=0
 	)
 	
-	app.run(host="127.0.0.1")
+	app.run(host="0.0.0.0")

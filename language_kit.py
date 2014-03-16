@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 import sys
-
+from collections import Counter
 # substitute WordNet with SentiWordNet
 #from nltk.corpus import wordnet as wn
 import sentiwordnet as sw
@@ -24,6 +24,8 @@ def query_word( word ):
 	if not senti_synset_lst: return output_dic
 
 	sense_lst = []
+	pos_index_dic = Counter()
+
 	for senti_syn in senti_synset_lst:
 
 		# extract WordNet Synset
@@ -35,14 +37,15 @@ def query_word( word ):
 		syn_dic[ 'lemma' ] = syn.lemma_names
 
 		syn_dic[ 'sense' ] = syn.name
-
+		syn_dic[ 'POS' ] = syn.pos
 		syn_dic[ 'polarity' ] = { 'positive': senti_syn.pos_score, 'negative': senti_syn.neg_score, 'objective': senti_syn.obj_score}
 
 		sense_lst.append( syn_dic )
-
+		pos_index_dic[ syn.pos ] += 1
+ 
 	output_dic[ 'query' ] = word
 	output_dic[ 'contents' ] = sense_lst
-
+	output_dic[ 'pos_index' ] = pos_index_dic
 	return output_dic
 
 def query_hyponym( sense ):

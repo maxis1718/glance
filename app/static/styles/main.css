@@ -7646,7 +7646,7 @@ body {
 }
 
 /* Everything but the jumbotron gets side spacing for mobile first views */
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neo\/Envs\/glance\/glance-nlplab\/app\/static\/styles\/main\.scss}line{font-family:\0000327}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neo\/Envs\/glance\/glance-nlplab\/app\/static\/styles\/main\.scss}line{font-family:\0000328}}
 .header,
 .marketing,
 .footer {
@@ -7655,12 +7655,12 @@ body {
 }
 
 /* Custom page header */
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neo\/Envs\/glance\/glance-nlplab\/app\/static\/styles\/main\.scss}line{font-family:\0000333}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neo\/Envs\/glance\/glance-nlplab\/app\/static\/styles\/main\.scss}line{font-family:\0000334}}
 .header {
   border-bottom: 1px solid #e5e5e5;
   /* Make the masthead heading the same height as the navigation */
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neo\/Envs\/glance\/glance-nlplab\/app\/static\/styles\/main\.scss}line{font-family:\0000337}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neo\/Envs\/glance\/glance-nlplab\/app\/static\/styles\/main\.scss}line{font-family:\0000338}}
 .header h3 {
   margin-top: 0;
   margin-bottom: 0;
@@ -7669,49 +7669,49 @@ body {
 }
 
 /* Custom page footer */
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neo\/Envs\/glance\/glance-nlplab\/app\/static\/styles\/main\.scss}line{font-family:\0000346}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neo\/Envs\/glance\/glance-nlplab\/app\/static\/styles\/main\.scss}line{font-family:\0000347}}
 .footer {
   padding-top: 19px;
   color: #777;
   border-top: 1px solid #e5e5e5;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neo\/Envs\/glance\/glance-nlplab\/app\/static\/styles\/main\.scss}line{font-family:\0000352}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neo\/Envs\/glance\/glance-nlplab\/app\/static\/styles\/main\.scss}line{font-family:\0000353}}
 .container-narrow > hr {
   margin: 30px 0;
 }
 
 /* Main marketing message and sign up button */
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neo\/Envs\/glance\/glance-nlplab\/app\/static\/styles\/main\.scss}line{font-family:\0000357}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neo\/Envs\/glance\/glance-nlplab\/app\/static\/styles\/main\.scss}line{font-family:\0000358}}
 .jumbotron {
   text-align: center;
   border-bottom: 1px solid #e5e5e5;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neo\/Envs\/glance\/glance-nlplab\/app\/static\/styles\/main\.scss}line{font-family:\0000360}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neo\/Envs\/glance\/glance-nlplab\/app\/static\/styles\/main\.scss}line{font-family:\0000361}}
 .jumbotron .btn {
   font-size: 21px;
   padding: 14px 24px;
 }
 
 /* Supporting marketing content */
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neo\/Envs\/glance\/glance-nlplab\/app\/static\/styles\/main\.scss}line{font-family:\0000367}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neo\/Envs\/glance\/glance-nlplab\/app\/static\/styles\/main\.scss}line{font-family:\0000368}}
 .marketing {
   margin: 40px 0;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neo\/Envs\/glance\/glance-nlplab\/app\/static\/styles\/main\.scss}line{font-family:\0000369}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neo\/Envs\/glance\/glance-nlplab\/app\/static\/styles\/main\.scss}line{font-family:\0000370}}
 .marketing p + h4 {
   margin-top: 28px;
 }
 
 /* Responsive: Portrait tablets and up */
 @media screen and (min-width: 768px) {
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neo\/Envs\/glance\/glance-nlplab\/app\/static\/styles\/main\.scss}line{font-family:\0000376}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neo\/Envs\/glance\/glance-nlplab\/app\/static\/styles\/main\.scss}line{font-family:\0000377}}
   .container {
     max-width: 730px;
   }
 
   /* Remove the padding we set earlier */
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neo\/Envs\/glance\/glance-nlplab\/app\/static\/styles\/main\.scss}line{font-family:\0000383}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neo\/Envs\/glance\/glance-nlplab\/app\/static\/styles\/main\.scss}line{font-family:\0000384}}
   .header,
   .marketing,
   .footer {
@@ -7720,29 +7720,83 @@ body {
   }
 
   /* Space out the masthead */
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neo\/Envs\/glance\/glance-nlplab\/app\/static\/styles\/main\.scss}line{font-family:\0000389}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neo\/Envs\/glance\/glance-nlplab\/app\/static\/styles\/main\.scss}line{font-family:\0000390}}
   .header {
     margin-bottom: 30px;
   }
 
   /* Remove the bottom border on the jumbotron for visual effect */
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neo\/Envs\/glance\/glance-nlplab\/app\/static\/styles\/main\.scss}line{font-family:\0000394}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neo\/Envs\/glance\/glance-nlplab\/app\/static\/styles\/main\.scss}line{font-family:\0000395}}
   .jumbotron {
     border-bottom: 0;
   }
 }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neo\/Envs\/glance\/glance-nlplab\/app\/static\/styles\/main\.scss}line{font-family:\00003100}}
+.node circle {
+  fill: #fff;
+  stroke: steelblue;
+  stroke-width: 1.5px;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neo\/Envs\/glance\/glance-nlplab\/app\/static\/styles\/main\.scss}line{font-family:\00003106}}
+.node {
+  font: 12px sans-serif;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neo\/Envs\/glance\/glance-nlplab\/app\/static\/styles\/main\.scss}line{font-family:\00003110}}
+.link {
+  fill: none;
+  stroke: #ccc;
+  stroke-width: 1.5px;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neo\/Envs\/glance\/glance-nlplab\/app\/static\/styles\/main\.scss}line{font-family:\00003116}}
+polyline {
+  opacity: .3;
+  stroke: gray;
+  stroke-width: 2px;
+  fill: none;
+}
+
 /* glnace styles */
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neo\/Envs\/glance\/glance-nlplab\/app\/static\/styles\/main\.scss}line{font-family:\00003103}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neo\/Envs\/glance\/glance-nlplab\/app\/static\/styles\/main\.scss}line{font-family:\00003124}}
 #glance-logo {
   width: 300px;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neo\/Envs\/glance\/glance-nlplab\/app\/static\/styles\/main\.scss}line{font-family:\00003113}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neo\/Envs\/glance\/glance-nlplab\/app\/static\/styles\/main\.scss}line{font-family:\00003134}}
 .plot-module div h4 {
   color: #FFF;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neo\/Envs\/glance\/glance-nlplab\/app\/static\/styles\/main\.scss}line{font-family:\00003121}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neo\/Envs\/glance\/glance-nlplab\/app\/static\/styles\/main\.scss}line{font-family:\00003142}}
 #wordDefinition {
   color: #FFF;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neo\/Envs\/glance\/glance-nlplab\/app\/static\/styles\/main\.scss}line{font-family:\00003147}}
+#wordPosition {
+  fill: #CCC;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neo\/Envs\/glance\/glance-nlplab\/app\/static\/styles\/main\.scss}line{font-family:\00003154}}
+.nav .pos-tab-label {
+  font-size: 1.5em;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neo\/Envs\/glance\/glance-nlplab\/app\/static\/styles\/main\.scss}line{font-family:\00003165}}
+#accordion .panel .panel-heading .panel-title {
+  color: black;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neo\/Envs\/glance\/glance-nlplab\/app\/static\/styles\/main\.scss}line{font-family:\00003168}}
+#accordion .panel .panel-heading .panel-title .panel-title-pos {
+  font-size: 2.5em;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neo\/Envs\/glance\/glance-nlplab\/app\/static\/styles\/main\.scss}line{font-family:\00003171}}
+#accordion .panel .panel-heading .panel-title .panel-title-definition {
+  color: gray;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/neo\/Envs\/glance\/glance-nlplab\/app\/static\/styles\/main\.scss}line{font-family:\00003185}}
+#accordion .panel .panel-collapse .panel-body {
+  color: black;
 }

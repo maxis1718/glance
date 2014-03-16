@@ -10,8 +10,8 @@ def position(query):
 def translation(query):
 	db = mc['glance_word']
 	translation = db.translation
-	suggestion = [word[0] for word in list(translation.find({"word": query}))[0][u'translation']]
-	return suggestion
+	suggestion = [{'translation':word[0], 'probability':round(float(word[2]),2)} for word in list(translation.find({"word": query}))[0][u'translation']]
+	return suggestion[:5]
 
 def family(query):
 	db = mc['glance_word']
