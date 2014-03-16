@@ -4,3 +4,6 @@ venv
 .sass-cache/*
 .tmp/*
 _junk
+Gruntfile.js
+package.json
+
