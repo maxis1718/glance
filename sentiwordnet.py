@@ -10,12 +10,16 @@ import re
 import os
 import sys
 import codecs
+import nltk
+
+nltk.data.path.append('nltk_data')
 
 try:
-    print >> sys.stderr, 'load wordnet...',
+    # print >> sys.stderr, 'load wordnet...',
+
     from nltk.corpus import wordnet as wn
-    sys.stderr.flush()
-    print >> sys.stderr, 'successfully'
+    # sys.stderr.flush()
+    # print >> sys.stderr, 'successfully'
 except ImportError:
     sys.stderr.write("Couldn't find an NLTK installation. To get it: http://www.nltk.org/.\n")
     sys.exit(2)

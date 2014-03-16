@@ -9,6 +9,9 @@ from flask_yeoman import flask_yeoman
 
 app = Flask(__name__, static_folder='app/static', template_folder='app/template', static_url_path='')
 app.register_blueprint(flask_yeoman)
+# app.config.update(DEBUG=True)
+app.debug = True
+app.config.from_pyfile('config.py')
 
 ### ---------------------------- Functions ---------------------------- ###
 
@@ -19,7 +22,6 @@ bnc_pos  = json.load(open('app/static/data/bnc.word.filter.json'))
 
 ## word test
 bnc_test = json.load(open('app/static/data/bnc.word.test.json'))
-
 
 # print os.environ.get('FLASK_YEOMAN_DEBUG', False)
 
