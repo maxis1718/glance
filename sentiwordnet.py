@@ -13,15 +13,13 @@ import codecs
 import nltk
 
 nltk.data.path.append('nltk_data')
-nltk.data.path.append('nltk_data/')
-nltk.data.path.append('./nltk_data/')
+nltk.data.path.append('./nltk_data')
 
 try:
-    # print >> sys.stderr, 'load wordnet...',
-
+    print >> sys.stderr, 'load wordnet...',
     from nltk.corpus import wordnet as wn
-    # sys.stderr.flush()
-    # print >> sys.stderr, 'successfully'
+    sys.stderr.flush()
+    print >> sys.stderr, 'successfully'
 except ImportError:
     sys.stderr.write("Couldn't find an NLTK installation. To get it: http://www.nltk.org/.\n")
     sys.exit(2)
@@ -60,6 +58,8 @@ class SentiWordNetCorpusReader:
             synset = wn._synset_from_pos_and_offset(pos, offset)
             return SentiSynset(pos_score, neg_score, synset)
         else:
+            print >> sys.stderr, "[SentiWordNetCorpusReader > senti_synset]", 'vals=',vals
+            print >> sys.stderr, "[SentiWordNetCorpusReader > senti_synset]", 'vals[0]=',vals[0]
             synset = wn.synset(vals[0])
             pos = synset.pos
             offset = synset.offset

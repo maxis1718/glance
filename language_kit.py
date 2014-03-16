@@ -5,6 +5,7 @@ from collections import Counter
 
 import nltk
 nltk.data.path.append('nltk_data')
+nltk.data.path.append('./nltk_data')
 #from nltk.corpus import wordnet as wn
 import sentiwordnet as sw
 
