@@ -13,6 +13,10 @@ $icon-font-path: "/bower_components/sass-bootstrap/fonts/";
     src: url('Raleway.woff');
 }
 
+.row {
+
+}
+
 /* glance setting */
 /*$body-background-color: #11586f;*/
 
@@ -43,11 +47,20 @@ body {
 }
 
 /* Everything but the jumbotron gets side spacing for mobile first views */
-.header,
+/*.header,
 .marketing,
 .footer {
     padding-left: 15px;
     padding-right: 15px;
+}*/
+
+a {
+    text-decoration: none;
+    color: $glance-theme-color;
+    &:hover {
+        text-decoration: underline;
+    }
+    &:avtive {}
 }
 
 /* Custom page header */
@@ -64,93 +77,38 @@ body {
 }
 
 /* Custom page footer */
-.footer {
+/*.footer {
     padding-top: 19px;
     color: #777;
     border-top: 1px solid #e5e5e5;
-}
+}*/
 
 .container-narrow > hr {
     margin: 30px 0;
 }
 
-/* Main marketing message and sign up button */
-.jumbotron {
-    text-align: center;
-    border-bottom: 1px solid #e5e5e5;
-    .btn {
-        font-size: 21px;
-        padding: 14px 24px;
-    }
+.container {
+    min-width: 768px;
+
+    margin-left: 0;
+    height: 100%;
+    overflow: hidden;
+    margin-top: 0;
+    top: 0;
 }
-
-/* Supporting marketing content */
-.marketing {
-    margin: 40px 0;
-    p + h4 {
-        margin-top: 28px;
-    }
-    .function-tag {
-        width: 120px;
-        height: 32px;
-        padding: 6px 10px;
-        border: 1px solid #E2E2E2;
-        font-size: 16px;
-        font-family: sans-serif;
-        display: inline-block;
-        border-radius: 3px;
-        background: white;        
-    }
-}
-
-
-
 /* Responsive: Portrait tablets and up */
 @media screen and (min-width: 768px) {
     .container {
-        /*min-width: 100%;*/
+        min-width: 100%;
         margin-left: 0;
-        max-width: 100%;
         height: 100%;
         overflow: hidden;
         margin-top: 0;
         top: 0;
-    }
 
-    /* Remove the padding we set earlier */
-    .header,
-    .marketing,
-    .footer {
-        padding-left: 0;
-        padding-right: 0;
-    }
-
-    /* Space out the masthead */
-    .header {
-        margin-bottom: 30px;
-    }
-    
-    /* Remove the bottom border on the jumbotron for visual effect */
-    .jumbotron {
-        border-bottom: 0;
     }
 }
 
-
-
-
-/* glnace styles */
-
-
-
-/* maxis input style */
-/*.input-wrap {
-    display: block;
-    position: relative;
-    div {
-        display: 
-    }
-}*/
 
 .plot-module{
     
@@ -279,13 +237,15 @@ $nav-arrow-border-position: 15px;
     border-right: 1px solid $function-nav-bgcolor;
 }
 #content-container {
+    min-width: 610px;
+    max-width: 840px;
+
     left: 236px;
     margin-top: 20px;
-    position: relative;
+    position: absolute;
 
     .function-content-header, .function-content-block {
-        width: 95%;
-        max-width: 960px;
+        width: 90%;
     }
     .function-content-block {
         
@@ -298,6 +258,19 @@ $nav-arrow-border-position: 15px;
         padding: 26px;
         min-height: 64px;
         
+        div {
+            width: 100%;
+            min-height: 36px;
+        }
+        .function-tag {
+            font-family: $glance-font-thin;
+            color: $glance-theme-color;
+            font-size: 16px;
+
+        }
+        .function-aera {
+
+        }
     }
     .function-content-header {
         height: 64px;
@@ -316,10 +289,9 @@ $nav-arrow-border-position: 15px;
 
     /*border: 1px solid $function-nav-bgcolor;*/
     border: 0;
-    
-
     z-index: 1;
     position: relative; 
+    font-family: $glance-font-thin;
 
     &:nth-child(1) {
         height: 96px;
@@ -329,13 +301,13 @@ $nav-arrow-border-position: 15px;
             position: absolute;
             top: 16px;
             span {
-                font-family: $glance-font-thin;
+                /*font-family: $glance-font-thin;*/
                 font-size: 12px;
                 color: #888;
                 margin-left: $nav-left-margin;
             }
             #glance-logo{
-                font-family: $glance-font-thin;
+                /*font-family: $glance-font-thin;*/
                 text-transform: uppercase;
                 font-size: 36px;
                 display: block;
@@ -344,7 +316,25 @@ $nav-arrow-border-position: 15px;
                 
             }            
         }
-    }   
+    }
+    &:nth-last-child(1) {
+        position: absolute;
+        bottom: 0;
+        min-height: 12px;
+        max-height: 55px;
+        padding-bottom: 12px;
+        div {
+            position: relative;
+            margin-left: $nav-left-margin;
+            font-size: 0.8em; 
+            color: #444;
+
+            a {
+                font-size: 0.9em;
+            }
+        }
+
+    }
 }
 
 
@@ -385,8 +375,7 @@ $nav-arrow-border-position: 15px;
     .function-nav-content {
         position: relative;
         width: 100%;
-        height: 64%;
-        top: 18%;
+        height: 56px;
         /*left: $nav-left-margin;*/
 
         div {
