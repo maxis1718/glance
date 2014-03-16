@@ -1,5 +1,3 @@
-Gruntfile.js
-.node_modules/*
 venv
 *.pyc
 *.png
