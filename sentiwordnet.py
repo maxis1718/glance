@@ -13,6 +13,8 @@ import codecs
 import nltk
 
 nltk.data.path.append('nltk_data')
+nltk.data.path.append('nltk_data/')
+nltk.data.path.append('./nltk_data/')
 
 try:
     # print >> sys.stderr, 'load wordnet...',
