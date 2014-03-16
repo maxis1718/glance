@@ -1,0 +1,521 @@
+@import "compass/css3";
+/*@import "compass/css3/inline-block";*/
+@import 'sass-bootstrap/lib/bootstrap';
+
+$icon-font-path: "/bower_components/sass-bootstrap/fonts/";
+
+@font-face {
+    font-family: "Segoe UI light";
+    src: url('segoe_ui_light.ttf');
+}
+@font-face {
+    font-weight: "Raleway";
+    src: url('Raleway.woff');
+}
+
+.row {
+
+}
+
+/* glance setting */
+/*$body-background-color: #11586f;*/
+
+$glance-font-thin: "Segoe UI light";
+
+$nav-left-margin: 12px;
+
+$body-background-color: #FEFEFE;
+
+$glance-theme-color: #d60909;
+
+$glance-theme-color-dark: #9f010b;
+
+/*$glance-font-main: 'Gruppo';*/
+$glance-font-sans: 'Josefin Sans';
+
+/*  -------------------------------- mixins -------------------------------- */
+
+@mixin arrow-left($arrowColor, $op) {
+    @include opacity($op);
+    width: 0; 
+    height: 0;
+    border-top: 5px solid transparent;
+    border-bottom: 5px solid transparent;     
+    border-right: 8px solid $arrowColor;
+}
+@mixin arrow-right($arrowColor) {
+    border-color: transparent transparent transparent $arrowColor;
+    border-style: solid;
+    border-width: 7px;
+}
+@mixin arrow-right-border($borderColr) {
+    border-color: transparent transparent transparent $borderColr;
+    border-style: solid;
+    border-width: 8px;
+}
+
+.browsehappy {
+    margin: 0.2em 0;
+    background: #ccc;
+    color: #000;
+    padding: 0.2em 0;
+}
+
+/* Space out content a bit */
+body {
+    /*padding-top: 20px;*/
+    padding-bottom: 20px;
+
+    /*background: $body-background-color;*/
+    background: url("../images/fabric_plaid.png");
+
+}
+
+a {
+    text-decoration: none;
+    color: $glance-theme-color;
+    &:hover {
+        text-decoration: underline;
+    }
+    &:avtive {}
+}
+
+/* Custom page header */
+.header {
+    border-bottom: 1px solid #e5e5e5;
+
+    /* Make the masthead heading the same height as the navigation */
+    h3 {
+        margin-top: 0;
+        margin-bottom: 0;
+        line-height: 40px;
+        padding-bottom: 19px;
+    }
+}
+
+.container-narrow > hr {
+    margin: 30px 0;
+}
+
+.container {
+    min-width: 768px;
+
+    margin-left: 0;
+    height: 100%;
+    overflow: hidden;
+    margin-top: 0;
+    top: 0;
+}
+/* Responsive: Portrait tablets and up */
+@media screen and (min-width: 768px) {
+    .container {
+        min-width: 100%;
+        margin-left: 0;
+        height: 100%;
+        overflow: hidden;
+        margin-top: 0;
+        top: 0;
+
+    }
+}
+
+.input-wrap {
+    width: 100%;
+    height: 30px;
+    position: relative;
+    top: 22px;
+
+    /*font-family: 'Gruppo', 'Josefin Sans', cursive, sans-serif;*/
+    font-family: $glance-font-thin;
+
+    div {
+        float: left;
+        position: relative;
+        height: 100%;        
+    }
+    .input-area-wrap {
+        max-width: 134px;
+        margin-left: 12px;
+    }
+    .input-btn-wrap {
+        width: 32px;
+        height: 26px;
+        background: $glance-theme-color;
+        
+        /*border-top: 1px solid #a9010c;*/
+        border-top: 1px solid $glance-theme-color;
+        border-right: 1px solid $glance-theme-color-dark;
+        border-bottom: 1px solid $glance-theme-color;
+        border-left: 0;
+
+        border-top-right-radius: 3px;
+        border-bottom-right-radius: 3px;
+
+        span {
+            position: absolute;
+        }
+        .input-btn {
+            left: 9px;
+            line-height: 23px;
+        }
+        .input-btn-triangle {
+            @include arrow-left($glance-theme-color, 1.0);
+            left: -7px;
+            top: 7px;            
+        }
+    }
+
+    #input-area {
+        outline: none;
+        border: 0;
+        width: 160px;
+        height: 26px;
+        padding: 5px;
+        font-size: 13px;
+        border: 1px solid #ccc;
+        font-family: $glance-font-thin;
+        border-right: 0;   
+        &:hover {
+            border: 1px solid #a8a8a8;
+            border-right: 0;
+        }
+        &:focus {
+            border: 1px solid #d60909;
+            border-right: 0;
+        }
+    }
+}
+/* ================================================================ */
+
+
+
+
+$function-nav-bgcolor: #ccc;
+$function-nav-bgcolor-highlight: #f4f4f4;
+$function-nav-bordercolor: #d0d0d0;
+
+$nav-arrow-position: 16.5px;
+$nav-arrow-border-position: 15px;
+
+/*#input-block {
+    border-bottom: 1px dotted $function-nav-bgcolor;
+}*/
+#nav-container {
+    position: fixed;
+    background: white;
+    width: 208px;
+    height: 100%;
+    border-right: 1px solid $function-nav-bgcolor;
+}
+#content-container {
+    min-width: 610px;
+    max-width: 960px;
+
+    left: 236px;
+    margin-top: 20px;
+    margin-bottom: 64px;
+
+    position: absolute;
+
+    .function-content, {
+        width: 100%;
+        position: relative;
+
+        border: 1px solid $function-nav-bgcolor;
+        margin-bottom: 12px;
+        padding: 26px;
+
+
+        background: white;
+
+        @include border-radius(3px);
+        font-family: $glance-font-thin;
+    }
+    .block {
+        
+        /*height: 480px;*/
+        
+        min-height: 64px;
+        
+        
+        div {
+            width: 100%;
+            min-height: 36px;
+        }
+        .function-tag {
+            
+            color: $glance-theme-color;
+            font-size: 16px;
+
+            /*@include transform(rotate(90deg) );*/
+            /*@include rotate()*/
+
+        }
+        .function-aera {
+
+        }
+    }
+    .header {
+        height: 136px;
+        background: white;
+        margin-top: 36px;
+        font-size: 1.2em;
+        strong {
+            font-size: 1.5em;
+            font-family: 'Just Me Again Down Here', cursive;
+            color: #444;
+        }
+
+
+    }    
+}
+
+
+.node circle {
+  fill: #fff;
+  stroke: steelblue;
+  stroke-width: 1.5px;
+}
+
+.node {
+  font: 12px sans-serif;
+}
+
+.link {
+  fill: none;
+  stroke: #ccc;
+  stroke-width: 1.5px;
+}
+
+polyline{
+    opacity: .3;
+    stroke: gray;
+    stroke-width: 2px;
+    fill: none;
+}
+
+.list-block {
+    width: 100%;
+    min-height: 55px;
+
+    background: white;
+
+    /*border: 1px solid $function-nav-bgcolor;*/
+    border: 0;
+    z-index: 1;
+    position: relative; 
+    font-family: $glance-font-thin;
+
+    &:nth-child(1) {
+        height: 96px;
+        border-bottom: 1px dashed #aaa;
+
+        .logo-wrap {
+            position: absolute;
+            top: 16px;
+            span {
+                /*font-family: $glance-font-thin;*/
+                font-size: 12px;
+                color: #888;
+                margin-left: $nav-left-margin;
+                padding-left: 6px;
+            }
+            #glance-logo{
+                /*font-family: $glance-font-thin;*/
+                text-transform: uppercase;
+                font-size: 36px;
+                display: block;
+                margin-left: $nav-left-margin;
+                color: $glance-theme-color;
+                
+            }            
+        }
+    }
+    &:nth-last-child(1) {
+        position: absolute;
+        bottom: 0;
+        min-height: 12px;
+        max-height: 55px;
+        padding-bottom: 12px;
+        div {
+            position: relative;
+            margin-left: $nav-left-margin;
+            font-size: 0.8em; 
+            color: #444;
+
+            a {
+                font-size: 0.9em;
+            }
+        }
+
+    }
+}
+
+@mixin nav-highlight($bdcolor, $bgcolor, $show_triangle) {
+    border-top: 1px dotted $bdcolor;
+    border-bottom: 1px solid $bdcolor;
+
+    background: $bgcolor;
+    .nav-arrow, .nav-arrow-border {
+        visibility: $show_triangle;
+        /*visibility: visible;*/
+    }
+    cursor: pointer;  
+}
+#nav-container {
+    .selected {
+        @include nav-highlight( $function-nav-bgcolor, $function-nav-bgcolor-highlight, visible );
+    }
+}
+#nav-greeting {
+    height: 72px;
+}
+.function-nav-block {
+
+    border-top: 1px solid transparent;
+    border-bottom: 1px dotted $function-nav-bgcolor;
+
+    &:hover {
+        @include nav-highlight( $function-nav-bgcolor, $function-nav-bgcolor-highlight, hidden  );
+    }
+    .nav-arrow, .nav-arrow-border {
+        position: absolute;
+        visibility: hidden;
+    }
+    .nav-arrow {
+        @include arrow-right($function-nav-bgcolor-highlight);
+        top: $nav-arrow-position;
+        right: -13px;
+        z-index: 3;
+    }
+    .nav-arrow-border {
+       @include arrow-right-border($function-nav-bgcolor);
+        
+        top: $nav-arrow-border-position;
+        right: -16px;
+        z-index: 2;
+    }
+    .function-nav-content {
+        position: relative;
+        width: 100%;
+        height: 56px;
+        /*left: $nav-left-margin;*/
+
+        div {
+            position: relative;
+            /*margin: 0 auto;*/
+            width: 128px;
+            height: 16px;
+            top: 16px;
+            /*font-family: 'Helvetica', $glance-font-sans, $glance-font-main;*/
+            font-family: $glance-font-thin;
+            margin-left: $nav-left-margin;
+        }
+        .content-head {
+            color: $glance-theme-color;
+        }
+        .content-body {
+            
+            font-size: 0.9em;
+            color: #bbb;
+        }
+    }
+}
+
+/* ================================================================ */
+
+
+#wordDefinition{
+
+    .nav-pills {
+
+        li {
+            a {
+                @include border-radius(2px);
+                /*@include border-bottom-radius(px);*/
+            }
+        }
+
+        li.active {
+
+            a {
+                background-color: $glance-theme-color;
+            }
+        }
+    }
+    .tab-content {
+        .tab-pane {
+            max-width: 640px;
+        }
+        margin-top: 12px;
+    }
+    color: #444;
+}
+
+#wordPosition{
+    fill:#CCC;
+}
+
+.nav{
+ 
+ 
+    .pos-tab-label{
+        font-size: 1.5em;
+    }
+ 
+ 
+}
+
+#accordion{
+    .panel-group .panel {
+        @include border-radius(3px);
+    }
+    .panel{
+
+        /*width: 480px;*/
+
+        .panel-heading{
+
+
+
+            .panel-title{
+
+                font-family: $glance-font-thin;
+                font-size: 14px;
+
+                a {
+                    text-decoration: none;
+                    &:hover {
+                        color: $glance-theme-color!important;
+
+                        .panel-title-definition {
+                            text-decoration: underline;
+                        }
+                    }
+                }
+                .panel-title-pos{
+                    color: #555;
+                    font-size: 2.0em;
+                }
+                .panel-title-definition{
+                    /*font-size:;*/
+                    color: #999;
+                }
+            }
+        }
+
+        .panel-collapse{
+            .panel-body{
+                color: black;
+
+            }
+        }
+
+    }
+    
+}
+
+.hide {
+    display: none;
+}
+

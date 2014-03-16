@@ -1,0 +1,216 @@
+<!doctype html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>GLANCE</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width">
+
+        <!-- google font -->
+        <!-- Josefin Sans -->
+        <link href='http://fonts.googleapis.com/css?family=Josefin+Sans' rel='stylesheet' type='text/css'>
+        <link href='http://fonts.googleapis.com/css?family=Just+Me+Again+Down+Here' rel='stylesheet' type='text/css'>
+        <!-- Gruppo -->
+        <!-- <link href='http://fonts.googleapis.com/css?family=Gruppo' rel='stylesheet' type='text/css'> -->
+
+        <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+        <!-- build:css styles/vendor.css -->
+        <!-- bower:css -->
+        <link rel="stylesheet" href="../../bower_components/sass-bootstrap/dist/css/bootstrap.css" />        
+        <!-- endbower -->
+        <!-- endbuild -->
+        <!-- build:css(.tmp) styles/main.css -->
+        <link rel="stylesheet" href="styles/main.css">
+        <!-- endbuild -->
+        <script src="bower_components/modernizr/modernizr.js"></script>
+    </head>
+    <body>
+        <!--[if lt IE 10]>
+            <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+        <![endif]-->
+
+        <div class="container">
+
+
+            <!-- <div class="row header"> -->
+<!--                 <ul class="nav nav-pills pull-right">
+                    <li class="active"><a href="#">Home</a></li>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul> -->
+<!--                 <div class="jumbotron hide">
+                    
+                    <div class="input-group input-group-lg">
+                      
+                      <input id="input-area" type="text" class="form-control" placeholder='Try > "good"'>
+                      <span id="input-btn" class="input-group-addon">Glance</span>
+                    </div>
+                </div>  -->               
+                <!-- <img id="glance-logo" src="images/logo.png"> -->
+            <!-- </div> -->
+            <div class="row">
+                <div id="nav-container">
+                    <div class="list-block" id="logo-wrap-block">
+                        <div class="logo-wrap">
+                            <div id="glance-logo">glance</div>
+                            <span>dictionary visualization</span>
+                        </div>
+
+                    </div>
+                    <div class="list-block function-nav-block selected" id="nav-greeting">
+                        <div class="input-wrap">
+                            <div class="input-area-wrap">
+                                <input id="input-area" type="text" placeholder="search..."/>
+                            </div>
+                            <div class="input-btn-wrap">
+                                <span class="input-btn">
+                                    <img src="images/search.png" width="14px" />
+                                </span>
+                                <span class="input-btn-triangle"></span>
+                            </div>
+                        </div>
+                        <span class="nav-arrow"></span>
+                        <span class="nav-arrow-border"></span>                        
+                    </div>
+
+                    <div class="list-block function-nav-block" id="nav-definition">
+                        <div class="function-nav-content">
+                            <div class="content-head">Definition</div>
+                            <div class="content-body">define the <span>word</span></div>
+                        </div>
+                        <span class="nav-arrow"></span>
+                        <span class="nav-arrow-border"></span>
+                    </div>
+                    <div class="list-block function-nav-block" id="nav-example">
+                        <div class="function-nav-content">
+                            <div class="content-head">Examples</div>
+                            <div class="content-body">examples of <span>word</span></div>
+                        </div>
+                        <span class="nav-arrow"></span>
+                        <span class="nav-arrow-border"></span>                        
+                    </div>
+                    <div class="list-block function-nav-block" id="nav-usage">
+                        <div class="function-nav-content">
+                            <div class="content-head">Usage</div>
+                            <div class="content-body">usage of <span>word</span></div>                    
+                        </div>
+                        <span class="nav-arrow"></span>
+                        <span class="nav-arrow-border"></span>                        
+                    </div>
+                    <div class="list-block function-nav-block" id="nav-position">
+                        <div class="function-nav-content">
+                            <div class="content-head">Position</div>
+                            <div class="content-body">position of <span>word</span></div>                    
+                        </div>
+                        <span class="nav-arrow"></span>
+                        <span class="nav-arrow-border"></span>                        
+                    </div>
+                    <div class="list-block function-nav-block" id="nav-pos">
+                        <div class="function-nav-content">
+                            <div class="content-head">POS tag</div>
+                            <div class="content-body">part of speech of <span>word</span></div>
+                        </div>
+                        <span class="nav-arrow"></span>
+                        <span class="nav-arrow-border"></span>                        
+                    </div>
+                    <div class="list-block function-nav-block" id="nav-genre">
+                        <div class="function-nav-content">
+                            <div class="content-head">Genre</div>
+                            <div class="content-body">genre of <span>word</span></div>                    
+                        </div>
+                        <span class="nav-arrow"></span>
+                        <span class="nav-arrow-border"></span>                        
+                    </div>
+                    <div class="list-block" id="footer">
+                        <div id="copyright">glance &copy; 2014</div>
+                        <div class=""><a href="http://nlp.cs.nthu.edu.tw" target=_blank>NTHU nlpLab</a></div>
+
+                    </div>
+                </div>
+
+                <div id="content-container">
+                        <div class="function-content header" id="block-greeting">
+                            <div class=""><strong>A brand new way to look up a tedious dictionary: Let's glance at it!</strong></div>
+                        </div>
+                        <div class="function-content block" id="block-definition">
+                            <!-- <div class="function-label"></div> -->
+                            <div class="function-tag">Definition</div>
+                            <div class="function-aera" id="wordDefinition"></div>
+                        </div>                        
+                        <div class="function-content block" id="block-example">
+                            <div class="function-tag">Example</div>
+                            <div class="function-aera" id="wordExample"></div>
+                        </div>
+                        <div class="function-content block" id="block-usage">
+                            <div class="function-tag">Usage</div>
+                            <div class="function-aera"></div>
+                        </div>
+                        <div class="function-content block" id="block-position">
+                            <div class="function-tag">Position</div>
+                            <div class="function-aera" id="wordPosition"></div>
+                        </div>
+                        <div class="function-content block" id="block-pos" >
+                            <div class="function-tag">POS tag</div>
+                            <div class="function-aera" id="posChart"></div>
+                        </div>
+                        <div class="function-content block" id="block-genre">
+                            <div class="function-tag">Genre</div>
+                            <div id="genrePieChart" class="function-aera"></div>
+                        </div>               
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- bower:js -->
+        <script src="../../bower_components/modernizr/modernizr.js"></script>
+        <script src="../../bower_components/jquery/jquery.js"></script>
+        <script src="../../bower_components/sass-bootstrap/dist/js/bootstrap.js"></script>
+        <script src="../../bower_components/handlebars/handlebars.js"></script>
+        <script src="../../bower_components/d3/d3.js"></script>
+        <script src="../../bower_components/mustache/mustache.js"></script>
+        <!-- endbower -->
+
+
+        <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
+        <script>
+            (function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=
+            function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;
+            e=o.createElement(i);r=o.getElementsByTagName(i)[0];
+            e.src='//www.google-analytics.com/analytics.js';
+            r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));
+            ga('create','UA-XXXXX-X');ga('send','pageview');
+        </script>
+
+        <!-- livereload script -->
+        <script>document.write('<script src="http://'
+         + (location.host || 'localhost').split(':')[0]
+         + ':35729/livereload.js?snipver=1" type="text/javascript"><\/script>')
+        </script>
+
+        <!-- build:js scripts/plugins.js -->
+        <script src="bower_components/sass-bootstrap/js/affix.js"></script>
+        <script src="bower_components/sass-bootstrap/js/alert.js"></script>
+        <script src="bower_components/sass-bootstrap/js/dropdown.js"></script>
+        <script src="bower_components/sass-bootstrap/js/tooltip.js"></script>
+        <script src="bower_components/sass-bootstrap/js/modal.js"></script>
+        <script src="bower_components/sass-bootstrap/js/transition.js"></script>
+        <script src="bower_components/sass-bootstrap/js/button.js"></script>
+        <script src="bower_components/sass-bootstrap/js/popover.js"></script>
+        <script src="bower_components/sass-bootstrap/js/carousel.js"></script>
+        <script src="bower_components/sass-bootstrap/js/scrollspy.js"></script>
+        <script src="bower_components/sass-bootstrap/js/collapse.js"></script>
+        <script src="bower_components/sass-bootstrap/js/tab.js"></script>
+        <!-- endbuild -->
+
+        <!-- build:js({app,.tmp}) scripts/main.js -->
+        <script src="scripts/main.js"></script>
+        <!-- endbuild -->
+</body>
+</html>
