@@ -1,8 +1,13 @@
 $( document ).ready(function() {
    
+   	init();
 	bindKeyboardActionToForm();
 
 });
+
+function init(){
+	$('#input-area').focus();
+}
 
 /* load tempalte file and render it to #entry */
 function loadTemplate( templateName , data , entry ){
@@ -22,23 +27,43 @@ function loadTemplate( templateName , data , entry ){
     
 }
 
-
 /* bind enter action to text input */
 function bindKeyboardActionToForm(){
-	$("#input-area").keyup(function(event){
-	    if(event.keyCode == 13){
-	    	
-	        fetchData( $("#input-area").val() );
 
-			$("#input-area").val("");
 
+	// $('body').keyup(function(e){
+	// 	// if pressing a-z
+	// 	if( (e.keyCode >= 65 && e.keyCode <= 90)  || (e.which >= 65 && e.which <= 90) )
+	// 	{
+
+	// 	}
+	// 	if( (e.keyCode == 13 || e.which == 13) ){
+			
+	// 	}
+	// });
+	
+	$('.input-btn').click(function(e){
+		fetchData( $("#input-area").val() );
+		// $("#input-area").val('');
+	});
+
+	$("#input-area").keyup(function(e){
+	    if(e.keyCode == 13 || e.which == 13){
+	    	// triger the fetch event
+	       $('.input-btn').click();
 	    }
+	}).mouseup(function(e){
+		$(this).select();
 	});
 }
 
 
 /* function when user input a word or reload a page with a word */
 function fetchData( qWord ){
+
+	// clear current data
+	$('.function-aera').html('');
+
 
 	/* load difinition */
 	queryWord( qWord );

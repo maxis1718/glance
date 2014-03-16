@@ -9,100 +9,129 @@
         <title>GLANCE</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width">
+
+        <!-- google font -->
+        <!-- Josefin Sans -->
+        <link href='http://fonts.googleapis.com/css?family=Josefin+Sans' rel='stylesheet' type='text/css'>
+        <!-- Gruppo -->
+        <link href='http://fonts.googleapis.com/css?family=Gruppo' rel='stylesheet' type='text/css'>        
+
         <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
         <!-- build:css styles/vendor.css -->
         <!-- bower:css -->
-        <link rel="stylesheet" href="../../bower_components/sass-bootstrap/dist/css/bootstrap.css" />
+        <link rel="stylesheet" href="../../bower_components/sass-bootstrap/dist/css/bootstrap.css" />        
         <!-- endbower -->
         <!-- endbuild -->
         <!-- build:css(.tmp) styles/main.css -->
         <link rel="stylesheet" href="styles/main.css">
         <!-- endbuild -->
         <script src="bower_components/modernizr/modernizr.js"></script>
-        
-
-
-
-
     </head>
     <body>
         <!--[if lt IE 10]>
             <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
 
-
         <div class="container">
-            <div class="header">
-                <ul class="nav nav-pills pull-right">
+
+            <div class="row header">
+<!--                 <ul class="nav nav-pills pull-right">
                     <li class="active"><a href="#">Home</a></li>
-                    <li><a href="#">About</a></li>
-                    <li><a href="#">Contact</a></li>
-                </ul>
-                
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul> -->
+<!--                 <div class="jumbotron hide">
+                    
+                    <div class="input-group input-group-lg">
+                      
+                      <input id="input-area" type="text" class="form-control" placeholder='Try > "good"'>
+                      <span id="input-btn" class="input-group-addon">Glance</span>
+                    </div>
+                </div>  -->               
                 <!-- <img id="glance-logo" src="images/logo.png"> -->
             </div>
-
-            <div class="jumbotron">
-                
-                <div class="input-group input-group-lg">
-                  
-                  <input id="input-area" type="text" class="form-control" placeholder="input a word">
-                  <span class="input-group-addon">Go</span>
-
-                </div>
-
-                
-                
-            </div>
-
-            <div class="row marketing plot-module">
-                <div class="col-lg-12">
-                    <h4>Definition</h4>
-                    <div id="wordDefinition">
-
+            <div class="row">
+                <div class="col-sm-3 col-md-3 col-lg-3">
+                    <div class="row list-block">
+                        <div id="logo-wrap">
+                            glance-logo
+                        </div>
                     </div>
-
-                </div>
-            </div>
-            <div class="row marketing plot-module">
-                <div class="col-lg-12">
-                    <h4>Example</h4>
-                    <div id="wordExample">
-                        
+                    <div class="row list-block">
+                        <div class="input-wrap">
+                            <div class="input-area-wrap">
+                                <input id="input-area" type="text" placeholder="search..."/>
+                            </div>
+                            <div class="input-btn-wrap">
+                                <span class="input-btn">
+                                    <img src="images/search.png" width="14px" />
+                                </span>
+                                <span class="input-btn-triangle arrow-left"></span>
+                            </div>
+                        </div>
                     </div>
-                    
-                </div>
-            </div>
-            <div class="row marketing plot-module">
-                <div class="col-lg-12">
-                    <h4>Usage</h4>
-                    
-                </div>
-            </div>
-            <div class="row marketing plot-module">
-                <div class="col-lg-12">
-                    <h4>POS tag</h4>
-
-                    <div id="posChart">
-
-
-
+                    <div class="row list-block function-nav-block">
+                        <div class="function-nav-content">
+                            <div class="content-head">Definition</div>
+                            <div class="content-body">define the <span>word</span></div>
+                        </div>
+                        <span class="nav-arrow"></span>
+                        <span class="nav-arrow-border"></span>
                     </div>
-                    
-                </div>
-            </div>
-            <div class="row marketing plot-module">
-                <div class="col-lg12">
-                    <h4>Genre</h4>
-                    
-                    <div id="genrePieChart">
-
+                    <div class="row list-block function-nav-block">
+                        <div class="function-nav-content">
+                            <div class="content-head">Example</div>
+                            <div class="content-body">example of <span>word</span></div>
+                        </div>
+                        <span class="nav-arrow"></span>
+                        <span class="nav-arrow-border"></span>                        
                     </div>
-                    
+                    <div class="row list-block function-nav-block">
+                        <div class="function-nav-content">
+                            <div class="content-head">Usage</div>
+                            <div class="content-body">usage of <span>word</span></div>                    
+                        </div>
+                        <span class="nav-arrow"></span>
+                        <span class="nav-arrow-border"></span>                        
+                    </div>
+                    <div class="row list-block function-nav-block">
+                        <div class="function-nav-content">
+                            <div class="content-head">POS tag</div>
+                            <div class="content-body">part of speech of <span>word</span></div>
+                        </div>
+                        <span class="nav-arrow"></span>
+                        <span class="nav-arrow-border"></span>                        
+                    </div>
+                    <div class="row list-block function-nav-block">
+                        <div class="function-nav-content">
+                            <div class="content-head">Genre</div>
+                            <div class="content-body">genre of <span>word</span></div>                    
+                        </div>
+                        <span class="nav-arrow"></span>
+                        <span class="nav-arrow-border"></span>                        
+                    </div>                    
+                </div>
+                <div class="col-sm-9 col-md-9 col-lg-9">
+                    <div class="row marketing">
+                        <div class="function-tag">Example</div>
+                        <div id="wordExample" class="function-aera"></div>
+                    </div>
+                    <div class="row marketing">
+                        <div class="function-tag">Usage</div>
+                        <div class="function-aera"></div>
+                    </div>
+                    <div class="row marketing">
+                        <div class="function-tag">POS tag</div>
+                        <div id="posChart" class="function-aera"></div>
+                    </div>
+                    <div class="row marketing">
+                        <div class="function-tag">Genre</div>
+                        <div id="genrePieChart" class="function-aera"></div>
+                    </div>                    
                 </div>
             </div>
 
-            <div class="footer">
+            <div class="row footer">
                 <p>Glance 2014</p>
             </div>
 

@@ -1,12 +1,25 @@
+@import "compass/css3";
+/*@import "compass/css3/inline-block";*/
+@import 'sass-bootstrap/lib/bootstrap';
+
 $icon-font-path: "/bower_components/sass-bootstrap/fonts/";
 
+@font-face {
+    font-family: "Segoe UI light";
+    src: url('segoe_ui_light.ttf');
+}
 
 /* glance setting */
 /*$body-background-color: #11586f;*/
+
+$glance-font-thin: 'Segoe UI light';
+
 $body-background-color: white;
 
+$glance-theme-color: #d60909;
 
-@import 'sass-bootstrap/lib/bootstrap';
+$glance-font-main: 'Gruppo';
+$glance-font-sans: 'Josefin Sans';
 
 .browsehappy {
     margin: 0.2em 0;
@@ -70,12 +83,27 @@ body {
     p + h4 {
         margin-top: 28px;
     }
+    .function-tag {
+        width: 120px;
+        height: 32px;
+        padding: 6px 10px;
+        border: 1px solid #E2E2E2;
+        font-size: 16px;
+        font-family: sans-serif;
+        display: inline-block;
+        border-radius: 3px;
+        background: white;        
+    }
 }
+
+
 
 /* Responsive: Portrait tablets and up */
 @media screen and (min-width: 768px) {
     .container {
-        max-width: 730px;
+        /*min-width: 100%;*/
+        margin-left: 0;
+        max-width: 100%;
     }
 
     /* Remove the padding we set earlier */
@@ -107,6 +135,15 @@ body {
     
 }
 
+/* maxis input style */
+/*.input-wrap {
+    display: block;
+    position: relative;
+    div {
+        display: 
+    }
+}*/
+
 .plot-module{
     
     div{
@@ -118,8 +155,177 @@ body {
     }
 
 }
+/* ================================================================ */
 
+.input-wrap {
+    width: 100%;
+    height: 48px;
+    position: relative;
+    font-family: 'Gruppo', 'Josefin Sans', cursive, sans-serif;
+    div {
+        float: left;
+        position: relative;
+        height: 100%;        
+    }
+    .input-area-wrap {
+        max-width: 160px;
+    }
+    .input-btn-wrap {
+        width: 42px;
+        height: 26px;
+        background: #d60909;
+        border-top-right-radius: 3px;
+        border-bottom-right-radius: 3px;
+        span {
+            position: absolute;
+        }
+        .input-btn {
+            left: 12px;
+            line-height: 26px;
+            color: #fdfdfd;
+            font-size: 14px;            
+        }
+        .input-btn-triangle {
+            left: -7px;
+            top: 7px;            
+        }
+    }
+    #input-area {
+        outline: none;
+        border: 0;
+        width: 160px;
+        height: 26px;
+        padding: 5px;
+        font-size: 14px;
+        border: 1px solid #ccc;
+        font-family: inherit;
+        border-right: 0;        
+    }
+    #input-area:hover {
+        border: 1px solid #a8a8a8;
+        border-right: 0;       
+    }
+    #input-area:focus {
+        border: 1px solid #d60909;
+        border-right: 0;  
+    }
+}
+/* ================================================================ */
+/*@mixins triangle {
+    width: 0; 
+    height: 0;
+    border-top: 5px solid transparent;
+    border-bottom: 5px solid transparent;     
+    border-right: 8px solid $glance-theme-color;
+}*/
+.arrow-left {
+    width: 0; 
+    height: 0;
+    border-top: 5px solid transparent;
+    border-bottom: 5px solid transparent;     
+    border-right: 8px solid $glance-theme-color;
+}
+/*.arrow-right {
+    width: 0; 
+    height: 0;
+    border-top: 5px solid transparent;
+    border-bottom: 5px solid transparent;     
+    border-left: 8px solid ;
+}*/
+
+@mixin arrow-right($arrowColor) {
+/*    width: 0; 
+    height: 0;
+    border-top: 5px solid transparent;
+    border-bottom: 5px solid transparent;     
+    border-left: 8px solid $arrowColor;*/
+    border-color: transparent transparent transparent $arrowColor;
+    border-style: solid;
+    border-width: 7px;
+}
+@mixin arrow-right-border($borderColr) {
+    border-color: transparent transparent transparent $borderColr;
+    border-style: solid;
+    border-width: 8px;
+ 
+}
+
+$function-nav-bgcolor: #ccc;
+$function-nav-bgcolor-highlight: #f3f3f3;
+$function-nav-bordercolor: #d0d0d0;
+
+$nav-arrow-position: 16.5px;
+$nav-arrow-border-position: 15px;
+
+.list-block {
+    width: 228px;
+    height: 55px; 
+    border: 1px solid $function-nav-bgcolor;
+    border-bottom: 1px solid transparent;
+    z-index: 1;
+    position: relative;    
+}
+
+.function-nav-block {
+
+    &:hover {
+        border-top: 1px dotted $function-nav-bgcolor;
+        background: $function-nav-bgcolor-highlight;
+        .nav-arrow, .nav-arrow-border {
+            visibility: visible;
+        }
+        cursor: pointer;
+    };
+    .nav-arrow, .nav-arrow-border {
+        position: absolute;
+        visibility: hidden;
+    }
+    .nav-arrow {
+        @include arrow-right($function-nav-bgcolor-highlight);
+        top: $nav-arrow-position;
+        right: -13px;
+        z-index: 3;
+    }
+    .nav-arrow-border {
+       @include arrow-right-border($function-nav-bgcolor);
+        
+        top: $nav-arrow-border-position;
+        right: -16px;
+        z-index: 2;
+
+        
+    }
+    .function-nav-content {
+        position: relative;
+        width: 70%;
+        height: 64%;
+        top: 18%;
+        left: 5%;
+
+        div {
+            position: relative;
+            margin: 0 auto;
+            width: 128px;
+            height: 50%; 
+            font-family: 'Helvetica', $glance-font-sans, $glance-font-main;
+        }
+
+        .content-head {
+            color: $glance-theme-color;
+        }
+        .content-body {
+            /*font-family: $glance-font-thin;*/
+            font-size: 0.9em;
+            color: #bbb;
+        }
+    }
+}
+
+/* ================================================================ */
 #wordDefinition{
     color: #444;
 }
 
+.hide {
+    display: none;
+}
