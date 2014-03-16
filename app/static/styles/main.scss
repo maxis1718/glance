@@ -8,17 +8,23 @@ $icon-font-path: "/bower_components/sass-bootstrap/fonts/";
     font-family: "Segoe UI light";
     src: url('segoe_ui_light.ttf');
 }
+@font-face {
+    font-weight: "Raleway";
+    src: url('Raleway.woff');
+}
 
 /* glance setting */
 /*$body-background-color: #11586f;*/
 
-$glance-font-thin: 'Segoe UI light';
+$glance-font-thin: "Segoe UI light";
 
-$body-background-color: white;
+$nav-left-margin: 12px;
+
+$body-background-color: #FEFEFE;
 
 $glance-theme-color: #d60909;
 
-$glance-font-main: 'Gruppo';
+/*$glance-font-main: 'Gruppo';*/
 $glance-font-sans: 'Josefin Sans';
 
 .browsehappy {
@@ -30,9 +36,10 @@ $glance-font-sans: 'Josefin Sans';
 
 /* Space out content a bit */
 body {
-    padding-top: 20px;
+    /*padding-top: 20px;*/
     padding-bottom: 20px;
-    background: $body-background-color;
+    /*background: $body-background-color;*/
+    background: url("../images/fabric_plaid.png");
 }
 
 /* Everything but the jumbotron gets side spacing for mobile first views */
@@ -104,6 +111,10 @@ body {
         /*min-width: 100%;*/
         margin-left: 0;
         max-width: 100%;
+        height: 100%;
+        overflow: hidden;
+        margin-top: 0;
+        top: 0;
     }
 
     /* Remove the padding we set earlier */
@@ -129,11 +140,8 @@ body {
 
 
 /* glnace styles */
-#glance-logo{
-    
-    width: 300px;
-    
-}
+
+
 
 /* maxis input style */
 /*.input-wrap {
@@ -159,19 +167,24 @@ body {
 
 .input-wrap {
     width: 100%;
-    height: 48px;
+    height: 30px;
     position: relative;
-    font-family: 'Gruppo', 'Josefin Sans', cursive, sans-serif;
+    top: 22px;
+
+    /*font-family: 'Gruppo', 'Josefin Sans', cursive, sans-serif;*/
+    font-family: $glance-font-thin;
+
     div {
         float: left;
         position: relative;
         height: 100%;        
     }
     .input-area-wrap {
-        max-width: 160px;
+        max-width: 134px;
+        margin-left: 12px;
     }
     .input-btn-wrap {
-        width: 42px;
+        width: 32px;
         height: 26px;
         background: #d60909;
         border-top-right-radius: 3px;
@@ -180,10 +193,8 @@ body {
             position: absolute;
         }
         .input-btn {
-            left: 12px;
+            left: 10px;
             line-height: 26px;
-            color: #fdfdfd;
-            font-size: 14px;            
         }
         .input-btn-triangle {
             left: -7px;
@@ -196,10 +207,10 @@ body {
         width: 160px;
         height: 26px;
         padding: 5px;
-        font-size: 14px;
+        font-size: 13px;
         border: 1px solid #ccc;
-        font-family: inherit;
-        border-right: 0;        
+        font-family: $glance-font-thin;
+        border-right: 0;   
     }
     #input-area:hover {
         border: 1px solid #a8a8a8;
@@ -257,19 +268,95 @@ $function-nav-bordercolor: #d0d0d0;
 $nav-arrow-position: 16.5px;
 $nav-arrow-border-position: 15px;
 
-.list-block {
-    width: 228px;
-    height: 55px; 
-    border: 1px solid $function-nav-bgcolor;
-    border-bottom: 1px solid transparent;
-    z-index: 1;
-    position: relative;    
+/*#input-block {
+    border-bottom: 1px dotted $function-nav-bgcolor;
+}*/
+#nav-container {
+    position: fixed;
+    background: white;
+    width: 208px;
+    height: 100%;
+    border-right: 1px solid $function-nav-bgcolor;
 }
+#content-container {
+    left: 236px;
+    margin-top: 20px;
+    position: relative;
+
+    .function-content-header, .function-content-block {
+        width: 95%;
+        max-width: 960px;
+    }
+    .function-content-block {
+        
+        height: 480px;
+        background: white;
+        border: 1px solid $function-nav-bgcolor;
+        margin-bottom: 12px;
+        position: relative;
+
+        padding: 26px;
+        min-height: 64px;
+        
+    }
+    .function-content-header {
+        height: 64px;
+
+    }    
+}
+
+#input-block {
+    height: 72px;
+}
+.list-block {
+    width: 100%;
+    min-height: 55px;
+
+    background: white;
+
+    /*border: 1px solid $function-nav-bgcolor;*/
+    border: 0;
+    
+
+    z-index: 1;
+    position: relative; 
+
+    &:nth-child(1) {
+        height: 96px;
+        border-bottom: 1px dashed #aaa;
+
+        .logo-wrap {
+            position: absolute;
+            top: 16px;
+            span {
+                font-family: $glance-font-thin;
+                font-size: 12px;
+                color: #888;
+                margin-left: $nav-left-margin;
+            }
+            #glance-logo{
+                font-family: $glance-font-thin;
+                text-transform: uppercase;
+                font-size: 36px;
+                display: block;
+                margin-left: $nav-left-margin;
+                color: $glance-theme-color;
+                
+            }            
+        }
+    }   
+}
+
 
 .function-nav-block {
 
+    border-top: 1px solid transparent;
+    border-bottom: 1px dotted $function-nav-bgcolor;
+
     &:hover {
         border-top: 1px dotted $function-nav-bgcolor;
+        border-bottom: 1px solid $function-nav-bgcolor;
+
         background: $function-nav-bgcolor-highlight;
         .nav-arrow, .nav-arrow-border {
             visibility: visible;
@@ -297,24 +384,28 @@ $nav-arrow-border-position: 15px;
     }
     .function-nav-content {
         position: relative;
-        width: 70%;
+        width: 100%;
         height: 64%;
         top: 18%;
-        left: 5%;
+        /*left: $nav-left-margin;*/
 
         div {
             position: relative;
-            margin: 0 auto;
+            /*margin: 0 auto;*/
             width: 128px;
-            height: 50%; 
-            font-family: 'Helvetica', $glance-font-sans, $glance-font-main;
+            height: 16px;
+            top: 16px;
+            /*font-family: 'Helvetica', $glance-font-sans, $glance-font-main;*/
+            font-family: $glance-font-thin;
+            margin-left: $nav-left-margin;
+
         }
 
         .content-head {
             color: $glance-theme-color;
         }
         .content-body {
-            /*font-family: $glance-font-thin;*/
+            
             font-size: 0.9em;
             color: #bbb;
         }
@@ -322,6 +413,10 @@ $nav-arrow-border-position: 15px;
 }
 
 /* ================================================================ */
+
+
+
+
 #wordDefinition{
     color: #444;
 }
