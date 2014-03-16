@@ -54,12 +54,7 @@ def query_word( word ):
 
 def query_hyponym( sense ):
 
-	print >> sys.stderr, '[query_hyponym] query: sense=',sense
-	print >> sys.stderr, '[query_hyponym] swn:',swn
-	swn_obj = swn.senti_synset(sense)
-	print >> sys.stderr, '[query_hyponym] swn.senti_synset(sense):',swn_obj
-	syn = swn_obj.synset
-	print >> sys.stderr, '[query_hyponym] get synset',syn
+	syn = swn.senti_synset(sense).synset
 
 	if( not syn):
 		return {}

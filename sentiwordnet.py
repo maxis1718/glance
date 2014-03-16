@@ -16,7 +16,7 @@ nltk.data.path.append('nltk_data')
 nltk.data.path.append('./nltk_data')
 
 try:
-    print >> sys.stderr, 'load wordnet...',
+    print >> sys.stderr, 'import wordnet...',
     from nltk.corpus import wordnet as wn
     sys.stderr.flush()
     print >> sys.stderr, 'successfully'
@@ -58,8 +58,6 @@ class SentiWordNetCorpusReader:
             synset = wn._synset_from_pos_and_offset(pos, offset)
             return SentiSynset(pos_score, neg_score, synset)
         else:
-            print >> sys.stderr, "[SentiWordNetCorpusReader > senti_synset]", 'vals=',vals
-            print >> sys.stderr, "[SentiWordNetCorpusReader > senti_synset]", 'vals[0]=',vals[0]
             synset = wn.synset(vals[0])
             pos = synset.pos
             offset = synset.offset

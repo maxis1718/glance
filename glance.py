@@ -14,19 +14,19 @@ app.debug = True
 
 ### ---------------------------- Functions ---------------------------- ###
 
-print '# loading json ...',
+print >> sys.stderr, 'loading json ...',
 sys.stdout.flush()
 ## word pos filter
 bnc_pos  = json.load(open('app/static/data/bnc.word.filter.json'))
-
 ## word test
 bnc_test = json.load(open('app/static/data/bnc.word.test.json'))
+print >> sys.stderr, 'done.'
 
 # print os.environ.get('FLASK_YEOMAN_DEBUG', False)
 
 ## word position
 # bnc_wp = json.load(open('static/data/XY/pure/h.pure.json'))
-print 'done.'
+
 
 
 
@@ -113,12 +113,14 @@ def translate_first_cht(query):
 ### wordnet related 
 # sense to word
 # input: sense ( e.g 'dog.n.1' )
+@app.route('/api/sense/<query>/word/')
 @app.route('/api/sense/<query>/word')
 def sense_to_word( query ):
 	return LK.synset_to_words( query )
 
 # query word info
 # input: word 
+@app.route('/api/word/<query>/')
 @app.route('/api/word/<query>')
 def query_word_info( query ):
 
@@ -127,6 +129,7 @@ def query_word_info( query ):
 # query hypernym and hyponym and definition of a word 
 # input: sense
 
+@app.route('/api/sense/<query>/hyponym/')
 @app.route('/api/sense/<query>/hyponym')
 def query_hyponym( query ):
 
