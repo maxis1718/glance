@@ -1,9 +1,5 @@
 venv
 *.pyc
-*.png
-*.jpg
-*.db
-*.db3
 .DS_Store
 .sass-cache/*
 .tmp/*
