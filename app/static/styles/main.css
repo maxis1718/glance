@@ -7807,44 +7807,55 @@ a:hover {
   max-width: 840px;
   left: 236px;
   margin-top: 20px;
+  margin-bottom: 64px;
   position: absolute;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/maxis\/projects\/glance-nlplab\/app\/static\/styles\/main\.scss}line{font-family:\00003216}}
-#content-container .function-content-header, #content-container .function-content-block {
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/maxis\/projects\/glance-nlplab\/app\/static\/styles\/main\.scss}line{font-family:\00003218}}
+#content-container .function-content {
   width: 90%;
-}
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/maxis\/projects\/glance-nlplab\/app\/static\/styles\/main\.scss}line{font-family:\00003219}}
-#content-container .function-content-block {
-  height: 480px;
-  background: white;
+  position: relative;
   border: 1px solid #cccccc;
   margin-bottom: 12px;
-  position: relative;
   padding: 26px;
-  min-height: 64px;
+  background: white;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  -ms-border-radius: 3px;
+  -o-border-radius: 3px;
+  border-radius: 3px;
+  font-family: "Segoe UI light";
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/maxis\/projects\/glance-nlplab\/app\/static\/styles\/main\.scss}line{font-family:\00003230}}
-#content-container .function-content-block div {
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/maxis\/projects\/glance-nlplab\/app\/static\/styles\/main\.scss}line{font-family:\00003231}}
+#content-container .block {
+  /*height: 480px;*/
+  min-height: 480px;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/maxis\/projects\/glance-nlplab\/app\/static\/styles\/main\.scss}line{font-family:\00003238}}
+#content-container .block div {
   width: 100%;
   min-height: 36px;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/maxis\/projects\/glance-nlplab\/app\/static\/styles\/main\.scss}line{font-family:\00003234}}
-#content-container .function-content-block .function-tag {
-  font-family: "Segoe UI light";
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/maxis\/projects\/glance-nlplab\/app\/static\/styles\/main\.scss}line{font-family:\00003242}}
+#content-container .block .function-tag {
   color: #d60909;
   font-size: 16px;
+  /*@include transform(rotate(90deg) );*/
+  /*@include rotate()*/
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/maxis\/projects\/glance-nlplab\/app\/static\/styles\/main\.scss}line{font-family:\00003244}}
-#content-container .function-content-header {
-  height: 64px;
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/maxis\/projects\/glance-nlplab\/app\/static\/styles\/main\.scss}line{font-family:\00003255}}
+#content-container .header {
+  height: 136px;
+  background: white;
+  margin-top: 36px;
+  font-size: 1.2em;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/maxis\/projects\/glance-nlplab\/app\/static\/styles\/main\.scss}line{font-family:\00003260}}
+#content-container .header strong {
+  font-size: 1.8em;
+  font-family: 'Just Me Again Down Here', cursive;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/maxis\/projects\/glance-nlplab\/app\/static\/styles\/main\.scss}line{font-family:\00003250}}
-#input-block {
-  height: 72px;
-}
-
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/maxis\/projects\/glance-nlplab\/app\/static\/styles\/main\.scss}line{font-family:\00003253}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/maxis\/projects\/glance-nlplab\/app\/static\/styles\/main\.scss}line{font-family:\00003269}}
 .list-block {
   width: 100%;
   min-height: 55px;
@@ -7855,17 +7866,17 @@ a:hover {
   position: relative;
   font-family: "Segoe UI light";
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/maxis\/projects\/glance-nlplab\/app\/static\/styles\/main\.scss}line{font-family:\00003265}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/maxis\/projects\/glance-nlplab\/app\/static\/styles\/main\.scss}line{font-family:\00003281}}
 .list-block:nth-child(1) {
   height: 96px;
   border-bottom: 1px dashed #aaa;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/maxis\/projects\/glance-nlplab\/app\/static\/styles\/main\.scss}line{font-family:\00003269}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/maxis\/projects\/glance-nlplab\/app\/static\/styles\/main\.scss}line{font-family:\00003285}}
 .list-block:nth-child(1) .logo-wrap {
   position: absolute;
   top: 16px;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/maxis\/projects\/glance-nlplab\/app\/static\/styles\/main\.scss}line{font-family:\00003272}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/maxis\/projects\/glance-nlplab\/app\/static\/styles\/main\.scss}line{font-family:\00003288}}
 .list-block:nth-child(1) .logo-wrap span {
   /*font-family: $glance-font-thin;*/
   font-size: 12px;
@@ -7873,7 +7884,7 @@ a:hover {
   margin-left: 12px;
   padding-left: 6px;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/maxis\/projects\/glance-nlplab\/app\/static\/styles\/main\.scss}line{font-family:\00003279}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/maxis\/projects\/glance-nlplab\/app\/static\/styles\/main\.scss}line{font-family:\00003295}}
 .list-block:nth-child(1) .logo-wrap #glance-logo {
   /*font-family: $glance-font-thin;*/
   text-transform: uppercase;
@@ -7882,7 +7893,7 @@ a:hover {
   margin-left: 12px;
   color: #d60909;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/maxis\/projects\/glance-nlplab\/app\/static\/styles\/main\.scss}line{font-family:\00003290}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/maxis\/projects\/glance-nlplab\/app\/static\/styles\/main\.scss}line{font-family:\00003306}}
 .list-block:nth-last-child(1) {
   position: absolute;
   bottom: 0;
@@ -7890,52 +7901,59 @@ a:hover {
   max-height: 55px;
   padding-bottom: 12px;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/maxis\/projects\/glance-nlplab\/app\/static\/styles\/main\.scss}line{font-family:\00003296}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/maxis\/projects\/glance-nlplab\/app\/static\/styles\/main\.scss}line{font-family:\00003312}}
 .list-block:nth-last-child(1) div {
   position: relative;
   margin-left: 12px;
   font-size: 0.8em;
   color: #444;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/maxis\/projects\/glance-nlplab\/app\/static\/styles\/main\.scss}line{font-family:\00003302}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/maxis\/projects\/glance-nlplab\/app\/static\/styles\/main\.scss}line{font-family:\00003318}}
 .list-block:nth-last-child(1) div a {
   font-size: 0.9em;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/maxis\/projects\/glance-nlplab\/app\/static\/styles\/main\.scss}line{font-family:\00003321}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/maxis\/projects\/glance-nlplab\/app\/static\/styles\/main\.scss}line{font-family:\00003338}}
 #nav-container .selected {
   border-top: 1px dotted #cccccc;
   border-bottom: 1px solid #cccccc;
   background: #f4f4f4;
   cursor: pointer;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/maxis\/projects\/glance-nlplab\/app\/static\/styles\/main\.scss}line{font-family:\00003315}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/maxis\/projects\/glance-nlplab\/app\/static\/styles\/main\.scss}line{font-family:\00003331}}
 #nav-container .selected .nav-arrow, #nav-container .selected .nav-arrow-border {
   visibility: visible;
+  /*visibility: visible;*/
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/maxis\/projects\/glance-nlplab\/app\/static\/styles\/main\.scss}line{font-family:\00003325}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/maxis\/projects\/glance-nlplab\/app\/static\/styles\/main\.scss}line{font-family:\00003342}}
+#nav-greeting {
+  height: 72px;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/maxis\/projects\/glance-nlplab\/app\/static\/styles\/main\.scss}line{font-family:\00003345}}
 .function-nav-block {
   border-top: 1px solid transparent;
   border-bottom: 1px dotted #cccccc;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/maxis\/projects\/glance-nlplab\/app\/static\/styles\/main\.scss}line{font-family:\00003329}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/maxis\/projects\/glance-nlplab\/app\/static\/styles\/main\.scss}line{font-family:\00003350}}
 .function-nav-block:hover {
   border-top: 1px dotted #cccccc;
   border-bottom: 1px solid #cccccc;
   background: #f4f4f4;
   cursor: pointer;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/maxis\/projects\/glance-nlplab\/app\/static\/styles\/main\.scss}line{font-family:\00003315}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/maxis\/projects\/glance-nlplab\/app\/static\/styles\/main\.scss}line{font-family:\00003331}}
 .function-nav-block:hover .nav-arrow, .function-nav-block:hover .nav-arrow-border {
-  visibility: visible;
+  visibility: hidden;
+  /*visibility: visible;*/
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/maxis\/projects\/glance-nlplab\/app\/static\/styles\/main\.scss}line{font-family:\00003332}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/maxis\/projects\/glance-nlplab\/app\/static\/styles\/main\.scss}line{font-family:\00003353}}
 .function-nav-block .nav-arrow, .function-nav-block .nav-arrow-border {
   position: absolute;
   visibility: hidden;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/maxis\/projects\/glance-nlplab\/app\/static\/styles\/main\.scss}line{font-family:\00003336}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/maxis\/projects\/glance-nlplab\/app\/static\/styles\/main\.scss}line{font-family:\00003357}}
 .function-nav-block .nav-arrow {
   border-color: transparent transparent transparent #f4f4f4;
   border-style: solid;
@@ -7944,7 +7962,7 @@ a:hover {
   right: -13px;
   z-index: 3;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/maxis\/projects\/glance-nlplab\/app\/static\/styles\/main\.scss}line{font-family:\00003342}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/maxis\/projects\/glance-nlplab\/app\/static\/styles\/main\.scss}line{font-family:\00003363}}
 .function-nav-block .nav-arrow-border {
   border-color: transparent transparent transparent #cccccc;
   border-style: solid;
@@ -7953,14 +7971,14 @@ a:hover {
   right: -16px;
   z-index: 2;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/maxis\/projects\/glance-nlplab\/app\/static\/styles\/main\.scss}line{font-family:\00003349}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/maxis\/projects\/glance-nlplab\/app\/static\/styles\/main\.scss}line{font-family:\00003370}}
 .function-nav-block .function-nav-content {
   position: relative;
   width: 100%;
   height: 56px;
   /*left: $nav-left-margin;*/
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/maxis\/projects\/glance-nlplab\/app\/static\/styles\/main\.scss}line{font-family:\00003355}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/maxis\/projects\/glance-nlplab\/app\/static\/styles\/main\.scss}line{font-family:\00003376}}
 .function-nav-block .function-nav-content div {
   position: relative;
   /*margin: 0 auto;*/
@@ -7971,23 +7989,23 @@ a:hover {
   font-family: "Segoe UI light";
   margin-left: 12px;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/maxis\/projects\/glance-nlplab\/app\/static\/styles\/main\.scss}line{font-family:\00003365}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/maxis\/projects\/glance-nlplab\/app\/static\/styles\/main\.scss}line{font-family:\00003386}}
 .function-nav-block .function-nav-content .content-head {
   color: #d60909;
 }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/maxis\/projects\/glance-nlplab\/app\/static\/styles\/main\.scss}line{font-family:\00003368}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/maxis\/projects\/glance-nlplab\/app\/static\/styles\/main\.scss}line{font-family:\00003389}}
 .function-nav-block .function-nav-content .content-body {
   font-size: 0.9em;
   color: #bbb;
 }
 
 /* ================================================================ */
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/maxis\/projects\/glance-nlplab\/app\/static\/styles\/main\.scss}line{font-family:\00003381}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/maxis\/projects\/glance-nlplab\/app\/static\/styles\/main\.scss}line{font-family:\00003402}}
 #wordDefinition {
   color: #444;
 }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/maxis\/projects\/glance-nlplab\/app\/static\/styles\/main\.scss}line{font-family:\00003385}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/maxis\/projects\/glance-nlplab\/app\/static\/styles\/main\.scss}line{font-family:\00003406}}
 .hide {
   display: none;
 }

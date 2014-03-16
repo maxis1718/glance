@@ -211,45 +211,61 @@ $nav-arrow-border-position: 15px;
 
     left: 236px;
     margin-top: 20px;
+    margin-bottom: 64px;
+
     position: absolute;
 
-    .function-content-header, .function-content-block {
+    .function-content, {
         width: 90%;
-    }
-    .function-content-block {
-        
-        height: 480px;
-        background: white;
-        border: 1px solid $function-nav-bgcolor;
-        margin-bottom: 12px;
         position: relative;
 
+        border: 1px solid $function-nav-bgcolor;
+        margin-bottom: 12px;
         padding: 26px;
-        min-height: 64px;
+
+        background: white;
+
+        @include border-radius(3px);
+        font-family: $glance-font-thin;
+    }
+    .block {
+        
+        /*height: 480px;*/
+        
+        min-height: 480px;
+        
         
         div {
             width: 100%;
             min-height: 36px;
         }
         .function-tag {
-            font-family: $glance-font-thin;
+            
             color: $glance-theme-color;
             font-size: 16px;
+
+            /*@include transform(rotate(90deg) );*/
+            /*@include rotate()*/
 
         }
         .function-aera {
 
         }
     }
-    .function-content-header {
-        height: 64px;
+    .header {
+        height: 136px;
+        background: white;
+        margin-top: 36px;
+        font-size: 1.2em;
+        strong {
+            font-size: 1.8em;
+            font-family: 'Just Me Again Down Here', cursive;
+            
+        }
 
     }    
 }
 
-#input-block {
-    height: 72px;
-}
 .list-block {
     width: 100%;
     min-height: 55px;
@@ -307,27 +323,32 @@ $nav-arrow-border-position: 15px;
     }
 }
 
-@mixin nav-highlight($bdcolor, $bgcolor) {
+@mixin nav-highlight($bdcolor, $bgcolor, $show_triangle) {
     border-top: 1px dotted $bdcolor;
     border-bottom: 1px solid $bdcolor;
 
     background: $bgcolor;
     .nav-arrow, .nav-arrow-border {
-        visibility: visible;
+        visibility: $show_triangle;
+        /*visibility: visible;*/
     }
     cursor: pointer;  
 }
 #nav-container {
     .selected {
-        @include nav-highlight( $function-nav-bgcolor, $function-nav-bgcolor-highlight );
+        @include nav-highlight( $function-nav-bgcolor, $function-nav-bgcolor-highlight, visible );
     }
+}
+#nav-greeting {
+    height: 72px;
 }
 .function-nav-block {
 
     border-top: 1px solid transparent;
     border-bottom: 1px dotted $function-nav-bgcolor;
+
     &:hover {
-        @include nav-highlight( $function-nav-bgcolor, $function-nav-bgcolor-highlight );
+        @include nav-highlight( $function-nav-bgcolor, $function-nav-bgcolor-highlight, hidden  );
     }
     .nav-arrow, .nav-arrow-border {
         position: absolute;

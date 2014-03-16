@@ -7,24 +7,77 @@ $( document ).ready(function() {
 });
 
 function events(){
-	navigation('.function-nav-block')
+	navigation('.function-nav-block');
+	scrolling('.function-content', '.function-nav-block');
+}
+
+function scrolling(listenTo, changeTarget) {
+
+	var previous = false;
+	var current = false;
+
+	$(window).scroll(function(){
+
+		$.each($(listenTo), function(i, obj){
+
+			// console.log(i)
+			// console.log(obj)
+			// var text = $(obj).find('.function-tag').text();
+			var nav_id = 'nav-' + $(obj).attr('id').split('-')[1];
+			var scrollTop = $(window).scrollTop();
+			// var allheight = $('#content-container').height();
+
+			var blockScreenTop = $(obj).offset().top - scrollTop;
+			var blockScreenBot = blockScreenTop + $(obj).height();
+
+			// console.log(nav_id,':',blockScreenTop)
+
+			if(blockScreenTop < 190 && blockScreenTop > 0)
+			{
+				
+				if (previous == false && current == false){
+					// first time, just record, don't do click
+					previous = nav_id;
+					current = nav_id;
+				}
+
+				previous = current;
+				current = nav_id;
+
+				if ( previous == current ) {
+					// do nothing
+				}
+				else {
+					$(changeTarget).removeClass('selected');
+					$('#'+nav_id).addClass('selected');
+				}
+
+			}
+		});
+		
+		
+	});
 }
 
 function navigation(selector) {
+
 	$(selector).click(function(e){
 		$(selector).removeClass('selected');
 		$(this).addClass('selected');
 
-		var name = $(this).find('.content-head').find('a').attr('href').slice(1);
-		
-		var block = $("#blockLabel-"+name).parents('.function-content-block')
+		// var name = $(this).find('.content-head').find('a').attr('href').slice(1);
+		var name = $(this).attr('id').split('-')[1];
 
-		var margin_padding_offset = block.outerHeight(true) - block.height();
+		var block = $("#block-"+name).parent();
+		// var margin_padding_offset =  block.index() == 0 ? 0 : block.outerHeight(true) - block.height();
+		var margin_padding_offset =  block.outerHeight(true) - block.height();
 
 	    $('html, body').animate({
-    	    scrollTop: $("#blockLabel-"+name).offset().top - margin_padding_offset
+    	    scrollTop: $("#block-"+name).offset().top - margin_padding_offset
     	}, 250);
 
+    	// if this is the input wrap
+    	$(this).find('#input-area').focus();
 	});
 }
 

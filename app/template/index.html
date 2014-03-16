@@ -13,6 +13,7 @@
         <!-- google font -->
         <!-- Josefin Sans -->
         <link href='http://fonts.googleapis.com/css?family=Josefin+Sans' rel='stylesheet' type='text/css'>
+        <link href='http://fonts.googleapis.com/css?family=Just+Me+Again+Down+Here' rel='stylesheet' type='text/css'>
         <!-- Gruppo -->
         <!-- <link href='http://fonts.googleapis.com/css?family=Gruppo' rel='stylesheet' type='text/css'> -->
 
@@ -58,7 +59,7 @@
                             <span>dictionary visualization</span>
                         </div>
                     </div>
-                    <div class="list-block function-nav-block" id="input-block">
+                    <div class="list-block function-nav-block selected" id="nav-greeting">
                         <div class="input-wrap">
                             <div class="input-area-wrap">
                                 <input id="input-area" type="text" placeholder="search..."/>
@@ -73,43 +74,41 @@
                         <span class="nav-arrow"></span>
                         <span class="nav-arrow-border"></span>                        
                     </div>
-                    <div class="list-block function-nav-block selected">
-
+                    <div class="list-block function-nav-block" id="nav-definition">
                         <div class="function-nav-content">
-                            <div class="content-head"><a href="#definition">Definition</a></div>
+                            <div class="content-head">Definition</div>
                             <div class="content-body">define the <span>word</span></div>
                         </div>
                         <span class="nav-arrow"></span>
                         <span class="nav-arrow-border"></span>
                     </div>
-                    <div class="list-block function-nav-block">
+                    <div class="list-block function-nav-block" id="nav-example">
                         <div class="function-nav-content">
-                            <div class="content-head"><a href="#example">Examples</a></div>
+                            <div class="content-head">Examples</div>
                             <div class="content-body">examples of <span>word</span></div>
                         </div>
                         <span class="nav-arrow"></span>
                         <span class="nav-arrow-border"></span>                        
                     </div>
-                    <div class="list-block function-nav-block">
-                        
+                    <div class="list-block function-nav-block" id="nav-usage">
                         <div class="function-nav-content">
-                            <div class="content-head"><a href="#usage">Usage</a></div>
+                            <div class="content-head">Usage</div>
                             <div class="content-body">usage of <span>word</span></div>                    
                         </div>
                         <span class="nav-arrow"></span>
                         <span class="nav-arrow-border"></span>                        
                     </div>
-                    <div class="list-block function-nav-block">
+                    <div class="list-block function-nav-block" id="nav-pos">
                         <div class="function-nav-content">
-                            <div class="content-head"><a href="#pos">POS tag</a></div>
+                            <div class="content-head">POS tag</div>
                             <div class="content-body">part of speech of <span>word</span></div>
                         </div>
                         <span class="nav-arrow"></span>
                         <span class="nav-arrow-border"></span>                        
                     </div>
-                    <div class="list-block function-nav-block">
+                    <div class="list-block function-nav-block" id="nav-genre">
                         <div class="function-nav-content">
-                            <div class="content-head"><a href="#genre">Genre</a></div>
+                            <div class="content-head">Genre</div>
                             <div class="content-body">genre of <span>word</span></div>                    
                         </div>
                         <span class="nav-arrow"></span>
@@ -121,27 +120,28 @@
                     </div>
                 </div>
                 <div id="content-container">
-                        <div class="function-content-header">
-                            <!-- content header -->
+                        <div class="function-content header" id="block-greeting">
+                            <div class="">A Brand new way to <strong>look</strong> up a tedious dictionary !</div>
                         </div>
-                        <div class="function-content-block">
-                            <div class="function-tag" id="blockLabel-definition" >Definition</div>
-                            <div class="function-aera" id="wordExample"></div>
+                        <div class="function-content block" id="block-definition">
+                            <!-- <div class="function-label"></div> -->
+                            <div class="function-tag">Definition</div>
+                            <div class="function-aera" id="wordDefinition"></div>
                         </div>                        
-                        <div class="function-content-block">
-                            <div class="function-tag" id="blockLabel-example" >Example</div>
+                        <div class="function-content block" id="block-example">
+                            <div class="function-tag">Example</div>
                             <div class="function-aera" id="wordExample"></div>
                         </div>
-                        <div class="function-content-block">
-                            <div class="function-tag" id="blockLabel-usage">Usage</div>
+                        <div class="function-content block" id="block-usage">
+                            <div class="function-tag">Usage</div>
                             <div class="function-aera"></div>
                         </div>
-                        <div class="function-content-block">
-                            <div class="function-tag" id="blockLabel-pos" >POS tag</div>
+                        <div class="function-content block" id="block-pos" >
+                            <div class="function-tag">POS tag</div>
                             <div class="function-aera"></div>
                         </div>
-                        <div class="function-content-block">
-                            <div class="function-tag" id="blockLabel-genre" >Genre</div>
+                        <div class="function-content block" id="block-genre">
+                            <div class="function-tag">Genre</div>
                             <div id="genrePieChart" class="function-aera"></div>
                         </div>               
                 </div>
