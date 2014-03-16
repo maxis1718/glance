@@ -1,5 +1,6 @@
 $( document ).ready(function() {
    
+
 	$.urlParam = function(name){
 		var results = new RegExp('[\\?&]' + name + '=([^&#]*)').exec(window.location.href);
 			if (!results) { return 0; }
@@ -15,6 +16,10 @@ $( document ).ready(function() {
 	}
 
 
+
+   	init();
+   	events();
+
 	bindKeyboardActionToForm();
 
 
@@ -22,6 +27,7 @@ $( document ).ready(function() {
 	handlebarHelperRegister();
 
 });
+
 
 
 function handlebarHelperRegister(){
@@ -64,6 +70,87 @@ function handlebarHelperRegister(){
 
 
 
+function events(){
+	navigation('.function-nav-block');
+	scrolling('.function-content', '.function-nav-block');
+}
+
+function scrolling(listenTo, changeTarget) {
+
+	var previous = false;
+	var current = false;
+
+	$(window).scroll(function(){
+
+		$.each($(listenTo), function(i, obj){
+
+			// console.log(i)
+			// console.log(obj)
+			// var text = $(obj).find('.function-tag').text();
+			var nav_id = 'nav-' + $(obj).attr('id').split('-')[1];
+			var scrollTop = $(window).scrollTop();
+			// var allheight = $('#content-container').height();
+
+			var blockScreenTop = $(obj).offset().top - scrollTop;
+			var blockScreenBot = blockScreenTop + $(obj).height();
+
+			// console.log(nav_id,':',blockScreenTop)
+
+			if(blockScreenTop < 190 && blockScreenTop > 0)
+			{
+				
+				if (previous == false && current == false){
+					// first time, just record, don't do click
+					previous = nav_id;
+					current = nav_id;
+				}
+
+				previous = current;
+				current = nav_id;
+
+				if ( previous == current ) {
+					// do nothing
+				}
+				else {
+					$(changeTarget).removeClass('selected');
+					$('#'+nav_id).addClass('selected');
+				}
+
+			}
+		});
+		
+		
+	});
+}
+
+function navigation(selector) {
+
+	$(selector).click(function(e){
+		$(selector).removeClass('selected');
+		$(this).addClass('selected');
+
+		// var name = $(this).find('.content-head').find('a').attr('href').slice(1);
+		var name = $(this).attr('id').split('-')[1];
+
+		var block = $("#block-"+name).parent();
+		// var margin_padding_offset =  block.index() == 0 ? 0 : block.outerHeight(true) - block.height();
+		var margin_padding_offset =  block.outerHeight(true) - block.height();
+
+	    $('html, body').animate({
+    	    scrollTop: $("#block-"+name).offset().top - margin_padding_offset
+    	}, 250);
+
+    	// if this is the input wrap
+    	$(this).find('#input-area').focus();
+	});
+}
+
+function init(){
+	$('#input-area').focus();
+
+}
+
+
 /* load tempalte file and render it to #entry */
 function loadTemplate( templateName , data , entry , callback ){
 
@@ -87,24 +174,42 @@ function loadTemplate( templateName , data , entry , callback ){
     
 }
 
-
 /* bind enter action to text input */
 function bindKeyboardActionToForm(){
-	$("#input-area").keyup(function(event){
-	    if(event.keyCode == 13){
-	    	
-	        
-	        window.location = "?query=" + $("#input-area").val();
 
+	// $('body').keyup(function(e){
+	// 	// if pressing a-z
+	// 	if( (e.keyCode >= 65 && e.keyCode <= 90)  || (e.which >= 65 && e.which <= 90) )
+	// 	{
+
+	// 	}
+	// 	if( (e.keyCode == 13 || e.which == 13) ){
 			
+	// 	}
+	// });
+	
+	$('.input-btn').click(function(e){
+		fetchData( $("#input-area").val() );
+		// $("#input-area").val('');
+	});
 
+	$("#input-area").keyup(function(e){
+	    if(e.keyCode == 13 || e.which == 13){
+	    	// triger the fetch event
+	       $('.input-btn').click();
 	    }
+	}).mouseup(function(e){
+		$(this).select();
 	});
 }
 
 
 /* function when user input a word or reload a page with a word */
 function fetchData( qWord ){
+
+	// clear current data
+	$('.function-aera').html('');
+
 
 	/* load difinition */
 	queryWord( qWord );
@@ -703,10 +808,4 @@ function type(d) {
   d.oranges = +d.oranges;
   return d;
 }
-
-
-
-
-
-
 

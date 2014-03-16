@@ -80,6 +80,10 @@ def show_cluster():
 
 ### ---------------------------- API ---------------------------- ###
 ### pos API
+@app.route('/api/word/<query>/usages/')
+@app.route('/api/word/<query>/usages')
+def word_usages(query):
+	pass
 
 # @app.route('/api/<query>/pos')
 @app.route('/api/word/<query>/postag/')
@@ -165,10 +169,10 @@ def translate_to_english(query):
 
 
 if __name__ == "__main__":
-	
 	app.config.update(
 	    DEBUG=True,
 	    SEND_FILE_MAX_AGE_DEFAULT=0
 	)
-	
+
 	app.run(host="0.0.0.0")
+
