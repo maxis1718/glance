@@ -12,7 +12,10 @@ import sys
 import codecs
 
 try:
+    print >> sys.stderr, 'load wordnet...',
     from nltk.corpus import wordnet as wn
+    sys.stderr.flush()
+    print >> sys.stderr, 'successfully'
 except ImportError:
     sys.stderr.write("Couldn't find an NLTK installation. To get it: http://www.nltk.org/.\n")
     sys.exit(2)
