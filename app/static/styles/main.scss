@@ -209,7 +209,7 @@ $nav-arrow-border-position: 15px;
 }
 #content-container {
     min-width: 610px;
-    max-width: 840px;
+    max-width: 960px;
 
     left: 236px;
     margin-top: 20px;
@@ -218,7 +218,7 @@ $nav-arrow-border-position: 15px;
     position: absolute;
 
     .function-content, {
-        width: 90%;
+        width: 100%;
         position: relative;
 
         border: 1px solid $function-nav-bgcolor;
@@ -235,7 +235,7 @@ $nav-arrow-border-position: 15px;
         
         /*height: 480px;*/
         
-        min-height: 480px;
+        min-height: 64px;
         
         
         div {
@@ -261,9 +261,9 @@ $nav-arrow-border-position: 15px;
         margin-top: 36px;
         font-size: 1.2em;
         strong {
-            font-size: 1.8em;
+            font-size: 1.5em;
             font-family: 'Just Me Again Down Here', cursive;
-            
+            color: #444;
         }
 
 
@@ -425,13 +425,32 @@ polyline{
 /* ================================================================ */
 
 
-
-
 #wordDefinition{
+
+    .nav-pills {
+
+        li {
+            a {
+                @include border-radius(2px);
+                /*@include border-bottom-radius(px);*/
+            }
+        }
+
+        li.active {
+
+            a {
+                background-color: $glance-theme-color;
+            }
+        }
+    }
+    .tab-content {
+        .tab-pane {
+            max-width: 640px;
+        }
+        margin-top: 12px;
+    }
     color: #444;
 }
-
-
 
 #wordPosition{
     fill:#CCC;
@@ -448,31 +467,45 @@ polyline{
 }
 
 #accordion{
+    .panel-group .panel {
+        @include border-radius(3px);
+    }
     .panel{
 
-        .panel-heading{
-            .panel-title{
-                color:black;
+        /*width: 480px;*/
 
+        .panel-heading{
+
+
+
+            .panel-title{
+
+                font-family: $glance-font-thin;
+                font-size: 14px;
+
+                a {
+                    text-decoration: none;
+                    &:hover {
+                        color: $glance-theme-color!important;
+
+                        .panel-title-definition {
+                            text-decoration: underline;
+                        }
+                    }
+                }
                 .panel-title-pos{
-                    font-size: 2.5em;
+                    color: #555;
+                    font-size: 2.0em;
                 }
                 .panel-title-definition{
-                    color: gray;
-
-
+                    /*font-size:;*/
+                    color: #999;
                 }
-
-
             }
-
-
-
         }
 
         .panel-collapse{
             .panel-body{
-
                 color: black;
 
             }
