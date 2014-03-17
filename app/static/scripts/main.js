@@ -18,6 +18,7 @@ var glanceFunctions = { "function-list": [
 
 $( document ).ready(function() {
    
+	// console.log('1');
 
 	$.urlParam = function(name){
 		var results = new RegExp('[\\?&]' + name + '=([^&#]*)').exec(window.location.href);
@@ -25,27 +26,26 @@ $( document ).ready(function() {
 			return results[1] || 0;
 	}
 
+	// console.log('2');
 	var query = $.urlParam( 'query' );
 
+	// console.log('3');
+
+	// console.log(query);
+
+	loadTemplate( "index", glanceFunctions, $("#main-container") , function(){
+
+		if(query){
+			fetchData( query );	
+		}
+		init();
+	   	events();
+		bindKeyboardActionToForm();
+	});
 
 	if( query != "" ){
 		$("#input-area").val(query);
-
-		loadTemplate( "index", glanceFunctions, $("#main-container") , function(){
-			fetchData( query );
-			init();
-		   	events();
-
-			bindKeyboardActionToForm();
-
-		});
-
 	}
-
-
-
-   	
-
 	handlebarHelperRegister();
 
 });
@@ -175,6 +175,8 @@ function init(){
 
 /* load tempalte file and render it to #entry */
 function loadTemplate( templateName , data , entry , callback ){
+
+	console.log(templateName);
 
     $.ajax({
 		url : "/hb-template/" + templateName + ".tpl" ,
