@@ -1,10 +1,9 @@
 venv
 *.pyc
 .DS_Store
-.sass-cache/*
-.tmp/*
-_junk
+.sass-cache
+.tmp
 Gruntfile.js
 package.json
-.node_modules/*
+node_modules
 
