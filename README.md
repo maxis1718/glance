@@ -66,26 +66,26 @@ templateName這個參數就是傳`.tpl`之前的檔案名稱(不包括副檔名)
 
 * ### to do list
     
-    * re-arrange grid
+    * ##### re-arrange grid
     
         * issue: 現在螢幕縮小之後，右邊那塊會出現捲軸..
         
         1. 重新用 bootstrap 刻好
         2. 直接把右邊那塊釘死
     
-    * add loading icon
+    * ##### add loading icon
         1. 發送 ajax 之後再每個區塊加 loading
         2. 全部放一個 loading 就好
     
-    * hello page
+    * ##### hello page
         1. 要一次 show 出全部？
         2. 先全部隱藏
     
-    * N, V 並排
+    * ##### N, V 並排
         1. 改變呈現方式
         2. 直接把 V -> Verb, N -> Noun
         
-    * POS 大餅圖
+    * ##### POS 大餅圖
         1. 顏色要改 (葛蘭斯配色，要找協調色
         2. 可點選 + highlight 的圖例？
     
