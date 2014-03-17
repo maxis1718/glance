@@ -637,15 +637,10 @@ function update(source, layoutRoot, diagonal ) {
 	});
 }
 
-
-
-
-
-
 /* draw word position */
 function drawWordPosition( word_position_data, entryName ){
 
-	var margin = {top: 20, right: 20, bottom: 30, left: 40},
+	var margin = { top: 20, right: 20, bottom: 30, left: 40 },
     width = 600 - margin.left - margin.right,
     height = 400 - margin.top - margin.bottom;
 
@@ -701,8 +696,6 @@ function drawWordPosition( word_position_data, entryName ){
 		.attr( "width" , x.rangeBand() )
 		.attr( "y" , function(d) { return y(d[1]); })
 		.attr("height", function(d) { return height - y(d[1]); });
-
-
 }
 
 
