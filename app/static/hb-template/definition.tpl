@@ -1,5 +1,4 @@
 
-
 <!-- Nav tabs -->
 <ul class="nav nav-pills">
 {{#each pos_index}}
@@ -29,6 +28,7 @@
 			      <h4 class="panel-title">
 			        <a data-toggle="collapse" data-parent="#accordion" href="#collapse-{{@index}}">
 			          <span class="panel-title-pos">{{POS}}</span> <span class="panel-title-definition">{{definition}}</span>
+						
 			        </a>
 			      </h4>
 			    </div>
@@ -42,25 +42,21 @@
 
 					</ul>
 
-					<b>Polarity</b>
-					<div id="wordPolarity-{{@index}}">
-
-					</div>
-			        
 			      </div>
 			    </div>
 			  </div>
 			{{/ifCond}}
 		{{/../contents}}
 		</div>
-		
-
 
   </div>
 
 {{/each}}
   
 </div>
+
+
+
 
 
 

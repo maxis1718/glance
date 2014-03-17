@@ -1,3 +1,21 @@
+var glanceWordPosID = "posChart";
+var glanceWordDefinitionID = "wordDefinition";
+var glanceWordPositionID = "wordPosition";
+var glanceWordTranslationID = "wordTranslation";
+var glanceWordTree = "wordSenseTree";
+var glacneWordPolarityID = "wordPolarity";
+
+
+var glanceFunctions = { "function-list": [
+	{ 'id': glanceWordDefinitionID  ,"display-name":"Definition"  },
+	{ 'id': glanceWordTranslationID ,"display-name":"Translation" },
+	{ 'id': glanceWordPosID         ,"display-name":"POS"         },
+	{ 'id': glanceWordPositionID    ,"display-name":"Position"    },
+	{ 'id': glanceWordTree          ,"display-name":"Structure"   },
+	{ 'id': glacneWordPolarityID      ,"display-name":"Polarity"  }
+	
+]};
+
 $( document ).ready(function() {
    
 
@@ -12,17 +30,21 @@ $( document ).ready(function() {
 
 	if( query != "" ){
 		$("#input-area").val(query);
-		fetchData( query );
+
+		loadTemplate( "index", glanceFunctions, $("#main-container") , function(){
+			fetchData( query );
+			init();
+		   	events();
+
+			bindKeyboardActionToForm();
+
+		});
+
 	}
 
 
 
-   	init();
-   	events();
-
-	bindKeyboardActionToForm();
-
-
+   	
 
 	handlebarHelperRegister();
 
@@ -176,17 +198,6 @@ function loadTemplate( templateName , data , entry , callback ){
 
 /* bind enter action to text input */
 function bindKeyboardActionToForm(){
-
-	// $('body').keyup(function(e){
-	// 	// if pressing a-z
-	// 	if( (e.keyCode >= 65 && e.keyCode <= 90)  || (e.which >= 65 && e.which <= 90) )
-	// 	{
-
-	// 	}
-	// 	if( (e.keyCode == 13 || e.which == 13) ){
-			
-	// 	}
-	// });
 	
 	$('.input-btn').click(function(e){
 		fetchData( $("#input-area").val() );
@@ -210,27 +221,18 @@ function fetchData( qWord ){
 	// clear current data
 	$('.function-aera').html('');
 
-
 	/* load difinition */
 	queryWord( qWord );
 
 	queryPOS( qWord );
-	
 
 	queryGenre( qWord );
 
-
 	queryPosition( qWord );
-
 
 	queryTranlastion( qWord );
 
 }
-
-
-
-
-
 
 
 /* ===================== module specific =================== */
@@ -241,67 +243,39 @@ function queryWord( qWord ){
 	/* get word info */
 	$.get('/api/word/'+qWord, function(data) {
 		/*optional stuff to do after success */
-		loadTemplate("definition", data , $("#wordDefinition") , function(){
+		loadTemplate("definition", data , $("#"+glanceWordDefinitionID) , function(){
 
+			loadTemplate("polarity", data, $("#"+glacneWordPolarityID), function(){
+					
+				
+				$.each(data['contents'], function(index, val) {
+					 /* iterate through array or object */
+					var polarity = val['polarity'];
 
-			$.each(data['contents'], function(index, val) {
-				 /* iterate through array or object */
-				var polarity = val['polarity'];
+					var word_polarity_data = [];
+				    $.each(polarity, function( key, value ) {
+				      if(value>0){
+						  word_polarity_data.push([ key, value]);
+						}
+					});
 
-				var word_polarity_data = [];
-			    $.each(polarity, function( key, value ) {
-			      if(value>0){
-					  word_polarity_data.push([ key, value]);
-					}
+				    drawPolarity( word_polarity_data , "wordPolarity-"+index );
+					
 				});
 
-				
-				drawPolarity( word_polarity_data , "wordPolarity-"+index );
-
-
 			});
-
 
 		});
 
 		wordsense = data['contents'][0];
 		wordsense.name = data['contents'][0]['sense'];
 
-		drawTreeStructure();
-
-
-
-
+		drawTreeStructure( glanceWordTree );
 
 	});
 
 
 }
-
-
-
-// function queryTreeStructure( qWord ){
-
-// 	// $.urlParam = function(name){
-// 	// 	var results = new RegExp('[\\?&]' + name + '=([^&#]*)').exec(window.location.href);
-// 	// 		if (!results) { return 0; }
-// 	// 		return results[1] || 0;
-// 	// }
-
-// 	// var query = $.urlParam( 'query' );
-
-// 	$.getJSON('/api/word/'+ qWord , function(data){
-		
-		
-
-		
-
-// 	}).error(function(err){				
-// 		console.log( err );
-// 	});
-
-// }
-
 
 
 function queryPOS( qWord ){
@@ -310,7 +284,7 @@ function queryPOS( qWord ){
 	$.get('/api/word/'+qWord+"/postag", function(data) {
 		/*optional stuff to do after success */
 		
-		drawPosChart( data );
+		drawPosChart( data, glanceWordPosID );
 		
 	});
 
@@ -326,7 +300,7 @@ function queryPosition( qWord ){
 		//   word_position_data.push([ index, value]);
 		// });
 
-		drawWordPosition( data , "wordPosition" );
+		drawWordPosition( data , glanceWordPositionID );
 		
 	});
 
@@ -342,7 +316,7 @@ function queryTranlastion( qWord ){
 		//   word_position_data.push([ index, value]);
 		// });
 
-		loadTemplate("translation", data , $("#wordTranslation") );
+		loadTemplate("translation", data , $("#"+glanceWordTranslationID ) );
 		
 	});
 
@@ -366,9 +340,9 @@ function queryGenre( qWord ){
 /* ===================== drawing functions ======================= */
 
 /* draw a pie chart for POS tags */
-function drawPosChart( pos_data ){
-	var width = 460,
-    height = 300,
+function drawPosChart( pos_data , entryName ){
+	var width = 360,
+    height = 200,
     radius = Math.min(width, height) / 2;
 
 	var color = d3.scale.category20b();
@@ -381,13 +355,17 @@ function drawPosChart( pos_data ){
 	    .sort(null)
 	    .value(function(d) { return d[1]; });
 
-	var svg = d3.select("#posChart").append("svg")
+	var svg = d3.select("#"+entryName).append("svg")
 	    .attr("width", width)
 	    .attr("height", height)
 	  .append("g")
 	    .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
 
-	var g = svg.selectAll(".arc").data(pie(pos_data)).enter().append("g").attr("class", "arc");
+	var g = svg.selectAll(".arc").data(pie(pos_data)).enter().append("g").attr("class", "arc").on('click', function (d, i) {
+
+		console.log( i + "+" + d.data[0] );
+
+	});
 
 	g.append("path").attr("d", arc).style("fill", function(d) { return color(d.data); });
 	g.transition().attr("d", arc).duration(500);
@@ -440,7 +418,7 @@ function drawGenreChart( genre_data ){
 var tree;   // global variable tree
 
 
-function drawTreeStructure(){
+function drawTreeStructure( entryName ){
 
 	var size = { width:1200 , height:800 };
 	var options = { fontSize:16, nodeRadius:3};
@@ -465,7 +443,7 @@ function drawTreeStructure(){
 	        return (!d.hyponyms || d.hyponyms.length === 0) ? null : d.hyponyms;
 	    });
 
-	var layoutRoot = d3.select("#wordSenseTree")
+	var layoutRoot = d3.select("#"+entryName)
 	     .append("svg:svg").attr("width", size.width).attr("height", size.height)
 	     .append("svg:g")
 	     .attr("class", "container")
@@ -731,10 +709,7 @@ function drawWordPosition( word_position_data, entryName ){
 
 
 /* polarity */
-
-
-
-function drawPolarity( data , entryName ) {
+function drawPolarity2( data , entryName ) {
 	var width = 450,
     height = 300,
     radius = Math.min(width, height) / 2;
@@ -809,3 +784,92 @@ function type(d) {
   return d;
 }
 
+
+
+
+function drawPolarity( data , entryName ){
+	
+	var margin = {top: 20, right: 100, bottom: 30, left: 40},
+	    width = 100;
+	    height = 20;
+
+	var y = d3.scale.ordinal()
+	    .rangeRoundBands([0, width], .1);
+
+
+	    
+	var color = d3.scale.ordinal()
+	.domain(["objective", "positive", "negative"])
+	.range(["#6b486b", "#98abc5", "#ff8c00"]);
+
+	var xAxis = d3.svg.axis()
+	    .scale(x)
+	    .orient("bottom");
+
+	var yAxis = d3.svg.axis()
+	    .scale(y)
+	    .orient("left")
+	    .tickFormat(d3.format(".0%"));
+
+	var svg = d3.select("#"+entryName).append("svg")
+	    .attr("width", width + margin.left + margin.right)
+	    .attr("height", height + margin.top + margin.bottom)
+	  .append("g")
+	    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+	
+	// color.domain(d3.keys(data[0]).filter(function(key) { return key !== "State"; }));
+	var y0 = 0;
+	data.forEach(function(d) {
+	    
+	    d.barOrigin = y0;
+	    d.barWidth = d[1]*width;
+	    y0 += d.barWidth;
+	    
+	});
+
+	  // data.sort(function(a, b) { return b.ages[0].y1 - a.ages[0].y1; });
+	var x = d3.scale.linear().rangeRound( data.map(function(d) {  return d[1]*100; }) );
+	x.domain( data.map(function(d) {  return d[0]; }));
+	
+	  // svg.append("g")
+	  //     .attr("class", "x axis")
+	  //     .attr("transform", "translate(0," + height + ")")
+	  //     .call(xAxis);
+
+	  // svg.append("g")
+	  //     .attr("class", "y axis")
+	  //     .call(yAxis);
+
+	  var state = svg.selectAll(".state")
+	      .data(data)
+	    .enter().append("g")
+	      .attr("class", "state")
+	      // .attr("transform", function(d) {  return "translate(" + x(d[0]) + ",0)"; });
+
+	  state.selectAll("rect")
+	      .data(data)
+	    .enter().append("rect")
+	      .attr("width", function(d){ return d.barWidth; } )
+	      .attr("y", function(d) { return 0; })
+	      .attr("x",function(d){ return d.barOrigin; })
+	      .attr("height", height )
+	      .style("fill", function(d) { return color(d[0]); });
+
+	  // var legend = svg.select(".state:last-child").selectAll(".legend")
+	  //     .data(function(d) { return d.ages; })
+	  //   .enter().append("g")
+	  //     .attr("class", "legend")
+	  //     .attr("transform", function(d) { return "translate(" + x.rangeBand() / 2 + "," + y((d.y0 + d.y1) / 2) + ")"; });
+
+	  // legend.append("line")
+	  //     .attr("x2", 10);
+
+	  // legend.append("text")
+	  //     .attr("x", 13)
+	  //     .attr("dy", ".35em")
+	  //     .text(function(d) { return d.name; });
+
+	
+
+}
