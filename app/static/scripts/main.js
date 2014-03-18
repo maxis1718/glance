@@ -7,18 +7,17 @@ var glacneWordPolarityID = "wordPolarity";
 
 
 var glanceFunctions = { "function-list": [
-	{ 'id': glanceWordDefinitionID  ,"display-name":"Definition"  },
-	{ 'id': glanceWordTranslationID ,"display-name":"Translation" },
-	{ 'id': glanceWordPosID         ,"display-name":"POS"         },
-	{ 'id': glanceWordPositionID    ,"display-name":"Position"    },
-	{ 'id': glanceWordTree          ,"display-name":"Structure"   },
-	{ 'id': glacneWordPolarityID      ,"display-name":"Polarity"  }
+	{ 'id': glanceWordDefinitionID  ,"display-name":"Definition"	},
+	{ 'id': glanceWordTranslationID ,"display-name":"Translation"  	},
+	{ 'id': glanceWordPosID         ,"display-name":"POS"			},
+	{ 'id': glanceWordPositionID    ,"display-name":"Position"  	},
+	{ 'id': glanceWordTree          ,"display-name":"Structure"  	},
+	{ 'id': glacneWordPolarityID    ,"display-name":"Polarity"		}
 	
 ]};
 
 $( document ).ready(function() {
    
-	// console.log('1');
 
 	$.urlParam = function(name){
 		var results = new RegExp('[\\?&]' + name + '=([^&#]*)').exec(window.location.href);
@@ -26,20 +25,16 @@ $( document ).ready(function() {
 			return results[1] || 0;
 	}
 
-	// console.log('2');
 	var query = $.urlParam( 'query' );
-
-	// console.log('3');
-
-	// console.log(query);
 
 	loadTemplate( "index", glanceFunctions, $("#main-container") , function(){
 
 		if(query){
+
 			fetchData( query );	
 		}
+		events();
 		init();
-	   	events();
 		bindKeyboardActionToForm();
 	});
 
@@ -90,11 +85,139 @@ function handlebarHelperRegister(){
 
 }
 
+function menuHandeler() {
 
+	// var showMenu = function(){ .addClass('open-part'); };
+
+	var obj = $('#menu-nav').find('nav.side-nav').find('ul');
+
+	// var hidePart = obj.animate( {marginLeft: "-96px"}, 500 );
+
+	var clickEvent = function(){
+
+		var open = !obj.hasClass('hide-part');
+		var close = obj.hasClass('hide-part');
+		var fixed = obj.hasClass('fixed');
+		var notfixed = !obj.hasClass('fixed');
+
+		// 本來是打開的，而且釘住 --> 隱藏 + 取消 fixed
+		if(open && fixed)
+		{
+			obj.animate( { marginLeft: "-96px" }, 250, function(){ obj.addClass('hide-part').removeClass('fixed'); } );
+		}
+		// 本來是打開的, 還沒釘住, fixed it
+		else if(open && notfixed)
+		{
+			obj.addClass('fixed');
+		}
+		// 本來是 close，打開並 fix
+		else if(close)
+		{
+			obj.animate( { marginLeft: "0" }, 250, function(){ obj.removeClass('hide-part').addClass('fixed'); } );
+		}
+	}
+	var mouseoverEvent = function(){
+
+		var open = !obj.hasClass('hide-part');
+		var close = obj.hasClass('hide-part');
+		var fixed = obj.hasClass('fixed');
+
+		// 本來是打開，而且釘住
+		if(open && fixed)
+		{
+			// do nothing	
+		}
+		// 本來是關著 --> 打開，不釘住
+		else if(close)
+		{
+			obj.animate( { marginLeft: "0" }, 250, function(){ obj.removeClass('hide-part'); } );
+		}
+	}
+	var mouseoutEvent = function(){
+
+		var open = !obj.hasClass('hide-part');
+		var close = obj.hasClass('hide-part');
+		var fixed = obj.hasClass('fixed');
+		var notfixed = !obj.hasClass('fixed');		
+
+		// 本來是打開，而且釘住
+		if(open && fixed)
+		{
+			// do nothing
+		}
+		else if(open && notfixed)
+		{
+			obj.animate( { marginLeft: "-96px" }, 250, function(){ obj.addClass('hide-part').removeClass('fixed'); } );
+		}
+		// 本來是開著，沒釘住 --> 關
+		else if(close)
+		{
+			// do nothing
+		}		
+	}
+
+	
+	$('.menu-btn-wrap')
+		.click(clickEvent)
+		.mouseover(mouseoverEvent)
+		.mouseout(mouseoutEvent);
+
+
+	// $('.menu-btn-wrap').mouseover( function(){
+	// 	obj.animate(
+	// 		{ marginLeft: "0" },
+	// 		250,
+	// 		function(e){ 
+	// 			obj.removeClass('hide-part');
+	// 		}
+	// 	);
+	// });
+	// $('.menu-btn-wrap').mouseout( function(){
+	// 	obj.animate(
+	// 		{ marginLeft: "-96px" }, 
+	// 		200,
+	// 		function(e){ 
+	// 			obj.addClass('hide-part');
+	// 		}
+	// 	);
+	// });	
+
+}
 
 function events(){
-	navigation('.function-nav-block');
-	scrolling('.function-content', '.function-nav-block');
+
+	menuHandeler();
+
+
+	// navigation('.function-nav-block');
+	// scrolling('.function-content', '.function-nav-block');
+
+	// adjust last column width on window resize
+	// var i = 0;
+	// $(window).resize(function(){
+	// 	i += 1;
+	// 	console.log(i);
+	// 	var siblings_width = 0;
+	// 	$.each( $('.last-col').siblings('.col'), function(i, obj){
+	// 		siblings_width += Math.max( $(obj).outerWidth(), $(obj).width() );
+	// 	});
+	// 	$('.last-col').width( $('.last-col').parent().innerWidth() - siblings_width );		
+	// });
+	
+
+
+	// var w = $('#wrapper').width();
+	// var s = $('#sideBar').width();
+	// $('#mainContent').width(w - s);
+
+	// $(window).scroll(function () {
+
+	//     if ($(window).scrollTop() + $(window).height() > $('section').eq(0).offset().top) {
+	//         console.log( s )
+	//     } else {
+	//         alert("footer invisible");
+	//     }
+	// });	
 }
 
 function scrolling(listenTo, changeTarget) {
@@ -152,31 +275,29 @@ function navigation(selector) {
 		$(this).addClass('selected');
 
 		// var name = $(this).find('.content-head').find('a').attr('href').slice(1);
-		var name = $(this).attr('id').split('-')[1];
+		// var name = $(this).attr('id').split('-')[1];
 
-		var block = $("#block-"+name).parent();
-		// var margin_padding_offset =  block.index() == 0 ? 0 : block.outerHeight(true) - block.height();
-		var margin_padding_offset =  block.outerHeight(true) - block.height();
+		// var block = $("#block-"+name).parent();
+		// // var margin_padding_offset =  block.index() == 0 ? 0 : block.outerHeight(true) - block.height();
+		// var margin_padding_offset =  block.outerHeight(true) - block.height();
 
-	    $('html, body').animate({
-    	    scrollTop: $("#block-"+name).offset().top - margin_padding_offset
-    	}, 250);
+	 //    $('html, body').animate({
+  //   	    scrollTop: $("#block-"+name).offset().top - margin_padding_offset
+  //   	}, 250);
 
-    	// if this is the input wrap
-    	$(this).find('#input-area').focus();
+  //   	// if this is the input wrap
+  //   	$(this).find('#input-area').focus();
 	});
 }
 
 function init(){
-	$('#input-area').focus();
-
+	// $('#input-area').focus();
+	// $('.function-nav-block').eq(0).click();
 }
 
 
 /* load tempalte file and render it to #entry */
 function loadTemplate( templateName , data , entry , callback ){
-
-	console.log(templateName);
 
     $.ajax({
 		url : "/hb-template/" + templateName + ".tpl" ,
@@ -221,7 +342,7 @@ function bindKeyboardActionToForm(){
 function fetchData( qWord ){
 
 	// clear current data
-	$('.function-aera').html('');
+	$('.content-body').html('');
 
 	/* load difinition */
 	queryWord( qWord );
