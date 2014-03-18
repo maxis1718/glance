@@ -89,7 +89,7 @@ function menuHandeler() {
 
 	// var showMenu = function(){ .addClass('open-part'); };
 
-	var obj = $('#menu-nav').find('nav.side-nav').find('ul');
+	var obj = $('#menu-nav');
 
 	// var hidePart = obj.animate( {marginLeft: "-96px"}, 500 );
 
@@ -133,6 +133,7 @@ function menuHandeler() {
 			obj.animate( { marginLeft: "0" }, 250, function(){ obj.removeClass('hide-part'); } );
 		}
 	}
+	
 	var mouseoutEvent = function(){
 
 		var open = !obj.hasClass('hide-part');
@@ -145,43 +146,39 @@ function menuHandeler() {
 		{
 			// do nothing
 		}
+		// 本來是開著，沒釘住 --> 關
 		else if(open && notfixed)
 		{
 			obj.animate( { marginLeft: "-96px" }, 250, function(){ obj.addClass('hide-part').removeClass('fixed'); } );
 		}
-		// 本來是開著，沒釘住 --> 關
+		
 		else if(close)
 		{
 			// do nothing
-		}		
+		}
 	}
 
-	
-	$('.menu-btn-wrap')
+	var timer;
+
+	$('#menu-controler')
 		.click(clickEvent)
-		.mouseover(mouseoverEvent)
-		.mouseout(mouseoutEvent);
+		.mouseenter(function(){
+			clearTimeout(timer); // don't hide
+			setTimeout(mouseoverEvent, 0); // execute mounse over event immediately
+		})
+		.mouseleave(function(){
+			// after leave #menu-controler
+			// wait for 450 msec 
+			// to see if move to #menu-nav
+			timer = setTimeout(mouseoutEvent, 450);			
+		});
 
+	$('#menu-nav').mouseenter(function(){
+		clearTimeout(timer);
+	}).mouseleave(function(){
+		timer = setTimeout(mouseoutEvent, 450);
 
-	// $('.menu-btn-wrap').mouseover( function(){
-	// 	obj.animate(
-	// 		{ marginLeft: "0" },
-	// 		250,
-	// 		function(e){ 
-	// 			obj.removeClass('hide-part');
-	// 		}
-	// 	);
-	// });
-	// $('.menu-btn-wrap').mouseout( function(){
-	// 	obj.animate(
-	// 		{ marginLeft: "-96px" }, 
-	// 		200,
-	// 		function(e){ 
-	// 			obj.addClass('hide-part');
-	// 		}
-	// 	);
-	// });	
-
+	});
 }
 
 function events(){

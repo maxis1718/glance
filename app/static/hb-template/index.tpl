@@ -1,11 +1,9 @@
 <header class="row">
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 
-        <div id="logo-wrap">
-            <div id="logo">Glance</div>
-        </div>
 
-        <div class="menu-btn-wrap">
+
+        <div class="menu-btn-wrap" id="menu-controler">
             <div class="menu-btn">
                 <div class="menu-btn-bar"></div>
                 <div class="menu-btn-bar"></div>
@@ -13,9 +11,13 @@
             </div>
         </div>
 
-        <div class="side-nav-wrap" id="menu-nav">
+        <div id="logo-wrap">
+            <div id="logo">Glance</div>
+        </div>        
+
+        <div id="side-nav-wrap">
             <nav class="side-nav">
-                <ul class="part hide-part">
+                <ul class="part hide-part" id="menu-nav">
                     {{#function-list}}
                     <li class="nav-{{ id }}">
                         <div class="nav-full">{{ display-name }}</div>
