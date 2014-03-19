@@ -7,18 +7,20 @@ var glacneWordPolarityID = "wordPolarity";
 var glanceWordGenreID = "wordGenre";
 var glanceWordCategoryID = "wordCategory";
 
-var glanceFunctions = { "function-list": [
+var glanceFunctions = { 
 
-	{ 'id': glanceWordDefinitionID  ,"display-name":"Definition"  },
-	{ 'id': glanceWordTranslationID ,"display-name":"Translation" },
-	{ 'id': glanceWordPosID         ,"display-name":"POS"         },
-	{ 'id': glanceWordPositionID    ,"display-name":"Position"    },
-	// { 'id': glanceWordTree          ,"display-name":"Structure"   },
-	// { 'id': glacneWordPolarityID    ,"display-name":"Polarity"  },
-	{ 'id': glanceWordGenreID       ,"display-name":"Genre"  },
-	{ 'id': glanceWordCategoryID    ,"display-name":"Register"}
+	"function-list": [
 
-] , 
+		{ 'id': glanceWordDefinitionID  ,"display-name":"Definition"  },
+		{ 'id': glanceWordTranslationID ,"display-name":"Translation" },
+		{ 'id': glanceWordPosID         ,"display-name":"POS"         },
+		{ 'id': glanceWordPositionID    ,"display-name":"Position"    },
+		// { 'id': glanceWordTree          ,"display-name":"Structure"   },
+		// { 'id': glacneWordPolarityID    ,"display-name":"Polarity"  },
+		{ 'id': glanceWordGenreID       ,"display-name":"Genre"  },
+		{ 'id': glanceWordCategoryID    ,"display-name":"Register"}
+
+	], 
 	postfixFirst : "1",
 	postfixSecond : "2"
 };
@@ -36,16 +38,22 @@ $( document ).ready(function() {
 
 	var query = $.urlParam( 'query' );
 	var query2 = $.urlParam( 'query2' );
+	
+	// push query, query2 into glanceFunctions
+	// i.e., put the queries directly when loading the template
+	glanceFunctions['query'] = query == 0 ? '' : query;
+	glanceFunctions['query2'] = query2 == 0 ? '' : query2;
 
 	loadTemplate( "index", glanceFunctions, $("#main-container") , function(){
 
 		if(query){
 
-			$("#basic-search-bar").val(query);
-			$("#compare-search-bar").val(query2);
-
 			fetchData( query , postfixFirst );
-			fetchData( query2 , postfixSecond );
+
+			// prevent from requesting "/api/word/0"
+			if(query2){
+				fetchData( query2 , postfixSecond );	
+			}
 		}
 		events();
 		init();
@@ -194,6 +202,26 @@ function menuHandeler() {
 
 	});
 }
+function startSearch(){
+
+	var basic = $('#basic-search-bar');
+	var compare = $('#compare-search-bar');
+
+	var basic_query = $.trim(basic.val());
+	var compare_query = $.trim(compare.val());
+
+	var query = '?';
+	var query2 = '';
+
+	if(basic_query.length > 0){
+		query += 'query='+basic_query;
+	}
+	if(compare_query.length > 0){
+		query2 += '&query2='+compare_query;
+	}
+
+	location.href = query + query2;		
+}
 
 function inputHandeler() {
 
@@ -202,14 +230,15 @@ function inputHandeler() {
 	var timer;
 
 	var compare = $('#compare-search-bar');
+	var basic = $('#basic-search-bar');
+	var searchBar = $('.search-bar');
 
 	if($.trim(compare.val()).length > 0){
 		compare.addClass('fixed');
 		compare.animate( { width: maxWidth }, 0 );
 	}
 
-	var basic = $('#basic-search-bar');
-	var searchBar = $('.search-bar');
+
 
 	var focusEvent = function(){
 		clearTimeout(timer);
@@ -228,6 +257,7 @@ function inputHandeler() {
 			
 		}
 	};	
+
 	var keyupEvent = function(e){
 		if($.trim(basic.val()).length == 0 && $.trim(compare.val()).length == 0){
 			compare.removeClass('fixed');
@@ -240,22 +270,11 @@ function inputHandeler() {
 		// handle query
 		if(e.which == 13 || e.keyCode == 13)
 		{
-			var basic_query = $.trim(basic.val());
-			var compare_query = $.trim(compare.val());
-
-			var query = '?';
-			var query2 = '';
-
-			if(basic_query.length > 0){
-				query += 'query='+basic_query;
-			}
-			if(compare_query.length > 0){
-				query2 += '&query2='+compare_query;
-			}
-
-			location.href = query + query2;
+			startSearch();
 		}
 	}
+
+
 
 	compare
 		.focus(focusEvent)
