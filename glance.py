@@ -170,6 +170,19 @@ def translate_to_english(query):
 	return_data = [] if res == None else res
 	return Response(json.dumps(return_data), mimetype='application/json')
 
+@app.route('/api/word/<query>/genre/')
+@app.route('/api/word/<query>/genre')
+def word_genre(query):
+	res = DB.category(query)
+	return_data = [] if res == None else res
+	return Response(json.dumps(res[0]), mimetype='application/json')
+
+@app.route('/api/word/<query>/category/')
+@app.route('/api/word/<query>/category')
+def word_category(query):
+	res = LK.query_category( query )
+
+	return Response(json.dumps(res), mimetype='application/json')
 
 
 if __name__ == "__main__":
