@@ -7,21 +7,25 @@ var glacneWordPolarityID = "wordPolarity";
 var glanceWordGenreID = "wordGenre";
 var glanceWordCategoryID = "wordCategory";
 
-var glanceFunctions = { "function-list": [
+var glanceFunctions = { 
 
-	{ 'id': glanceWordDefinitionID  ,"display-name":"Definition"  },
-	{ 'id': glanceWordTranslationID ,"display-name":"Translation" },
-	{ 'id': glanceWordPosID         ,"display-name":"POS"         },
-	{ 'id': glanceWordPositionID    ,"display-name":"Position"    },
-	// { 'id': glanceWordTree          ,"display-name":"Structure"   },
-	// { 'id': glacneWordPolarityID    ,"display-name":"Polarity"  },
-	{ 'id': glanceWordGenreID       ,"display-name":"Genre"  },
-	{ 'id': glanceWordCategoryID    ,"display-name":"Register"}
+	"function-list": [
 
-] , 
+		{ 'id': glanceWordDefinitionID  ,"display-name":"Definition"  },
+		{ 'id': glanceWordTranslationID ,"display-name":"Translation" },
+		{ 'id': glanceWordPosID         ,"display-name":"POS"         },
+		{ 'id': glanceWordPositionID    ,"display-name":"Position"    },
+		// { 'id': glanceWordTree          ,"display-name":"Structure"   },
+		// { 'id': glacneWordPolarityID    ,"display-name":"Polarity"  },
+		{ 'id': glanceWordGenreID       ,"display-name":"Genre"  },
+		{ 'id': glanceWordCategoryID    ,"display-name":"Register"}
+
+	], 
 	postfixFirst : "1",
 	postfixSecond : "2"
 };
+
+// var svgPosChart;
 
 var postfixFirst = "1";
 var postfixSecond = "2"
@@ -36,21 +40,55 @@ $( document ).ready(function() {
 
 	var query = $.urlParam( 'query' );
 	var query2 = $.urlParam( 'query2' );
+	var test_mode = $.urlParam( 'textmode' );
+	
+	glanceFunctions['query'] = query == 0 ? '' : query;
+	glanceFunctions['query2'] = query2 == 0 ? '' : query2;
 
-	loadTemplate( "index", glanceFunctions, $("#main-container") , function(){
+	if( test_mode == 0 ){
+		loadTemplate( "index", glanceFunctions, $("#main-container") , function(){
 
-		if(query){
 
+			if(query){
+
+				fetchData( query , postfixFirst );
+
+				// prevent from requesting "/api/word/0"
+				if(query2){
+					fetchData( query2 , postfixSecond );	
+				}
+			}
+
+
+
+			events();
+			init();
+			bindKeyboardActionToForm();
 			$("#basic-search-bar").val(query);
 			$("#compare-search-bar").val(query2);
+		});
+	}else{
 
-			fetchData( query , postfixFirst );
-			fetchData( query2 , postfixSecond );
-		}
-		events();
-		init();
-		bindKeyboardActionToForm();
-	});
+		loadTemplate( "index_text", glanceFunctions, $("#main-container") , function(){
+
+			if(query){
+
+				fetchTextData( query , postfixFirst );	
+
+				// prevent from requesting "/api/word/0"
+				if(query2){
+					fetchTextData( query2 , postfixSecond );
+				}
+			}
+
+			events();
+			init();
+			bindKeyboardActionToForm();
+			$("#basic-search-bar").val(query);
+			$("#compare-search-bar").val(query2);
+		});
+
+	}
 
 	
 
@@ -194,6 +232,26 @@ function menuHandeler() {
 
 	});
 }
+function startSearch(){
+
+	var basic = $('#basic-search-bar');
+	var compare = $('#compare-search-bar');
+
+	var basic_query = $.trim(basic.val());
+	var compare_query = $.trim(compare.val());
+
+	var query = '?';
+	var query2 = '';
+
+	if(basic_query.length > 0){
+		query += 'query='+basic_query;
+	}
+	if(compare_query.length > 0){
+		query2 += '&query2='+compare_query;
+	}
+
+	location.href = query + query2;		
+}
 
 function inputHandeler() {
 
@@ -202,14 +260,15 @@ function inputHandeler() {
 	var timer;
 
 	var compare = $('#compare-search-bar');
+	var basic = $('#basic-search-bar');
+	var searchBar = $('.search-bar');
 
 	if($.trim(compare.val()).length > 0){
 		compare.addClass('fixed');
 		compare.animate( { width: maxWidth }, 0 );
 	}
 
-	var basic = $('#basic-search-bar');
-	var searchBar = $('.search-bar');
+
 
 	var focusEvent = function(){
 		clearTimeout(timer);
@@ -228,6 +287,7 @@ function inputHandeler() {
 			
 		}
 	};	
+
 	var keyupEvent = function(e){
 		if($.trim(basic.val()).length == 0 && $.trim(compare.val()).length == 0){
 			compare.removeClass('fixed');
@@ -240,22 +300,11 @@ function inputHandeler() {
 		// handle query
 		if(e.which == 13 || e.keyCode == 13)
 		{
-			var basic_query = $.trim(basic.val());
-			var compare_query = $.trim(compare.val());
-
-			var query = '?';
-			var query2 = '';
-
-			if(basic_query.length > 0){
-				query += 'query='+basic_query;
-			}
-			if(compare_query.length > 0){
-				query2 += '&query2='+compare_query;
-			}
-
-			location.href = query + query2;
+			startSearch();
 		}
 	}
+
+
 
 	compare
 		.focus(focusEvent)
@@ -387,6 +436,8 @@ function init(){
 /* load tempalte file and render it to #entry */
 function loadTemplate( templateName , data , entry , callback ){
 
+	console.log(templateName, data);
+
     $.ajax({
 		url : "/hb-template/" + templateName + ".tpl" ,
 		dataType: "text",
@@ -430,7 +481,7 @@ function bindKeyboardActionToForm(){
 function fetchData( qWord , postfixTargetID ){
 
 	// clear current data
-	$('.content-body').html('');
+	// $('.content-body').html('');
 
 	/* load difinition */
 	queryWord( qWord , postfixTargetID );
@@ -444,6 +495,111 @@ function fetchData( qWord , postfixTargetID ){
 	queryTranlastion( qWord , postfixTargetID );
 
 	queryCategory( qWord , postfixTargetID );
+
+}
+
+/* function when user input a word or reload a page with a word */
+function fetchTextData( qWord , postfixTargetID ){
+
+	// clear current data
+	$('.content-body').html('');
+
+	/* load difinition */
+	/* get word info */
+	$.get('/api/word/'+qWord, function(data) {
+		/*optional stuff to do after success */
+		data['postfixTargetID'] = postfixTargetID;
+		loadTemplate("definition", data , $("#"+glanceWordDefinitionID+"_"+postfixTargetID) , function(){
+
+			
+					
+				
+			$.each(data['contents'], function(index, val) {
+				 /* iterate through array or object */
+				var polarity = val['polarity'];
+
+				var word_polarity_data = [];
+			    $.each(polarity, function( key, value ) {
+			      if(value>0){
+					  word_polarity_data.push([ key, value]);
+					}
+				});
+				
+			    
+	    		var source = "{{#polarity}}<li>{{.}}</li>{{/polarity}}";
+				var template = Handlebars.compile(source);
+				var html    = template({ "polarity" : word_polarity_data});
+
+				/* put html string into entry */
+				$( "#wordPolarity-"+index+"-"+postfixTargetID ).html( html );	
+			    
+				
+			});
+
+			
+
+		});
+
+		wordsense = data['contents'][0];
+		wordsense.name = data['contents'][0]['sense'];
+
+		// drawTreeStructure( glanceWordTree );
+
+	});
+
+	queryTranlastion( qWord , postfixTargetID );
+
+	/* get word info */
+	$.get('/api/word/'+qWord+"/postag", function(data) {
+		/*optional stuff to do after success */
+
+		var source = "{{#pos}}<li>{{[0]}} : {{[1]}}</li>{{/pos}}";
+		var template = Handlebars.compile(source);
+		var html    = template({ "pos" : data});
+
+		/* put html string into entry */
+		$( "#"+ glanceWordPosID + "_" + postfixTargetID).html( html );	
+		
+	});
+
+	/* get word info */
+	$.get('/api/word/'+qWord+"/wp", function(data) {
+		/*optional stuff to do after success */
+		// var word_position_data = [];
+	 //    $.each(data[1], function( index, value ) {
+		//   word_position_data.push([ index, value]);
+		// });
+		var source = "{{#position}}<li>{{[0]}} : {{[1]}}</li>{{/position}}";
+		var template = Handlebars.compile(source);
+		var html    = template({ "position" : data});
+
+		/* put html string into entry */
+		$("#"+glanceWordPositionID + "_" + postfixTargetID).html( html );	
+
+
+	
+		
+	});
+
+		/* get word info */
+	$.get('/api/word/'+qWord+"/genre", function(data) {
+		
+		var total = data[0][1] + data[1][1];
+		
+		
+
+		var new_data = data;
+		new_data[0][1] = new_data[0][1]/total;
+		new_data[1][1] = new_data[1][1]/total; 
+
+		var source = "{{#genre}}<li>{{[0]}} : {{[1]}}</li>{{/genre}}";
+		var template = Handlebars.compile(source);
+		var html    = template({ "genre" : new_data});
+
+		/* put html string into entry */
+		$("#"+ glanceWordGenreID + "_" + postfixTargetID).html( html );	
+	});
+
 
 }
 
@@ -576,8 +732,11 @@ function queryCategory( qWord , postfixTargetID ){
 }
 /* ===================== drawing functions ======================= */
 
+
+
 /* draw a pie chart for POS tags */
 function drawPosChart( pos_data , entryName ){
+	
 	var width = 460,
     height = 300,
     radius = Math.min(width, height) / 2;
@@ -592,7 +751,7 @@ function drawPosChart( pos_data , entryName ){
 	    .sort(null)
 	    .value(function(d) { return d[1]; });
 
-	var svg = d3.select("#"+entryName).append("svg")
+	var svg = d3.select("#"+entryName).append("svg").attr("id", "svgPosChart")
 	    .attr("width", width)
 	    .attr("height", height)
 	  .append("g")
@@ -1147,7 +1306,7 @@ function drawCategory( root , entryName ){
 	    .attr("width", width)
 	    .attr("height", height)
 		.append("g")
-	    .attr("transform", "translate(" + width / 2 + "," + height * .52 + ")");
+	    .attr("transform", "translate(" + width / 2 + "," + height * .5 + ")");
 
 	var partition = d3.layout.partition()
 	    .sort(null)
