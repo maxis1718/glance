@@ -6,14 +6,14 @@ def position(query):
 	suggestion = db_glance_word['position'].find_one({"word": query}, {'_id':0})['position']
 	return suggestion
 
-def translation(query):
-	translation = db_glance_word.translation
-	suggestion = [{'translation':word[0], 'probability':round(float(word[2]),2)} for word in list(translation.find({"word": query}))[0][u'translation']]
-	return suggestion[:5]
+def translation(query, num=5):
+	mdoc = db_glance_word['translation'].find_one( {"word": query}, {'_id':0, 'translation':1} )
+	suggestion = [{'translation':word[0], 'probability':round(float(word[2]),2)} for word in mdoc['translation']]
+	return suggestion[:num]
 
 def family(query):
 	families = db_glance_word.families
-	suggestion = [word[u'family'] for word in list(families.find({"word": query}))]
+	suggestion = [ word['family'] for word in families.find({"word": query}, {'_id':0}) ]
 	return suggestion
 
 def category(query):
