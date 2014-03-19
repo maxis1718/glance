@@ -3,7 +3,7 @@
 <ul class="nav nav-pills">
 {{#each pos_index}}
   <li {{#ifCond @index 0}} class="active"{{/ifCond}}>
-    <a href="#tab-{{@key}}" data-toggle="pill">
+    <a href="#tab-{{@key}}-{{../postfixTargetID}}" data-toggle="pill">
       <span class="badge pull-right">{{this}}</span>
       <span class="pos-tab-label">{{#toUpperCase @key}}{{/toUpperCase}}</span>
     </a>
@@ -16,7 +16,7 @@
 <div class="tab-content">
 {{#each pos_index}}
   
-  <div class="tab-pane fade {{#ifCond @index 0}} in active{{/ifCond}}" id="tab-{{@key}}">
+  <div class="tab-pane fade {{#ifCond @index 0}} in active{{/ifCond}}" id="tab-{{@key}}-{{../postfixTargetID}}">
   		
   		
 		<div class="panel-group" id="accordion-{{../postfixTargetID}}">
