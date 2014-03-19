@@ -25,6 +25,8 @@ var glanceFunctions = {
 	postfixSecond : "2"
 };
 
+// var svgPosChart;
+
 var postfixFirst = "1";
 var postfixSecond = "2"
 
@@ -38,7 +40,7 @@ $( document ).ready(function() {
 
 	var query = $.urlParam( 'query' );
 	var query2 = $.urlParam( 'query2' );
-	
+
 	// push query, query2 into glanceFunctions
 	// i.e., put the queries directly when loading the template
 	glanceFunctions['query'] = query == 0 ? '' : query;
@@ -406,6 +408,8 @@ function init(){
 /* load tempalte file and render it to #entry */
 function loadTemplate( templateName , data , entry , callback ){
 
+	console.log(templateName, data);
+
     $.ajax({
 		url : "/hb-template/" + templateName + ".tpl" ,
 		dataType: "text",
@@ -449,7 +453,7 @@ function bindKeyboardActionToForm(){
 function fetchData( qWord , postfixTargetID ){
 
 	// clear current data
-	$('.content-body').html('');
+	// $('.content-body').html('');
 
 	/* load difinition */
 	queryWord( qWord , postfixTargetID );
@@ -595,8 +599,11 @@ function queryCategory( qWord , postfixTargetID ){
 }
 /* ===================== drawing functions ======================= */
 
+
+
 /* draw a pie chart for POS tags */
 function drawPosChart( pos_data , entryName ){
+	
 	var width = 460,
     height = 300,
     radius = Math.min(width, height) / 2;
@@ -611,7 +618,7 @@ function drawPosChart( pos_data , entryName ){
 	    .sort(null)
 	    .value(function(d) { return d[1]; });
 
-	var svg = d3.select("#"+entryName).append("svg")
+	var svg = d3.select("#"+entryName).append("svg").attr("id", "svgPosChart")
 	    .attr("width", width)
 	    .attr("height", height)
 	  .append("g")

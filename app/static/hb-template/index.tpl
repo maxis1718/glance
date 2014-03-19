@@ -36,11 +36,11 @@
                 <div id="search-bar-group">
                     <div id="search-bars">
                         <div class="search-bar-wrap">
-                            <input type="text" id="basic-search-bar" class="search-bar" value="{{query}}" />
+                            <input type="text" id="basic-search-bar" class="search-bar" value="{{ query}}" />
                         </div>
                         <div id="vs-wrap">vs</div>
                         <div class="search-bar-wrap">
-                            <input type="text" id="compare-search-bar" class="search-bar" value="{{query2 }}"  />
+                            <input type="text" id="compare-search-bar" class="search-bar" value="{{ query2 }}"  />
                         </div>
                     </div>
                 </div>   
@@ -50,6 +50,23 @@
 
     </div>
 </header>
+
+<section class="row">
+    <div class="col compare-grid col-lg-6 col-md-6 col-sm-6 col-xs-12">
+        <div class="content-wrap">
+            <div class="content">
+                <article class="content-body query-article">{{query}}</article>
+            </div>
+        </div>
+    </div>
+    <div class="col compare-grid col-lg-6 col-md-6 col-sm-6 col-xs-12">
+         <div class="content-wrap">
+            <div class="content">
+                <article class="content-body query-article">{{query2}}</article>
+            </div>
+        </div>
+    </div>
+</section>
 
 {{#function-list}}
 <section class="row">

@@ -236,7 +236,7 @@ $header-border-color: #2B2B30;
         height: $header-height;
         background: $header-back-color;
         z-index: 5;
-        border-bottom: 1px solid $header-border-color;
+        // border-bottom: 1px solid $header-border-color;
 
         #logo-wrap {
             position: relative;
@@ -369,6 +369,10 @@ $header-border-color: #2B2B30;
 
         background: url("../images/fabric_plaid.png");
 
+        .query-article {
+            font-size: 28px;
+            text-transform: capitalize;
+        }
 
         .compare-grid, .full-grid {
             .content-wrap {
@@ -377,7 +381,8 @@ $header-border-color: #2B2B30;
 
                 min-width: 460px;
                 
-                min-height: 360px;
+                // min-height: 360px;
+                // visibility: hidden;
 
                 padding: 24px 20px;
                 margin: 0 auto;
@@ -393,8 +398,9 @@ $header-border-color: #2B2B30;
                     //     overflow-x: 
                     // }
                     .content-tag {
+                        font-size: 1.25em;
                         color: $glance-theme-color;
-                        font-size: 1.15em;
+                        margin-bottom: 15px;
                     }      
                     .content-body {
                         overflow-x: scroll;
