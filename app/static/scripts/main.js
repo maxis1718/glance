@@ -26,10 +26,8 @@ var glanceFunctions = { "function-list": [
 var postfixFirst = "1";
 var postfixSecond = "2"
 
-
 $( document ).ready(function() {
    
-
 	$.urlParam = function(name){
 		var results = new RegExp('[\\?&]' + name + '=([^&#]*)').exec(window.location.href);
 			if (!results) { return 0; }
@@ -42,14 +40,16 @@ $( document ).ready(function() {
 	loadTemplate( "index", glanceFunctions, $("#main-container") , function(){
 
 		if(query){
-			fetchData( query , postfixFirst );	
-			fetchData( query2 , postfixSecond );	
+
+			$("#basic-search-bar").val(query);
+			$("#compare-search-bar").val(query2);
+
+			fetchData( query , postfixFirst );
+			fetchData( query2 , postfixSecond );
 		}
 		events();
 		init();
 		bindKeyboardActionToForm();
-		$("#basic-search-bar").val(query);
-		$("#compare-search-bar").val(query2);
 	});
 
 	
@@ -202,6 +202,12 @@ function inputHandeler() {
 	var timer;
 
 	var compare = $('#compare-search-bar');
+
+	if($.trim(compare.val()).length > 0){
+		compare.addClass('fixed');
+		compare.animate( { width: maxWidth }, 0 );
+	}
+
 	var basic = $('#basic-search-bar');
 	var searchBar = $('.search-bar');
 
@@ -209,7 +215,7 @@ function inputHandeler() {
 		clearTimeout(timer);
 		if($.trim(basic.val()).length > 0){
 			compare.addClass('fixed');
-			compare.animate( { width: maxWidth }, 200 );	
+			compare.animate( { width: maxWidth }, 200 );
 		}
 		
 	};
