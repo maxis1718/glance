@@ -48,11 +48,13 @@ $( document ).ready(function() {
 		events();
 		init();
 		bindKeyboardActionToForm();
+		$("#basic-search-bar").val(query);
+		$("#compare-search-bar").val(query2);
 	});
 
-	if( query != "" ){
-		$("#input-area").val(query);
-	}
+	
+
+
 	handlebarHelperRegister();
 
 });
