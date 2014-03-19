@@ -8,6 +8,7 @@ var glanceWordGenreID = "wordGenre";
 var glanceWordCategoryID = "wordCategory";
 
 var glanceFunctions = { "function-list": [
+
 	{ 'id': glanceWordDefinitionID  ,"display-name":"Definition"  },
 	{ 'id': glanceWordTranslationID ,"display-name":"Translation" },
 	{ 'id': glanceWordPosID         ,"display-name":"POS"         },
@@ -16,7 +17,7 @@ var glanceFunctions = { "function-list": [
 	// { 'id': glacneWordPolarityID    ,"display-name":"Polarity"  },
 	{ 'id': glanceWordGenreID       ,"display-name":"Genre"  },
 	{ 'id': glanceWordCategoryID    ,"display-name":"Category"}
-	
+
 ]};
 
 $( document ).ready(function() {
@@ -30,25 +31,20 @@ $( document ).ready(function() {
 
 	var query = $.urlParam( 'query' );
 
+	loadTemplate( "index", glanceFunctions, $("#main-container") , function(){
+
+		if(query){
+
+			fetchData( query );	
+		}
+		events();
+		init();
+		bindKeyboardActionToForm();
+	});
 
 	if( query != "" ){
 		$("#input-area").val(query);
-
-		loadTemplate( "index", glanceFunctions, $("#main-container") , function(){
-			fetchData( query );
-			init();
-		   	events();
-
-			bindKeyboardActionToForm();
-
-		});
-
 	}
-
-
-
-   	
-
 	handlebarHelperRegister();
 
 });
@@ -93,11 +89,143 @@ function handlebarHelperRegister(){
 
 }
 
+function menuHandeler() {
 
+	// var showMenu = function(){ .addClass('open-part'); };
+
+	var obj = $('#menu-nav');
+
+	// var hidePart = obj.animate( {marginLeft: "-96px"}, 500 );
+
+	var clickEvent = function(){
+
+		var open = !obj.hasClass('hide-part');
+		var close = obj.hasClass('hide-part');
+		var fixed = obj.hasClass('fixed');
+		var notfixed = !obj.hasClass('fixed');
+
+		// 本來是打開的，而且釘住 --> 隱藏 + 取消 fixed
+		if(open && fixed)
+		{
+			obj.animate( { marginLeft: "-96px" }, 250, function(){ obj.addClass('hide-part').removeClass('fixed'); } );
+		}
+		// 本來是打開的, 還沒釘住, fixed it
+		else if(open && notfixed)
+		{
+			obj.addClass('fixed');
+		}
+		// 本來是 close，打開並 fix
+		else if(close)
+		{
+			obj.animate( { marginLeft: "0" }, 250, function(){ obj.removeClass('hide-part').addClass('fixed'); } );
+		}
+	}
+	var mouseoverEvent = function(){
+
+		var open = !obj.hasClass('hide-part');
+		var close = obj.hasClass('hide-part');
+		var fixed = obj.hasClass('fixed');
+
+		// 本來是打開，而且釘住
+		if(open && fixed)
+		{
+			// do nothing	
+		}
+		// 本來是關著 --> 打開，不釘住
+		else if(close)
+		{
+			obj.animate( { marginLeft: "0" }, 250, function(){ obj.removeClass('hide-part'); } );
+		}
+	}
+	
+	var mouseoutEvent = function(){
+
+		var open = !obj.hasClass('hide-part');
+		var close = obj.hasClass('hide-part');
+		var fixed = obj.hasClass('fixed');
+		var notfixed = !obj.hasClass('fixed');		
+
+		// 本來是打開，而且釘住
+		if(open && fixed)
+		{
+			// do nothing
+		}
+		// 本來是開著，沒釘住 --> 關
+		else if(open && notfixed)
+		{
+			obj.animate( { marginLeft: "-96px" }, 250, function(){ obj.addClass('hide-part').removeClass('fixed'); } );
+		}
+		
+		else if(close)
+		{
+			// do nothing
+		}
+	}
+
+	var timer;
+
+	$('#menu-controler')
+		.click(clickEvent)
+		.mouseenter(function(){
+			clearTimeout(timer); // don't hide
+			setTimeout(mouseoverEvent, 0); // execute mounse over event immediately
+		})
+		.mouseleave(function(){
+			// after leave #menu-controler
+			// wait for 450 msec 
+			// to see if move to #menu-nav
+			timer = setTimeout(mouseoutEvent, 450);			
+		});
+
+	$('#menu-nav').mouseenter(function(){
+		clearTimeout(timer);
+	}).mouseleave(function(){
+		timer = setTimeout(mouseoutEvent, 450);
+
+	});
+}
+
+function inputHandeler() {
+	// $('body').on('focus', '[contenteditable]', function() {
+		// $(this).
+	// });
+}
 
 function events(){
-	navigation('.function-nav-block');
-	scrolling('.function-content', '.function-nav-block');
+
+	menuHandeler();
+
+	inputHandeler();
+
+	// navigation('.function-nav-block');
+	// scrolling('.function-content', '.function-nav-block');
+
+	// adjust last column width on window resize
+	// var i = 0;
+	// $(window).resize(function(){
+	// 	i += 1;
+	// 	console.log(i);
+	// 	var siblings_width = 0;
+	// 	$.each( $('.last-col').siblings('.col'), function(i, obj){
+	// 		siblings_width += Math.max( $(obj).outerWidth(), $(obj).width() );
+	// 	});
+	// 	$('.last-col').width( $('.last-col').parent().innerWidth() - siblings_width );		
+	// });
+	
+
+
+	// var w = $('#wrapper').width();
+	// var s = $('#sideBar').width();
+	// $('#mainContent').width(w - s);
+
+	// $(window).scroll(function () {
+
+	//     if ($(window).scrollTop() + $(window).height() > $('section').eq(0).offset().top) {
+	//         console.log( s )
+	//     } else {
+	//         alert("footer invisible");
+	//     }
+	// });	
 }
 
 function scrolling(listenTo, changeTarget) {
@@ -155,24 +283,24 @@ function navigation(selector) {
 		$(this).addClass('selected');
 
 		// var name = $(this).find('.content-head').find('a').attr('href').slice(1);
-		var name = $(this).attr('id').split('-')[1];
+		// var name = $(this).attr('id').split('-')[1];
 
-		var block = $("#block-"+name).parent();
-		// var margin_padding_offset =  block.index() == 0 ? 0 : block.outerHeight(true) - block.height();
-		var margin_padding_offset =  block.outerHeight(true) - block.height();
+		// var block = $("#block-"+name).parent();
+		// // var margin_padding_offset =  block.index() == 0 ? 0 : block.outerHeight(true) - block.height();
+		// var margin_padding_offset =  block.outerHeight(true) - block.height();
 
-	    $('html, body').animate({
-    	    scrollTop: $("#block-"+name).offset().top - margin_padding_offset
-    	}, 250);
+	 //    $('html, body').animate({
+  //   	    scrollTop: $("#block-"+name).offset().top - margin_padding_offset
+  //   	}, 250);
 
-    	// if this is the input wrap
-    	$(this).find('#input-area').focus();
+  //   	// if this is the input wrap
+  //   	$(this).find('#input-area').focus();
 	});
 }
 
 function init(){
-	$('#input-area').focus();
-
+	// $('#input-area').focus();
+	// $('.function-nav-block').eq(0).click();
 }
 
 
@@ -222,7 +350,7 @@ function bindKeyboardActionToForm(){
 function fetchData( qWord ){
 
 	// clear current data
-	$('.function-aera').html('');
+	$('.content-body').html('');
 
 	/* load difinition */
 	queryWord( qWord );
