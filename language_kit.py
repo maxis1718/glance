@@ -180,7 +180,7 @@ def query_category( qWord ):
 	target_dic = { "root": reduce( merge_tree , level_lst ) }
 
 	return xmlize( target_dic  )
-	
+
 			
 
 def build_level( lst ):

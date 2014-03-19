@@ -69,7 +69,7 @@
         <div class="content-wrap">
             <div class="content">
                 <div class="content-tag">{{display-name}}</div>
-                <article class="content-body" id="{{id}}"></article>
+                <article class="content-body {{id}}" id="{{id}}_{{../postfixFirst}}"></article>
             </div>
         </div>
     </div>
@@ -77,7 +77,7 @@
          <div class="content-wrap">
             <div class="content">
                 <div class="content-tag">{{display-name}}</div>
-                <article class="content-body" id="{{id}}"></article>
+                <article class="content-body {{id}}" id="{{id}}_{{../postfixSecond}}"></article>
             </div>
         </div>
     </div>

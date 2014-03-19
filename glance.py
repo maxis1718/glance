@@ -169,9 +169,9 @@ def translate_to_english(query):
 @app.route('/api/word/<query>/genre/')
 @app.route('/api/word/<query>/genre')
 def word_genre(query):
-	res = DB.genre(query)
+	res = DB.category(query)
 	return_data = [] if res == None else res
-	return Response(json.dumps(return_data), mimetype='application/json')
+	return Response(json.dumps(res[0]), mimetype='application/json')
 
 @app.route('/api/word/<query>/category/')
 @app.route('/api/word/<query>/category')

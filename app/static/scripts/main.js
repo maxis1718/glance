@@ -13,12 +13,19 @@ var glanceFunctions = { "function-list": [
 	{ 'id': glanceWordTranslationID ,"display-name":"Translation" },
 	{ 'id': glanceWordPosID         ,"display-name":"POS"         },
 	{ 'id': glanceWordPositionID    ,"display-name":"Position"    },
-	{ 'id': glanceWordTree          ,"display-name":"Structure"   },
+	// { 'id': glanceWordTree          ,"display-name":"Structure"   },
 	// { 'id': glacneWordPolarityID    ,"display-name":"Polarity"  },
 	{ 'id': glanceWordGenreID       ,"display-name":"Genre"  },
-	{ 'id': glanceWordCategoryID    ,"display-name":"Category"}
+	{ 'id': glanceWordCategoryID    ,"display-name":"Register"}
 
-]};
+] , 
+	postfixFirst : "1",
+	postfixSecond : "2"
+};
+
+var postfixFirst = "1";
+var postfixSecond = "2"
+
 
 $( document ).ready(function() {
    
@@ -30,12 +37,13 @@ $( document ).ready(function() {
 	}
 
 	var query = $.urlParam( 'query' );
+	var query2 = $.urlParam( 'query2' );
 
 	loadTemplate( "index", glanceFunctions, $("#main-container") , function(){
 
 		if(query){
-
-			fetchData( query );	
+			fetchData( query , postfixFirst );	
+			fetchData( query2 , postfixSecond );	
 		}
 		events();
 		init();
@@ -347,23 +355,23 @@ function bindKeyboardActionToForm(){
 
 
 /* function when user input a word or reload a page with a word */
-function fetchData( qWord ){
+function fetchData( qWord , postfixTargetID ){
 
 	// clear current data
 	$('.content-body').html('');
 
 	/* load difinition */
-	queryWord( qWord );
+	queryWord( qWord , postfixTargetID );
 
-	queryPOS( qWord );
+	queryPOS( qWord , postfixTargetID );
 
-	queryGenre( qWord );
+	queryGenre( qWord , postfixTargetID );
 
-	queryPosition( qWord );
+	queryPosition( qWord , postfixTargetID );
 
-	queryTranlastion( qWord );
+	queryTranlastion( qWord , postfixTargetID );
 
-	queryCategory();
+	queryCategory( qWord , postfixTargetID );
 
 }
 
@@ -371,14 +379,15 @@ function fetchData( qWord ){
 /* ===================== module specific =================== */
 
 var wordsense;
-function queryWord( qWord ){
+function queryWord( qWord , postfixTargetID ){
 
 	/* get word info */
 	$.get('/api/word/'+qWord, function(data) {
 		/*optional stuff to do after success */
-		loadTemplate("definition", data , $("#"+glanceWordDefinitionID) , function(){
+		data['postfixTargetID'] = postfixTargetID;
+		loadTemplate("definition", data , $("#"+glanceWordDefinitionID+"_"+postfixTargetID) , function(){
 
-			loadTemplate("polarity", data, $("#"+glacneWordPolarityID), function(){
+			loadTemplate("polarity", data, $("#"+glacneWordPolarityID+"_"+postfixTargetID), function(){
 					
 				
 				$.each(data['contents'], function(index, val) {
@@ -391,8 +400,8 @@ function queryWord( qWord ){
 						  word_polarity_data.push([ key, value]);
 						}
 					});
-
-				    drawPolarity( word_polarity_data , "wordPolarity-"+index );
+				    
+				    drawPolarity( word_polarity_data , "wordPolarity-"+index+"-"+postfixTargetID );
 					
 				});
 
@@ -403,7 +412,7 @@ function queryWord( qWord ){
 		wordsense = data['contents'][0];
 		wordsense.name = data['contents'][0]['sense'];
 
-		drawTreeStructure( glanceWordTree );
+		// drawTreeStructure( glanceWordTree );
 
 	});
 
@@ -411,19 +420,19 @@ function queryWord( qWord ){
 }
 
 
-function queryPOS( qWord ){
+function queryPOS( qWord , postfixTargetID ){
 
 	/* get word info */
 	$.get('/api/word/'+qWord+"/postag", function(data) {
 		/*optional stuff to do after success */
 		
-		drawPosChart( data, glanceWordPosID );
+		drawPosChart( data, glanceWordPosID + "_" + postfixTargetID );
 		
 	});
 
 }
 
-function queryPosition( qWord ){
+function queryPosition( qWord , postfixTargetID ){
 
 	/* get word info */
 	$.get('/api/word/'+qWord+"/wp", function(data) {
@@ -433,7 +442,7 @@ function queryPosition( qWord ){
 		//   word_position_data.push([ index, value]);
 		// });
 
-		drawWordPosition( data , glanceWordPositionID );
+		drawWordPosition( data , glanceWordPositionID + "_" + postfixTargetID );
 		
 	});
 
@@ -444,7 +453,7 @@ function queryPosition( qWord ){
 
 
 
-function queryTranlastion( qWord ){
+function queryTranlastion( qWord , postfixTargetID ){
 
 	/* get word info */
 	$.get('/api/word/'+qWord+"/translation", function(data) {
@@ -454,7 +463,7 @@ function queryTranlastion( qWord ){
 		//   word_position_data.push([ index, value]);
 		// });
 
-		loadTemplate("translation", data , $("#"+glanceWordTranslationID ) );
+		loadTemplate("translation", data , $("#"+glanceWordTranslationID + "_" + postfixTargetID ) );
 		
 	});
 
@@ -462,13 +471,13 @@ function queryTranlastion( qWord ){
 
 
 
-function queryGenre( qWord ){
+function queryGenre( qWord , postfixTargetID ){
 
 
 	/* get word info */
-	$.get('/api/word/'+qWord+"/category", function(data) {
+	$.get('/api/word/'+qWord+"/genre", function(data) {
 	
-		drawGenreChart( data[0] , glanceWordGenreID );	
+		drawGenreChart( data , glanceWordGenreID + "_" + postfixTargetID );	
 	
 	});
 
@@ -476,15 +485,15 @@ function queryGenre( qWord ){
 
 }
 
-function queryCategory( qWord ){
+function queryCategory( qWord , postfixTargetID ){
 
 
 		/* get word info */
 	$.get('/api/word/'+qWord+"/category", function(data) {
 	
-		loadTemplate( "category" , {} , $( "#"+glanceWordCategoryID ) , function(){
+		loadTemplate( "category" , {} , $( "#"+glanceWordCategoryID + "_" + postfixTargetID ) , function(){
 
-			drawCategory( data , glanceWordCategoryID );
+			drawCategory( data , glanceWordCategoryID + "_" + postfixTargetID );
 
 		} );
 	
@@ -497,12 +506,12 @@ function queryCategory( qWord ){
 
 /* draw a pie chart for POS tags */
 function drawPosChart( pos_data , entryName ){
-	var width = 360,
-    height = 200,
+	var width = 460,
+    height = 300,
     radius = Math.min(width, height) / 2;
 
-	var color = d3.scale.category20b();
-
+	var color = d3.scale.category20();
+	
 	var arc = d3.svg.arc()
 	    .outerRadius(radius - 10)
 	    .innerRadius(0);
@@ -529,6 +538,7 @@ function drawPosChart( pos_data , entryName ){
 	  .attr("transform", function(d) { return "translate(" + arc.centroid(d) + ")"; })
 	  .attr("dy", ".35em")
 	  .style("text-anchor", "middle")
+	  .style('fill','white')
 	  .text(function(d) { return d.data[0]; });
 
 }
@@ -798,8 +808,8 @@ function update(source, layoutRoot, diagonal ) {
 function drawWordPosition( word_position_data, entryName ){
 
 	var margin = { top: 20, right: 20, bottom: 30, left: 40 },
-    width = 600 - margin.left - margin.right,
-    height = 400 - margin.top - margin.bottom;
+    width = 400 - margin.left - margin.right,
+    height = 300 - margin.top - margin.bottom;
 
 	var x = d3.scale.ordinal()
     .rangeRoundBands([0, width], .1);
@@ -1054,8 +1064,12 @@ function drawCategory( root , entryName ){
 
 	var width = 460,
 	    height = 300,
-	    radius = Math.min(width, height) / 2,
-	    color = d3.scale.category20c();
+	    radius = Math.min(width, height) / 2;
+
+	var color = d3.scale.ordinal()
+	.domain(['written others','natural science','social science','others','lore & religion','spoken others','fiction','humanities arts','politics, law, education','sports','medicine','letter','lectures','students','technological engineering','Written','arts ','report','commerce','non-academic','science','Spoken','academic','popular science','editorial','social','newspaper','talk'])
+	.range(['#1f77b4', '#aec7e8', '#ff7f0e', '#bcbd22', '#dbdb8d', '#98df8a', '#c5b0d5', '#ff9896', '#9467bd', '#d62728', '#8c564b', '#c49c94', '#e377c2', '#f7b6d2', '#5254a3', '#c7c7c7', '#ffbb78', '#2ca02c', '#17becf', '#9edae5', '#393b79', '#7f7f7f', '#6b6ecf', '#cedb9c', '#637939', '#8ca252', '#b5cf6b', '#9c9ede']);
+	    
 
 	var svg = d3.select("#"+entryName+" #chart").append("svg")
 	    .attr("width", width)
@@ -1087,7 +1101,7 @@ function drawCategory( root , entryName ){
 	  		var sequenceArray = getAncestors(d);
 			// updateBreadcrumbs(sequenceArray, percentageString);
 
-			d3.select("#percentage")
+			d3.select("#"+entryName+" #percentage")
 			.text(d.name);
 
 			d3.select("#explanation")
@@ -1096,30 +1110,30 @@ function drawCategory( root , entryName ){
 
 
 			// Fade all the segments.
-			d3.selectAll("path")
+			d3.selectAll("#"+entryName+" path")
 			  .style("opacity", 0.3);
 
 			// Then highlight only those that are an ancestor of the current segment.
-			svg.selectAll("path")
+			svg.selectAll("#"+entryName+" path")
 			   .filter(function(node) {
 			        return (sequenceArray.indexOf(node) >= 0);
 			      })
 			   .style("opacity", 1);
 	  } );
 	
-	d3.select("#"+entryName).on("mouseleave", function(d){
+	// d3.select("#"+entryName).on("mouseleave", function(d){
 		
-		// d3.selectAll("path").on("mouseover", null);
+	// 	// d3.selectAll("path").on("mouseover", null);
 
-		// Transition each segment to full opacity and then reactivate it.
-		d3.selectAll("path")
-	      .transition()
-	      .duration(1000)
-	      .style("opacity", 1)
-	      .each("end", function() {
-	          // d3.select(this).on("mouseover", function(d){} );
-			});
-	});
+	// 	// Transition each segment to full opacity and then reactivate it.
+	// 	d3.selectAll("path")
+	//       .transition()
+	//       .duration(1000)
+	//       .style("opacity", 1)
+	//       .each("end", function() {
+	//           // d3.select(this).on("mouseover", function(d){} );
+	// 		});
+	// });
 
 
 	d3.selectAll("input").on("change", function change() {

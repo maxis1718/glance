@@ -19,23 +19,23 @@
   <div class="tab-pane fade {{#ifCond @index 0}} in active{{/ifCond}}" id="tab-{{@key}}">
   		
   		
-		<div class="panel-group" id="accordion">
+		<div class="panel-group" id="accordion-{{../postfixTargetID}}">
 		{{#../contents}}
 
 			{{#ifCond POS @key}}
 			  <div class="panel panel-default">
 			    <div class="panel-heading">
 			      <h4 class="panel-title">
-			        <a data-toggle="collapse" data-parent="#accordion" href="#collapse-{{@index}}">
+			        <a data-toggle="collapse" data-parent="#accordion-{{../../../postfixTargetID}}" href="#collapse-{{@index}}-{{../../../postfixTargetID}}">
 			          <span class="panel-title-pos">{{POS}}</span> <span class="panel-title-definition">{{definition}}</span>
 						
 			        </a>
 			      </h4>
-			      <div id="wordPolarity-{{@index}}">
+			      <div id="wordPolarity-{{@index}}-{{../../../postfixTargetID}}">
 
 					</div>
 			    </div>
-			    <div id="collapse-{{@index}}" class="panel-collapse collapse {{#if @first}}in{{/if}}">
+			    <div id="collapse-{{@index}}-{{../../../postfixTargetID}}" class="panel-collapse collapse {{#if @first}}in{{/if}}">
 			      <div class="panel-body">
 			      	<b>Example Sentences</b>
 			      	<ul>
