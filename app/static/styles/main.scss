@@ -359,7 +359,7 @@ $header-border-color: #2B2B30;
     }
 
     section {
-        top: $header-height;
+        top: $header-height * 2;
         // min-height: 480px;
         position: relative;
         display: block;
@@ -368,7 +368,52 @@ $header-border-color: #2B2B30;
         overflow-x: hidden;
 
         background: url("../images/fabric_plaid.png");
+        .grid-header {
+            margin: 0 1% 0 1%;
+            border-bottom: 1px dashed rgba(234, 234, 234, 1);
+        }
+        .grid-body {
+            margin: 12px 1% 12px 1%;
+            border-bottom: 1px solid rgba(134, 134, 134, 0.54);
+            
+        }
+        .compare-grid {
+            max-width: 48%;
+            border-right: 1px solid rgba(134, 134, 134, 0.29);
+            background: white;
+            
 
+            .content-wrap {
+                max-width: 95%;
+                // border-bottom: 1px dashed #cccccc;
+            }
+        }
+        .full-grid {
+            .content-wrap {
+                max-width: 720px;
+
+            }
+        }
+
+        &:nth-child(2) {
+            position: fixed;
+            top: 72px;
+            display: block;
+            z-index: 100;
+            width: 100%; 
+                       
+            // position: fixed;
+            // width: 100%;
+            // top: 72px;
+            // z-index: 100;
+            // padding-bottom: 0;
+            // border-right: 0;
+            // border-bottom: 
+            // .compaere-grid {
+                
+            // }
+
+        }
         .query-article {
             font-size: 28px;
             text-transform: capitalize;
@@ -412,24 +457,7 @@ $header-border-color: #2B2B30;
                 }
             }
         }
-        .compare-grid {
-            max-width: 48%;
-            margin: 12px 1% 12px 1%;
-            background: white;
-            border-bottom: 1px solid rgba(134, 134, 134, 0.54);
-            border-right: 1px solid rgba(134, 134, 134, 0.29);
 
-            .content-wrap {
-                max-width: 95%;
-                // border-bottom: 1px dashed #cccccc;
-            }
-        }
-        .full-grid {
-            .content-wrap {
-                max-width: 720px;
-
-            }
-        }
     }
 }
 

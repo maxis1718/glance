@@ -20,12 +20,13 @@ bnc_pos  = json.load(open('app/static/data/bnc.word.filter.json'))
 ## word test
 bnc_test = json.load(open('app/static/data/bnc.word.test.json'))
 
+print 'done.'
 
 print os.environ.get('FLASK_YEOMAN_DEBUG', False)
 
 ## word position
 # bnc_wp = json.load(open('static/data/XY/pure/h.pure.json'))
-print 'done.'
+
 
 
 
