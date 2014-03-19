@@ -181,10 +181,17 @@ function menuHandeler() {
 	});
 }
 
+function inputHandeler() {
+	// $('body').on('focus', '[contenteditable]', function() {
+		// $(this).
+	// });
+}
+
 function events(){
 
 	menuHandeler();
 
+	inputHandeler();
 
 	// navigation('.function-nav-block');
 	// scrolling('.function-content', '.function-nav-block');

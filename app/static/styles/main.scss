@@ -105,9 +105,56 @@ html, body {
 }
 
 $nav-width: 96px;
-// $nav-all-width: 228px;
 $header-front-color: white;
 $header-back-color: $glance-theme-color;
+$header-border-color: #2B2B30;
+
+#input-group-wrap {
+    width: 384px;
+    height: 36px;
+    position: relative;
+    top: 16px;
+    float: right;
+    .wrap-part {
+        height: 100%;
+        position: relative;
+        float: left;
+    }
+    #search-bars-wrap {
+        width: 344px;
+        background: aquamarine;
+        
+        #search-bar-group {
+            height: 84%;
+            width: 90%;
+            background: brown;
+            position: relative;
+            margin: 0 auto;
+            top: 8%;            
+        }
+        // input {
+        //     background: white;
+            
+        //     height: 24px;
+        //     width: 128px;
+        //     position: relative;
+            
+        //     float: left;
+        //     padding: 0;
+        //     margin: 0;
+        //     border: 0;
+        //     outline: none;
+        //     // border: 0;
+        //     font-size: 15px;
+        //     font-family: $glance-font-thin;
+        // }
+    }
+    #search-btn-wrap {
+        width: 40px;
+        background: antiquewhite;
+    }
+
+}
 
 .container-fluid {
 
@@ -117,6 +164,7 @@ $header-back-color: $glance-theme-color;
         height: $header-height;
         background: $header-back-color;
         z-index: 5;
+        border-bottom: 1px solid $header-border-color;
 
         #logo-wrap {
             position: relative;
@@ -208,7 +256,7 @@ $header-back-color: $glance-theme-color;
                     padding: 0;
                     border-right: 1px solid #ccc;
                     // background: white;
-                    background: #2B2B30;
+                    background: $header-border-color;
                     box-shadow: 1px 3px 5px #aaa;
                     color: white;
 
@@ -249,24 +297,6 @@ $header-back-color: $glance-theme-color;
 
         background: url("../images/fabric_plaid.png");
 
-        // border: 1px dashed rgba(214, 9, 9, 0.59);
-
-        // &:nth-child(2) {
-        //     background: #DCDEC7;
-        // }
-        // &:nth-child(3) {
-        //     background: #C72D2F;
-        // }
-        // &:nth-child(4) {
-        //     background: #54BADE;
-        // }
-        // &:nth-child(5) {
-        //     background: #D4C11F;
-        // }
-        // &:nth-child(5) {
-        //     background: #0D5AD4;
-        // }
-
 
         .compare-grid, .full-grid {
             .content-wrap {
@@ -302,22 +332,13 @@ $header-back-color: $glance-theme-color;
                         }
                     }
                 }
-
-                // hr {
-                //     position: absolute;
-                //     width: 100%;
-                //     left: 0;
-                //     border: 1px dashed rgba(214, 9, 9, 0.59);
-                //     bottom: -50px; // padding-bottom + margin-bottom: 50
-
-                // }
             }
         }
         .compare-grid {
             max-width: 48%;
-            margin: 12px 1%;
+            margin: 12px 1% 12px 1%;
             background: white;
-            border-bottom: 1px solid rgba(134, 134, 134, 0.64);
+            border-bottom: 1px solid rgba(134, 134, 134, 0.54);
             border-right: 1px solid rgba(134, 134, 134, 0.29);
 
             .content-wrap {
