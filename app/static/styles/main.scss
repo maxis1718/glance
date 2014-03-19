@@ -228,6 +228,33 @@ $header-border-color: #2B2B30;
 
 }
 
+.wordDefinition {
+    .panel {
+        .panel-heading {
+            padding: 0;
+            .panel-title {
+                min-height: 32px;
+                line-height: 32px;
+                padding: 6px 30px 10px 14px;
+                a {
+                    &:hover {
+                        text-decoration: none;
+                    }
+                    .panel-title-pos {
+                        font-family: monospace;
+                        font-size: 1.5em;
+                        
+                    }
+                    .panel-title-definition {
+
+                    }
+
+                }             
+            }
+        }
+    }
+}
+
 .container-fluid {
 
     header {

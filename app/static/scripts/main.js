@@ -1181,8 +1181,8 @@ function type(d) {
 function drawPolarity( data , entryName ){
 	
 	var margin = {top: 20, right: 100, bottom: 30, left: 40},
-	    width = 170;
-	    height = 20;
+	    width = '100%';
+	    height = 10;
 
 	var y = d3.scale.ordinal()
 	    .rangeRoundBands([0, width], .1);
@@ -1203,10 +1203,12 @@ function drawPolarity( data , entryName ){
 	    .tickFormat(d3.format(".0%"));
 
 	var svg = d3.select("#"+entryName).append("svg")
-	    .attr("width", width + margin.left + margin.right)
-	    .attr("height", height + margin.top + margin.bottom)
+	    // .attr("width", width + margin.left + margin.right)
+	    .attr("width", width)
+	    // .attr("height", height + margin.top + margin.bottom)
+	    .attr("height", height)
 	  .append("g")
-	    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+	    // .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
 	
 	// color.domain(d3.keys(data[0]).filter(function(key) { return key !== "State"; }));
