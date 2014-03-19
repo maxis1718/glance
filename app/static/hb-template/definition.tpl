@@ -27,11 +27,11 @@
 			    <div class="panel-heading">
 			      <h4 class="panel-title">
 			        <a data-toggle="collapse" data-parent="#accordion-{{../../../postfixTargetID}}" href="#collapse-{{@index}}-{{../../../postfixTargetID}}">
-			          <span class="panel-title-pos">{{POS}}</span> <span class="panel-title-definition">{{definition}}</span>
+			           <span class="panel-title-definition">{{definition}}</span>
 						
 			        </a>
 			      </h4>
-			      <div id="wordPolarity-{{@index}}-{{../../../postfixTargetID}}">
+					<div id="wordPolarity-{{@index}}-{{../../../postfixTargetID}}">
 
 					</div>
 			    </div>
