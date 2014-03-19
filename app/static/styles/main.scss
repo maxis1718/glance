@@ -239,7 +239,7 @@ $nav-arrow-border-position: 15px;
         
         
         div {
-            width: 100%;
+            // width: 100%;
             min-height: 36px;
         }
         .function-tag {
@@ -517,5 +517,75 @@ polyline{
 
 .hide {
     display: none;
+}
+
+
+
+
+div.tooltip {
+    position: absolute;         /* reference for measurement */
+    text-align: left;
+    pointer-events: none;           /* 'none' tells the mouse to ignore the rectangle */
+    background: #FFFFEF;
+    
+    
+    
+    border: 1px solid #D5D5D5;
+    font-family: arial,helvetica,sans-serif;
+    font-size: 1.0em;
+    color: #333;
+    padding: 5px;
+    border-radius: 1px;
+    background: rgba(255,255,255,0.9);
+    color: #000;
+    box-shadow: 0 1px 5px rgba(0,0,0,0.4);
+    -moz-box-shadow: 0 1px 5px rgba(0,0,0,0.4);
+    border:1px solid rgba(200,200,200,0.85);
+}
+
+div.tooltipTail {
+    position: absolute;
+    left:-7px;
+    top: 72px;
+    width: 7px;
+    height: 13px;
+    background: url("images/tail_white.png") 50% 0%;
+}
+
+
+#sequence {
+  width: 600px;
+  height: 70px;
+}
+
+#legend {
+  padding: 10px 0 0 3px;
+}
+
+#sequence text, #legend text {
+  font-weight: 600;
+  fill: #fff;
+}
+
+#chart {
+  position: relative;
+}
+
+#chart path {
+  stroke: #fff;
+}
+
+#explanation {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  width: 140px;
+  text-align: center;
+  color: #666;
+  
+}
+
+#percentage {
+  font-size: 2.5em;
 }
 

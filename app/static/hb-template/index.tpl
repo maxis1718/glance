@@ -47,7 +47,7 @@
             <div class="function-content header" id="block-greeting">
                 <div class="">A Brand new way to <strong>look</strong> up a tedious dictionary !</div>
             </div>
-            
+
             {{#function-list}}
             <div class="function-content block" id="block-{{id}}">
                 <!-- <div class="function-label"></div> -->
@@ -55,8 +55,7 @@
                 <div class="function-aera" id="{{id}}"></div>
             </div>              
             {{/function-list}}
-
-                        
+			            
     </div>
 
 </div>

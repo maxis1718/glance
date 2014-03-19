@@ -31,6 +31,9 @@
 						
 			        </a>
 			      </h4>
+			      <div id="wordPolarity-{{@index}}">
+
+					</div>
 			    </div>
 			    <div id="collapse-{{@index}}" class="panel-collapse collapse {{#if @first}}in{{/if}}">
 			      <div class="panel-body">
@@ -52,7 +55,9 @@
   </div>
 
 {{/each}}
-  
+<div id="toolTip" class="tooltip" style="opacity:0;">
+	    
+</div>	
 </div>
 
 
