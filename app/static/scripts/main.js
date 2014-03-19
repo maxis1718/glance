@@ -7,29 +7,31 @@ var glacneWordPolarityID = "wordPolarity";
 var glanceWordGenreID = "wordGenre";
 var glanceWordCategoryID = "wordCategory";
 
-var glanceFunctions = { "function-list": [
+var glanceFunctions = { 
 
-	{ 'id': glanceWordDefinitionID  ,"display-name":"Definition"  },
-	{ 'id': glanceWordTranslationID ,"display-name":"Translation" },
-	{ 'id': glanceWordPosID         ,"display-name":"POS"         },
-	{ 'id': glanceWordPositionID    ,"display-name":"Position"    },
-	// { 'id': glanceWordTree          ,"display-name":"Structure"   },
-	// { 'id': glacneWordPolarityID    ,"display-name":"Polarity"  },
-	{ 'id': glanceWordGenreID       ,"display-name":"Genre"  },
-	{ 'id': glanceWordCategoryID    ,"display-name":"Register"}
+	"function-list": [
 
-] , 
+		{ 'id': glanceWordDefinitionID  ,"display-name":"Definition"  },
+		{ 'id': glanceWordTranslationID ,"display-name":"Translation" },
+		{ 'id': glanceWordPosID         ,"display-name":"POS"         },
+		{ 'id': glanceWordPositionID    ,"display-name":"Position"    },
+		// { 'id': glanceWordTree          ,"display-name":"Structure"   },
+		// { 'id': glacneWordPolarityID    ,"display-name":"Polarity"  },
+		{ 'id': glanceWordGenreID       ,"display-name":"Genre"  },
+		{ 'id': glanceWordCategoryID    ,"display-name":"Register"}
+
+	], 
 	postfixFirst : "1",
 	postfixSecond : "2"
 };
 
+// var svgPosChart;
+
 var postfixFirst = "1";
 var postfixSecond = "2"
 
-
 $( document ).ready(function() {
    
-
 	$.urlParam = function(name){
 		var results = new RegExp('[\\?&]' + name + '=([^&#]*)').exec(window.location.href);
 			if (!results) { return 0; }
@@ -40,15 +42,21 @@ $( document ).ready(function() {
 	var query2 = $.urlParam( 'query2' );
 	var test_mode = $.urlParam( 'textmode' );
 	
+	glanceFunctions['query'] = query == 0 ? '' : query;
+	glanceFunctions['query2'] = query2 == 0 ? '' : query2;
+
 	if( test_mode == 0 ){
 		loadTemplate( "index", glanceFunctions, $("#main-container") , function(){
 
-			if(query!=""){
-				fetchData( query , postfixFirst );	
-					
-			}
-			if(query2!=""){
-				fetchData( query2 , postfixSecond );
+
+			if(query){
+
+				fetchData( query , postfixFirst );
+
+				// prevent from requesting "/api/word/0"
+				if(query2){
+					fetchData( query2 , postfixSecond );	
+				}
 			}
 
 
@@ -63,15 +71,15 @@ $( document ).ready(function() {
 
 		loadTemplate( "index_text", glanceFunctions, $("#main-container") , function(){
 
-			if(query!=""){
+			if(query){
+
 				fetchTextData( query , postfixFirst );	
-					
-			}
-			if(query2!=""){
-				fetchTextData( query2 , postfixSecond );
-			}
 
-
+				// prevent from requesting "/api/word/0"
+				if(query2){
+					fetchTextData( query2 , postfixSecond );
+				}
+			}
 
 			events();
 			init();
@@ -81,9 +89,6 @@ $( document ).ready(function() {
 		});
 
 	}
-
-
-	
 
 	
 
@@ -227,6 +232,26 @@ function menuHandeler() {
 
 	});
 }
+function startSearch(){
+
+	var basic = $('#basic-search-bar');
+	var compare = $('#compare-search-bar');
+
+	var basic_query = $.trim(basic.val());
+	var compare_query = $.trim(compare.val());
+
+	var query = '?';
+	var query2 = '';
+
+	if(basic_query.length > 0){
+		query += 'query='+basic_query;
+	}
+	if(compare_query.length > 0){
+		query2 += '&query2='+compare_query;
+	}
+
+	location.href = query + query2;		
+}
 
 function inputHandeler() {
 
@@ -238,11 +263,18 @@ function inputHandeler() {
 	var basic = $('#basic-search-bar');
 	var searchBar = $('.search-bar');
 
+	if($.trim(compare.val()).length > 0){
+		compare.addClass('fixed');
+		compare.animate( { width: maxWidth }, 0 );
+	}
+
+
+
 	var focusEvent = function(){
 		clearTimeout(timer);
 		if($.trim(basic.val()).length > 0){
 			compare.addClass('fixed');
-			compare.animate( { width: maxWidth }, 200 );	
+			compare.animate( { width: maxWidth }, 200 );
 		}
 		
 	};
@@ -255,6 +287,7 @@ function inputHandeler() {
 			
 		}
 	};	
+
 	var keyupEvent = function(e){
 		if($.trim(basic.val()).length == 0 && $.trim(compare.val()).length == 0){
 			compare.removeClass('fixed');
@@ -267,22 +300,11 @@ function inputHandeler() {
 		// handle query
 		if(e.which == 13 || e.keyCode == 13)
 		{
-			var basic_query = $.trim(basic.val());
-			var compare_query = $.trim(compare.val());
-
-			var query = '?';
-			var query2 = '';
-
-			if(basic_query.length > 0){
-				query += 'query='+basic_query;
-			}
-			if(compare_query.length > 0){
-				query2 += '&query2='+compare_query;
-			}
-
-			location.href = query + query2;
+			startSearch();
 		}
 	}
+
+
 
 	compare
 		.focus(focusEvent)
@@ -414,6 +436,8 @@ function init(){
 /* load tempalte file and render it to #entry */
 function loadTemplate( templateName , data , entry , callback ){
 
+	console.log(templateName, data);
+
     $.ajax({
 		url : "/hb-template/" + templateName + ".tpl" ,
 		dataType: "text",
@@ -457,7 +481,7 @@ function bindKeyboardActionToForm(){
 function fetchData( qWord , postfixTargetID ){
 
 	// clear current data
-	$('.content-body').html('');
+	// $('.content-body').html('');
 
 	/* load difinition */
 	queryWord( qWord , postfixTargetID );
@@ -708,8 +732,11 @@ function queryCategory( qWord , postfixTargetID ){
 }
 /* ===================== drawing functions ======================= */
 
+
+
 /* draw a pie chart for POS tags */
 function drawPosChart( pos_data , entryName ){
+	
 	var width = 460,
     height = 300,
     radius = Math.min(width, height) / 2;
@@ -724,7 +751,7 @@ function drawPosChart( pos_data , entryName ){
 	    .sort(null)
 	    .value(function(d) { return d[1]; });
 
-	var svg = d3.select("#"+entryName).append("svg")
+	var svg = d3.select("#"+entryName).append("svg").attr("id", "svgPosChart")
 	    .attr("width", width)
 	    .attr("height", height)
 	  .append("g")

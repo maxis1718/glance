@@ -28,44 +28,45 @@
             </nav>
         </div>
 
-        <div id="input-group-wrap" class="">
+        <div id="input-group-wrap">
            <div id="search-btn-wrap" class="wrap-part">
-                <button type="button" class="btn">
-                    <img src="images/search.png" />
-                </button>    
-                <!-- <button type="button" class="btn btn-default" data-toggle="dropdown">S</button> -->
+                <button type="button" class="btn"><img src="images/search.png" /></button>
             </div>        
             <div id="search-bars-wrap" class="wrap-part">
                 <div id="search-bar-group">
                     <div id="search-bars">
                         <div class="search-bar-wrap">
-                            <input type="text" id="basic-search-bar" class="search-bar" />
+                            <input type="text" id="basic-search-bar" class="search-bar" value="{{ query}}" />
                         </div>
                         <div id="vs-wrap">vs</div>
                         <div class="search-bar-wrap">
-                            <input type="text" id="compare-search-bar" class="search-bar" />
+                            <input type="text" id="compare-search-bar" class="search-bar" value="{{ query2 }}"  />
                         </div>
                     </div>
                 </div>   
-            </div>
- 
-
- 
-        </div><!-- /input-group -->
-<!-- 
-        <div id="input-group-wrap" class=>
-            <div id="input-bar-wrap" class="input-group" >
-                <div id="input-bar" contenteditable>
-                </div>
-            </div>
-            <div id="input-btn-wrap" class="input-group">
-                search
-            </div>
-        </div> -->
+            </div> <!-- end #search-bars-wrap -->
+        </div> <!-- end #input-group-wrap -->
 
 
     </div>
 </header>
+
+<section class="row">
+    <div class="col compare-grid col-lg-6 col-md-6 col-sm-6 col-xs-12">
+        <div class="content-wrap">
+            <div class="content">
+                <article class="content-body query-article">{{query}}</article>
+            </div>
+        </div>
+    </div>
+    <div class="col compare-grid col-lg-6 col-md-6 col-sm-6 col-xs-12">
+         <div class="content-wrap">
+            <div class="content">
+                <article class="content-body query-article">{{query2}}</article>
+            </div>
+        </div>
+    </div>
+</section>
 
 {{#function-list}}
 <section class="row">

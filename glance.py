@@ -145,16 +145,10 @@ def test_level(query):
 # @app.route('/api/wp/<query>')
 @app.route('/api/word/<query>/wp/')
 @app.route('/api/word/<query>/wp')
-def word_position(query):
+def word_position(query, step=10):
 	res = DB.position(query)
 	return_data = [] if res == None else res
-
-
-	step = 10
-
 	compact_data = [ [ i, sum(return_data[1][i*step:(i+1)*step]) ] for i,x in enumerate(return_data[0][::step]) ]
-
-
 	# return_data = [] if query not in bnc_wp else bnc_wp[query]
 	# return_data = [] if query not in bnc_test else bnc_test[query]
 	return Response(json.dumps(compact_data), mimetype='application/json')
