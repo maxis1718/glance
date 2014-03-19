@@ -182,9 +182,73 @@ function menuHandeler() {
 }
 
 function inputHandeler() {
-	// $('body').on('focus', '[contenteditable]', function() {
-		// $(this).
-	// });
+
+	maxWidth = '128px';
+	minWidth = '0px';
+	var timer;
+
+	var compare = $('#compare-search-bar');
+	var basic = $('#basic-search-bar');
+	var searchBar = $('.search-bar');
+
+	var focusEvent = function(){
+		clearTimeout(timer);
+		if($.trim(basic.val()).length > 0){
+			compare.addClass('fixed');
+			compare.animate( { width: maxWidth }, 200 );	
+		}
+		
+	};
+	var blurEvent = function(){
+		if($.trim(compare.val()).length == 0 && !compare.hasClass('fixed') ){
+
+			timer = setTimeout(function(){
+				compare.animate( { width: minWidth }, 200 );	
+			}, 400)
+			
+		}
+	};	
+	var keyupEvent = function(e){
+		if($.trim(basic.val()).length == 0 && $.trim(compare.val()).length == 0){
+			compare.removeClass('fixed');
+			compare.animate( { width: minWidth }, 200 );	
+		}
+		if($.trim(basic.val()).length > 0 || $.trim(compare.val()).length > 0){
+			compare.addClass('fixed');
+		}
+
+		// handle query
+		if(e.which == 13 || e.keyCode == 13)
+		{
+			var basic_query = $.trim(basic.val());
+			var compare_query = $.trim(compare.val());
+
+			var query = '?';
+			var query2 = '';
+
+			if(basic_query.length > 0){
+				query += 'query='+basic_query;
+			}
+			if(compare_query.length > 0){
+				query2 += '&query2='+compare_query;
+			}
+
+			location.href = query + query2;
+		}
+	}
+
+	compare
+		.focus(focusEvent)
+		.blur(blurEvent)
+		.mouseleave(blurEvent)
+		.mouseenter(focusEvent);
+
+	searchBar
+		.hover(function(){
+			$(this).focus();
+		})
+		.keyup(keyupEvent);
+
 }
 
 function events(){

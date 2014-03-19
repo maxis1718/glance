@@ -110,27 +110,88 @@ $header-back-color: $glance-theme-color;
 $header-border-color: #2B2B30;
 
 #input-group-wrap {
-    width: 384px;
-    height: 36px;
+    // width: 384px;
+    // height: 36px;
     position: relative;
     top: 16px;
     float: right;
+    background: white;
+    border-radius: 5px;
+    // border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;    
     .wrap-part {
-        height: 100%;
+        // height: 100%;
         position: relative;
-        float: left;
+        // background: white;
+        float: right;
     }
     #search-bars-wrap {
-        width: 344px;
-        background: aquamarine;
+        // width: 280px;
+        // background: white;
+
         
         #search-bar-group {
-            height: 84%;
-            width: 90%;
-            background: brown;
+            // height: 84%;
+            // width: 98%;
+            // background: brown;
             position: relative;
-            margin: 0 auto;
-            top: 8%;            
+            margin: 0 0 0 auto;
+            // top: 8%;
+            #search-bars {
+                padding: 4px;
+                
+                border-top-left-radius: 5px;
+                border-bottom-left-radius: 5px;                
+                #vs-wrap {
+                    display: none;
+                    position: absolute;
+                    background: green;
+                    border-radius: 11px;
+                    padding: 3px;
+                    width: 20px;
+                    height: 20px;
+                    line-height: 13px;
+                    font-size: 12px;
+                    color: white;
+                    font-family: $glance-font-thin;
+                    text-align: center;
+                    top: 5px;
+                    right: -10px;
+                    z-index: 10;
+                }
+                .search-bar-wrap {
+                    /* float: left; */
+                    position: relative;
+                    display: inline-block;
+                    // background: black;
+                    
+                    &:nth-child(1) {
+                        margin-left: -3px;     
+                        border-right: 1px solid #ccc;
+                    }
+                    input {
+                        // float: left;
+                        // width: 128px;
+                        height: 24px;
+                        border: 0;
+                        outline: 0;
+                        padding-left: 9px;
+                        padding-right: 6px;
+                        margin: 3px;
+                        font-family: $glance-font-thin;
+                        font-size: 15.5px;
+                        letter-spacing: 1px;
+                        // background: wheat;
+
+                    }
+                    #basic-search-bar {
+                        width: 128px;
+                    }
+                    #compare-search-bar {
+                        width: 0px;
+                    }
+                }
+            }            
         }
         // input {
         //     background: white;
@@ -150,8 +211,19 @@ $header-border-color: #2B2B30;
         // }
     }
     #search-btn-wrap {
+        border-top-right-radius: 5px;
+        border-bottom-right-radius: 5px;        
         width: 40px;
-        background: antiquewhite;
+        height: 40px;
+        button {
+            background: $header-border-color;
+            height: 100%;
+            outline: none;            
+            img {
+                width: 14px;
+                height: 14px;
+            }
+        }
     }
 
 }
@@ -215,7 +287,7 @@ $header-border-color: #2B2B30;
             width: $nav-width;
             height: 100%;
             
-            top: $header-height;
+            top: $header-height - 1;
             left: 0;
 
             margin: 0;
