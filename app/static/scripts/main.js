@@ -40,27 +40,55 @@ $( document ).ready(function() {
 
 	var query = $.urlParam( 'query' );
 	var query2 = $.urlParam( 'query2' );
-
-	// push query, query2 into glanceFunctions
-	// i.e., put the queries directly when loading the template
+	var test_mode = $.urlParam( 'textmode' );
+	
 	glanceFunctions['query'] = query == 0 ? '' : query;
 	glanceFunctions['query2'] = query2 == 0 ? '' : query2;
 
-	loadTemplate( "index", glanceFunctions, $("#main-container") , function(){
+	if( test_mode == 0 ){
+		loadTemplate( "index", glanceFunctions, $("#main-container") , function(){
 
-		if(query){
 
-			fetchData( query , postfixFirst );
+			if(query){
 
-			// prevent from requesting "/api/word/0"
-			if(query2){
-				fetchData( query2 , postfixSecond );	
+				fetchData( query , postfixFirst );
+
+				// prevent from requesting "/api/word/0"
+				if(query2){
+					fetchData( query2 , postfixSecond );	
+				}
 			}
-		}
-		events();
-		init();
-		bindKeyboardActionToForm();
-	});
+
+
+
+			events();
+			init();
+			bindKeyboardActionToForm();
+			$("#basic-search-bar").val(query);
+			$("#compare-search-bar").val(query2);
+		});
+	}else{
+
+		loadTemplate( "index_text", glanceFunctions, $("#main-container") , function(){
+
+			if(query){
+
+				fetchTextData( query , postfixFirst );	
+
+				// prevent from requesting "/api/word/0"
+				if(query2){
+					fetchTextData( query2 , postfixSecond );
+				}
+			}
+
+			events();
+			init();
+			bindKeyboardActionToForm();
+			$("#basic-search-bar").val(query);
+			$("#compare-search-bar").val(query2);
+		});
+
+	}
 
 	
 
@@ -467,6 +495,111 @@ function fetchData( qWord , postfixTargetID ){
 	queryTranlastion( qWord , postfixTargetID );
 
 	queryCategory( qWord , postfixTargetID );
+
+}
+
+/* function when user input a word or reload a page with a word */
+function fetchTextData( qWord , postfixTargetID ){
+
+	// clear current data
+	$('.content-body').html('');
+
+	/* load difinition */
+	/* get word info */
+	$.get('/api/word/'+qWord, function(data) {
+		/*optional stuff to do after success */
+		data['postfixTargetID'] = postfixTargetID;
+		loadTemplate("definition", data , $("#"+glanceWordDefinitionID+"_"+postfixTargetID) , function(){
+
+			
+					
+				
+			$.each(data['contents'], function(index, val) {
+				 /* iterate through array or object */
+				var polarity = val['polarity'];
+
+				var word_polarity_data = [];
+			    $.each(polarity, function( key, value ) {
+			      if(value>0){
+					  word_polarity_data.push([ key, value]);
+					}
+				});
+				
+			    
+	    		var source = "{{#polarity}}<li>{{.}}</li>{{/polarity}}";
+				var template = Handlebars.compile(source);
+				var html    = template({ "polarity" : word_polarity_data});
+
+				/* put html string into entry */
+				$( "#wordPolarity-"+index+"-"+postfixTargetID ).html( html );	
+			    
+				
+			});
+
+			
+
+		});
+
+		wordsense = data['contents'][0];
+		wordsense.name = data['contents'][0]['sense'];
+
+		// drawTreeStructure( glanceWordTree );
+
+	});
+
+	queryTranlastion( qWord , postfixTargetID );
+
+	/* get word info */
+	$.get('/api/word/'+qWord+"/postag", function(data) {
+		/*optional stuff to do after success */
+
+		var source = "{{#pos}}<li>{{[0]}} : {{[1]}}</li>{{/pos}}";
+		var template = Handlebars.compile(source);
+		var html    = template({ "pos" : data});
+
+		/* put html string into entry */
+		$( "#"+ glanceWordPosID + "_" + postfixTargetID).html( html );	
+		
+	});
+
+	/* get word info */
+	$.get('/api/word/'+qWord+"/wp", function(data) {
+		/*optional stuff to do after success */
+		// var word_position_data = [];
+	 //    $.each(data[1], function( index, value ) {
+		//   word_position_data.push([ index, value]);
+		// });
+		var source = "{{#position}}<li>{{[0]}} : {{[1]}}</li>{{/position}}";
+		var template = Handlebars.compile(source);
+		var html    = template({ "position" : data});
+
+		/* put html string into entry */
+		$("#"+glanceWordPositionID + "_" + postfixTargetID).html( html );	
+
+
+	
+		
+	});
+
+		/* get word info */
+	$.get('/api/word/'+qWord+"/genre", function(data) {
+		
+		var total = data[0][1] + data[1][1];
+		
+		
+
+		var new_data = data;
+		new_data[0][1] = new_data[0][1]/total;
+		new_data[1][1] = new_data[1][1]/total; 
+
+		var source = "{{#genre}}<li>{{[0]}} : {{[1]}}</li>{{/genre}}";
+		var template = Handlebars.compile(source);
+		var html    = template({ "genre" : new_data});
+
+		/* put html string into entry */
+		$("#"+ glanceWordGenreID + "_" + postfixTargetID).html( html );	
+	});
+
 
 }
 
