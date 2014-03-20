@@ -19,6 +19,7 @@ $content-wrap-border-color: #ccc;
 $glance-theme-fonts: "Segoe UI light", cursive, sans-serif;
 
 $glance-theme-color-green: #0DD476;
+$glance-theme-color-wheat: #FAEDD2;
 
 $function-nav-bgcolor: #ccc;
 $function-nav-bgcolor-highlight: #f4f4f4;
@@ -31,6 +32,7 @@ $nav-arrow-position: 16.5px;
 $nav-arrow-border-position: 15px;
 
 $glance-font-thin: "Segoe UI light";
+$glance-font-mono: "Segoe UI light";
 
 $nav-left-margin: 12px;
 $body-background-color: #FEFEFE;
@@ -227,34 +229,99 @@ $header-border-color: #2B2B30;
     }
 
 }
+// bootstrap default
+.tab-content {
+    margin-top: 12px;
+    .tab-pane {
+        max-width: 640px;
+        .panel-group {
 
-.wordDefinition {
-    .panel {
-        .panel-heading {
-            padding: 0;
-            .panel-title {
-                min-height: 32px;
-                line-height: 32px;
-                padding: 6px 30px 10px 14px;
-                a {
-                    &:hover {
-                        text-decoration: none;
-                    }
-                    .panel-title-pos {
-                        font-family: monospace;
-                        font-size: 1.5em;
-                        
-                    }
-                    .panel-title-definition {
+            .panel {
+                margin-bottom: 12px!important;
+                // border-color: #f5f5f5;
+                border: 0;
 
+                @include border-radius(3px);
+                &:hover {
+                    cursor: pointer;
+                    .panel-heading {
+                        background: $glance-theme-color-wheat;
                     }
+                }    
+                .heading-selected {
+                    background: $glance-theme-color-wheat;
+                }                 
+                .panel-heading {
+                    padding: 2px 0 0 0;
+                    box-shadow: 0px 1px 5px #888;
+                    .panel-title {
+                        min-height: 32px;
+                        line-height: 24px;
+                        padding: 6px 30px 10px 14px;
+                        a {
+                            font-size: 14px;
+                            font-family: $glance-font-mono;
+                            &:hover {
+                                text-decoration: none;
+                            }
+                            .panel-title-pos {
+                                font-size: 1.5em;
+                                
+                            }
+                            .panel-title-definition {
 
-                }             
+                            }
+
+                        }             
+                    }
+                    svg {
+                        position: relative;
+                        bottom: -1px;                
+                    }
+                }
+                .panel-collapse{
+                    border-bottom: 1px dashed #ddd;
+                    border-right: 1px dashed #ddd;
+                    border-left: 1px dashed #ddd;
+                    .panel-body {
+                        b {
+                            border-bottom: 1px dashed $glance-theme-color;
+                            padding-left: 3px;
+                        }
+                        ul {
+                            margin-top: 4px;
+                            li {
+                                // text-transform: capitalize;
+                            }
+                        }
+                    }
+                }     
             }
         }
     }
 }
-
+.wordDefinition{
+    .nav-pills {
+        font-family: monospace;
+        li {
+            a {
+                // @include border-radius(2px);
+                /*@include border-bottom-radius(px);*/
+            }
+        }
+        li.active {
+            a {
+                color: #444;
+                background-color: $glance-theme-color-wheat;
+                .badge {
+                    background: #428bca;
+                    color: white;
+                }
+            }
+        }
+    }
+    color: #444;
+}
 .container-fluid {
 
     header {
@@ -313,6 +380,7 @@ $header-border-color: #2B2B30;
             position: fixed;
             width: $nav-width;
             height: 100%;
+            display: none;
             
             top: $header-height - 1;
             left: 0;
@@ -321,7 +389,7 @@ $header-border-color: #2B2B30;
             padding: 0;
 
             
-            z-index: 100;
+            
 
             nav {
                 height: 100%;
@@ -329,6 +397,7 @@ $header-border-color: #2B2B30;
                     width: $nav-width;
                 }
                 ul.hide-part {
+                    z-index: 0;
                     margin-left: -$nav-width;
                 }
                 ul.open-all {
@@ -341,7 +410,7 @@ $header-border-color: #2B2B30;
                     }
                 }
                 ul.open-part {
-                    
+                    z-index: 100;
                     div.nav-full {
                         visibility: hidden;
                     }
@@ -421,7 +490,9 @@ $header-border-color: #2B2B30;
 
             }
         }
-
+        &:nth-last-child(1) {
+            padding-bottom: 64px;
+        }
         &:nth-child(2) {
             position: fixed;
             top: 72px;
@@ -444,6 +515,7 @@ $header-border-color: #2B2B30;
         .query-article {
             font-size: 28px;
             text-transform: capitalize;
+            letter-spacing: 1px;
         }
 
         .compare-grid, .full-grid {
@@ -488,63 +560,9 @@ $header-border-color: #2B2B30;
     }
 }
 
-// bootstrap default
 
-.panel-group {
-    .panel {
-        @include border-radius(2px);
 
-        &:hover {
-            .panel-heading {
-                background: $glance-theme-color-green;
-            }
-        }
 
-        .panel-heading {
-            padding: 10px 15px;
-
-            .panel-title {
-
-                a {
-
-                }
-                .panel-title-pos {
-
-                }
-                .panel-title-definition {
-
-                }
-            }
-        }
-    } 
-}
-
-.wordDefinition{
-
-    .nav-pills {
-
-        li {
-            a {
-                @include border-radius(2px);
-                /*@include border-bottom-radius(px);*/
-            }
-        }
-
-        li.active {
-
-            a {
-                background-color: $glance-theme-color-green;
-            }
-        }
-    }
-    .tab-content {
-        .tab-pane {
-            max-width: 640px;
-        }
-        margin-top: 12px;
-    }
-    color: #444;
-}
 
 // #accordion{
 //     .panel-group .panel {
@@ -585,6 +603,7 @@ $header-border-color: #2B2B30;
 //         }
 
 //         .panel-collapse{
+
 //             .panel-body{
 //                 color: black;
 

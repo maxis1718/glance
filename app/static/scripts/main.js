@@ -7,6 +7,8 @@ var glacneWordPolarityID = "wordPolarity";
 var glanceWordGenreID = "wordGenre";
 var glanceWordCategoryID = "wordCategory";
 
+
+
 var glanceFunctions = { 
 
 	"function-list": [
@@ -320,6 +322,7 @@ function inputHandeler() {
 
 }
 
+
 function events(){
 
 	menuHandeler();
@@ -428,6 +431,7 @@ function navigation(selector) {
 }
 
 function init(){
+
 	// $('#input-area').focus();
 	// $('.function-nav-block').eq(0).click();
 }
@@ -436,7 +440,7 @@ function init(){
 /* load tempalte file and render it to #entry */
 function loadTemplate( templateName , data , entry , callback ){
 
-	console.log(templateName, data);
+	// console.log(templateName, data);
 
     $.ajax({
 		url : "/hb-template/" + templateName + ".tpl" ,
@@ -511,8 +515,6 @@ function fetchTextData( qWord , postfixTargetID ){
 		data['postfixTargetID'] = postfixTargetID;
 		loadTemplate("definition", data , $("#"+glanceWordDefinitionID+"_"+postfixTargetID) , function(){
 
-			
-					
 				
 			$.each(data['contents'], function(index, val) {
 				 /* iterate through array or object */
@@ -531,12 +533,9 @@ function fetchTextData( qWord , postfixTargetID ){
 				var html    = template({ "polarity" : word_polarity_data});
 
 				/* put html string into entry */
-				$( "#wordPolarity-"+index+"-"+postfixTargetID ).html( html );	
-			    
-				
+				$( "#wordPolarity-"+index+"-"+postfixTargetID ).html( html );
 			});
 
-			
 
 		});
 
@@ -630,6 +629,7 @@ function queryWord( qWord , postfixTargetID ){
 					});
 				    
 				    drawPolarity( word_polarity_data , "wordPolarity-"+index+"-"+postfixTargetID );
+					
 					
 				});
 
@@ -1038,7 +1038,7 @@ function update(source, layoutRoot, diagonal ) {
 /* draw word position */
 function drawWordPosition( word_position_data, entryName ){
 
-	var margin = { top: 20, right: 20, bottom: 30, left: 40 },
+	var margin = { top: 20, right: 20, bottom: 30, left: 60 },
     width = 400 - margin.left - margin.right,
     height = 300 - margin.top - margin.bottom;
 
@@ -1180,9 +1180,10 @@ function type(d) {
 
 function drawPolarity( data , entryName ){
 	
-	var margin = {top: 20, right: 100, bottom: 30, left: 40},
-	    width = '100%';
-	    height = 10;
+	// var margin = {top: 20, right: 100, bottom: 30, left: 40},
+	var margin = {top: 0, right: 0, bottom: 0, left: 0},
+	    width = 370;
+	    height = 7;
 
 	var y = d3.scale.ordinal()
 	    .rangeRoundBands([0, width], .1);
@@ -1204,7 +1205,7 @@ function drawPolarity( data , entryName ){
 
 	var svg = d3.select("#"+entryName).append("svg")
 	    // .attr("width", width + margin.left + margin.right)
-	    .attr("width", width)
+	    .attr("width", '100%')
 	    // .attr("height", height + margin.top + margin.bottom)
 	    .attr("height", height)
 	  .append("g")
@@ -1243,11 +1244,13 @@ function drawPolarity( data , entryName ){
 	  state.selectAll("rect")
 	      .data(data)
 	    .enter().append("rect")
-	      .attr("width", function(d){ return d.barWidth; } )
+	      .attr("width", '100%' )
+	      // .attr("width", function(d){ return d.barWidth; } )
 	      .attr("y", function(d) { return 0; })
 	      .attr("x",function(d){ return d.barOrigin; })
 	      .attr("height", height )
 	      .style("fill", function(d) { return color(d[0]); })
+
 	      .on("mouseover", function(d) {							// when the mouse leaves a circle, do the following
 	      	
 			toolTip.transition()
@@ -1256,11 +1259,11 @@ function drawPolarity( data , entryName ){
 
 			toolTip.text( d[0] );
 
-			var positionLeft = this.getBoundingClientRect().left - $("#"+glacneWordPolarityID).offset().left ;
-			var positionTop = $("#"+entryName).position().top - height;
+			// var positionLeft = this.getBoundingClientRect().left - $("#"+glacneWordPolarityID).offset().left ;
+			// var positionTop = $("#"+entryName).position().top - height;
 			
-			toolTip.style("left", positionLeft + "px")
-			    .style("top", positionTop + "px");
+			// toolTip.style("left", positionLeft + "px")
+			    // .style("top", positionTop + "px");
                 	
           }).on("mouseout", function(d) {							// when the mouse leaves a circle, do the following
 	      	
