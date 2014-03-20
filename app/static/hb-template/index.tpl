@@ -46,8 +46,6 @@
                 </div>   
             </div> <!-- end #search-bars-wrap -->
         </div> <!-- end #input-group-wrap -->
-
-
     </div>
 </header>
 
