@@ -3,20 +3,20 @@
 @import 'sass-bootstrap/lib/bootstrap';
 
 
-@font-face {
-    font-family: "Segoe UI light";
-    src: url('segoe_ui_light.ttf');
-}
-@font-face {
-    font-weight: "Raleway";
-    src: url('Raleway.woff');
-}
-
+// @font-face {
+//     font-family: "Segoe UI light";
+//     src: url('segoe_ui_light.ttf');
+// }
 $icon-font-path: "/bower_components/sass-bootstrap/fonts/";
 
 $header-height: 72px;
 $content-wrap-border-color: #ccc;
-$glance-theme-fonts: "Segoe UI light", cursive, sans-serif;
+// $glance-theme-fonts: "Segoe UI light", cursive, sans-serif;
+$glance-theme-fonts: 'Josefin Sans', sans-serif;
+// $glance-font-thin: "Segoe UI light";
+$glance-font-thin: 'Josefin Sans', sans-serif;
+$glance-font-mono: monospace;
+
 
 $glance-theme-color-green: #0DD476;
 $glance-theme-color-wheat: #FAEDD2;
@@ -31,8 +31,7 @@ $nav-item-height: 48px;
 $nav-arrow-position: 16.5px;
 $nav-arrow-border-position: 15px;
 
-$glance-font-thin: "Segoe UI light";
-$glance-font-mono: "Segoe UI light";
+
 
 $nav-left-margin: 12px;
 $body-background-color: #FEFEFE;
@@ -181,7 +180,7 @@ $header-border-color: #2B2B30;
                         padding-right: 6px;
                         margin: 3px;
                         font-family: $glance-font-thin;
-                        font-size: 15.5px;
+                        font-size: 18px;
                         letter-spacing: 1px;
                         // background: wheat;
 
@@ -229,9 +228,6 @@ $header-border-color: #2B2B30;
     }
 
 }
-
-
-
 // bootstrap default
 .tab-content {
     margin-top: 12px;
@@ -330,8 +326,6 @@ $header-border-color: #2B2B30;
     }
     color: #444;
 }
-
-
 .container-fluid {
 
     header {
@@ -346,7 +340,7 @@ $header-border-color: #2B2B30;
             position: relative;
             width: 192px;
             height: $header-height;
-            line-height: $header-height;
+            line-height: $header-height + 10;
             float: left;
 
             #logo {
@@ -523,7 +517,7 @@ $header-border-color: #2B2B30;
 
         }
         .query-article {
-            font-size: 28px;
+            font-size: 32px;
             text-transform: capitalize;
             letter-spacing: 1px;
         }
@@ -552,7 +546,7 @@ $header-border-color: #2B2B30;
                     //     overflow-x: 
                     // }
                     .content-tag {
-                        font-size: 1.25em;
+                        font-size: 1.5em;
                         color: $glance-theme-color;
                         margin-bottom: 15px;
                     }      
