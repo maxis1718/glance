@@ -66,8 +66,8 @@ $( document ).ready(function() {
 			events();
 			init();
 			bindKeyboardActionToForm();
-			$("#basic-search-bar").val(query);
-			$("#compare-search-bar").val(query2);
+			// $("#basic-search-bar").val(query);
+			// $("#compare-search-bar").val(query2);
 		});
 	}else{
 
@@ -86,8 +86,8 @@ $( document ).ready(function() {
 			events();
 			init();
 			bindKeyboardActionToForm();
-			$("#basic-search-bar").val(query);
-			$("#compare-search-bar").val(query2);
+			// $("#basic-search-bar").val(query);
+			// $("#compare-search-bar").val(query2);
 		});
 
 	}
@@ -506,7 +506,7 @@ function fetchData( qWord , postfixTargetID ){
 function fetchTextData( qWord , postfixTargetID ){
 
 	// clear current data
-	$('.content-body').html('');
+	// $('.content-body').html('');
 
 	/* load difinition */
 	/* get word info */
