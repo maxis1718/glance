@@ -32,6 +32,10 @@ var glanceFunctions = {
 var postfixFirst = "1";
 var postfixSecond = "2"
 
+var query;
+var query2;
+var test_mode;
+
 $( document ).ready(function() {
    
 	$.urlParam = function(name){
@@ -40,9 +44,13 @@ $( document ).ready(function() {
 			return results[1] || 0;
 	}
 
-	var query = $.urlParam( 'query' );
-	var query2 = $.urlParam( 'query2' );
-	var test_mode = $.urlParam( 'textmode' );
+	query = $.urlParam( 'query' );
+	query2 = $.urlParam( 'query2' );
+	test_mode = $.urlParam( 'textmode' );
+
+	console.log('query:',query);
+	console.log('query2:',query2);
+	console.log('test_mode:',test_mode);
 	
 	glanceFunctions['query'] = query == 0 ? '' : query;
 	glanceFunctions['query2'] = query2 == 0 ? '' : query2;
@@ -242,17 +250,21 @@ function startSearch(){
 	var basic_query = $.trim(basic.val());
 	var compare_query = $.trim(compare.val());
 
-	var query = '?';
-	var query2 = '';
+	query_uri = '?';
+	query2_uri = '';
+	textmode_uri = '';
 
 	if(basic_query.length > 0){
-		query += 'query='+basic_query;
+		query_uri += 'query='+basic_query;
 	}
 	if(compare_query.length > 0){
-		query2 += '&query2='+compare_query;
+		query2_uri += '&query2='+compare_query;
+	}
+	if(test_mode){
+		textmode_uri += '&textmode=1'
 	}
 
-	location.href = query + query2;		
+	location.href = query_uri + query2_uri +textmode_uri;
 }
 
 function inputHandeler() {
@@ -319,6 +331,10 @@ function inputHandeler() {
 			$(this).focus();
 		})
 		.keyup(keyupEvent);
+
+	$('#search-btn-wrap').click(function(e){
+		startSearch();
+	});
 
 }
 

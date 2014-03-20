@@ -255,11 +255,15 @@ $header-border-color: #2B2B30;
                     background: $glance-theme-color-wheat;
                 }                 
                 .panel-heading {
+                    li {
+                        padding-left: 20px;
+                        padding-bottom: 4px;
+                    }
                     padding: 2px 0 0 0;
                     box-shadow: 0px 1px 5px #888;
                     .panel-title {
                         min-height: 32px;
-                        line-height: 24px;
+                        line-height: 16px;
                         padding: 6px 30px 10px 14px;
                         a {
                             font-size: 14px;
@@ -272,7 +276,8 @@ $header-border-color: #2B2B30;
                                 
                             }
                             .panel-title-definition {
-
+                                font-size: 1.1em;
+                                font-family: monospace;
                             }
 
                         }             
