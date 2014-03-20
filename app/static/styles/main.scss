@@ -3,20 +3,25 @@
 @import 'sass-bootstrap/lib/bootstrap';
 
 
-@font-face {
-    font-family: "Segoe UI light";
-    src: url('segoe_ui_light.ttf');
-}
-@font-face {
-    font-weight: "Raleway";
-    src: url('Raleway.woff');
-}
+// @font-face {
+//     font-family: "Segoe UI light";
+//     src: url('segoe_ui_light.ttf');
+// }
+// @font-face {
+//     font-weight: "Raleway";
+//     src: url('Raleway.woff');
+// }
 
 $icon-font-path: "/bower_components/sass-bootstrap/fonts/";
 
 $header-height: 72px;
 $content-wrap-border-color: #ccc;
-$glance-theme-fonts: "Segoe UI light", cursive, sans-serif;
+// $glance-theme-fonts: "Segoe UI light", cursive, sans-serif;
+$glance-theme-fonts: 'Inconsolata', cursive, sans-serif;
+// $glance-font-thin: "Segoe UI light";
+$glance-font-thin: "Inconsolata";
+$glance-font-mono: monospace;
+
 
 $glance-theme-color-green: #0DD476;
 $glance-theme-color-wheat: #FAEDD2;
@@ -31,8 +36,7 @@ $nav-item-height: 48px;
 $nav-arrow-position: 16.5px;
 $nav-arrow-border-position: 15px;
 
-$glance-font-thin: "Segoe UI light";
-$glance-font-mono: "Segoe UI light";
+
 
 $nav-left-margin: 12px;
 $body-background-color: #FEFEFE;
