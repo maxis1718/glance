@@ -8,21 +8,25 @@ glance
 
 * ### To-do list
 
+    做完請直接用 `~~to-do blah~~` : ~~to-do blah~~ 加上刪除線
+
     ####1. displine
     * 加上標籤
     * 中間放百分比
-    * ![image](img/displine.png)
+    
+    ![image](img/displine.png)
     
     ####1. POS tag
     * 浮出
+    
     ![image](img/pos.png)
     
     ####1. one-column
     
     ####1. position
-    1. x 軸 value 不對
-    1. 改標籤
-    1. 改顏色（移過去換色?）
+    * x 軸 value 不對
+    * 改標籤
+    * 改顏色（移過去換色?）
     
     ![image](img/position.png)
 
@@ -34,10 +38,16 @@ glance
     1. 大螢幕要設定 max-width or 給固定長度
     1. 現在平板會爆炸
     
-    ####1. system
+    
+    ####1. 前端
+    1. auto-complete
+    1. (進階版) visualize auto-completion (cloud?)
+    
+    ####1. 後端
     1. 解決 heroku 啟動時的 delay 問題
     1. 將一部分資料搬到 mongo lab (控制 500 MB 以下)
-    1. js 更模組化一點
+    
+    
 
 ---
 
