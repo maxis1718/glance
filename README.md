@@ -1,9 +1,47 @@
-![image](logo.png)
+![image](img/logo.png)
 
 
 ---
+
 glance
 ======
+
+* ### To-do list
+
+    ####1. displine
+    * 加上標籤
+    * 中間放百分比
+    * ![image](img/displine.png)
+    
+    ####1. POS tag
+    * 浮出
+    ![image](img/pos.png)
+    
+    ####1. one-column
+    
+    ####1. position
+    1. x 軸 value 不對
+    1. 改標籤
+    1. 改顏色（移過去換色?）
+    
+    ![image](img/position.png)
+
+    ####1. polarity
+    1. 換顏色
+    1. 改標籤位置
+    
+    ####1. responsive layout
+    1. 大螢幕要設定 max-width or 給固定長度
+    1. 現在平板會爆炸
+    
+    ####1. system
+    1. 解決 heroku 啟動時的 delay 問題
+    1. 將一部分資料搬到 mongo lab (控制 500 MB 以下)
+    1. js 更模組化一點
+
+---
+
+### system
 
 所有前端的檔案都放在`/app/`
 下面的相對位置都是以/app為根目錄標示的
