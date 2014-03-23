@@ -15,12 +15,12 @@ var glanceFunctions = {
 
 		{ 'id': glanceWordDefinitionID  ,"display-name":"Definition"  },
 		{ 'id': glanceWordTranslationID ,"display-name":"Translation" },
-		{ 'id': glanceWordPosID         ,"display-name":"POS"         },
+		{ 'id': glanceWordPosID         ,"display-name":"Part-of-speech"},
 		{ 'id': glanceWordPositionID    ,"display-name":"Position"    },
 		// { 'id': glanceWordTree          ,"display-name":"Structure"   },
 		// { 'id': glacneWordPolarityID    ,"display-name":"Polarity"  },
-		{ 'id': glanceWordGenreID       ,"display-name":"Genre"  },
-		{ 'id': glanceWordCategoryID    ,"display-name":"Register"}
+		{ 'id': glanceWordGenreID       ,"display-name":"Form"  },
+		{ 'id': glanceWordCategoryID    ,"display-name":"Discipline"}
 
 	], 
 	postfixFirst : "1",
@@ -165,7 +165,11 @@ function menuHandeler() {
 		// 本來是打開的，而且釘住 --> 隱藏 + 取消 fixed
 		if(open && fixed)
 		{
-			obj.animate( { marginLeft: "-96px" }, 250, function(){ obj.addClass('hide-part').removeClass('fixed'); } );
+			obj.animate( { marginLeft: "-96px" }, 250, function(){ 
+				obj.addClass('hide-part')
+				   .removeClass('fixed')
+				   .removeClass('bring-to-front').addClass('bring-to-back'); 
+			});
 		}
 		// 本來是打開的, 還沒釘住, fixed it
 		else if(open && notfixed)
@@ -175,7 +179,10 @@ function menuHandeler() {
 		// 本來是 close，打開並 fix
 		else if(close)
 		{
-			obj.animate( { marginLeft: "0" }, 250, function(){ obj.removeClass('hide-part').addClass('fixed'); } );
+			obj.animate( { marginLeft: "0" }, 250, function(){ 
+				obj.removeClass('hide-part')
+				   .addClass('fixed'); 
+			});
 		}
 	}
 	var mouseoverEvent = function(){
@@ -192,7 +199,10 @@ function menuHandeler() {
 		// 本來是關著 --> 打開，不釘住
 		else if(close)
 		{
-			obj.animate( { marginLeft: "0" }, 250, function(){ obj.removeClass('hide-part'); } );
+			obj.animate( { marginLeft: "0" }, 250, function(){ 
+				obj.removeClass('hide-part')
+				   .removeClass('bring-to-back').addClass('bring-to-front');
+			});
 		}
 	}
 	
@@ -211,7 +221,12 @@ function menuHandeler() {
 		// 本來是開著，沒釘住 --> 關
 		else if(open && notfixed)
 		{
-			obj.animate( { marginLeft: "-96px" }, 250, function(){ obj.addClass('hide-part').removeClass('fixed'); } );
+			obj.animate( { marginLeft: "-96px" }, 250, function(){ 
+				obj.addClass('hide-part')
+				   .removeClass('bring-to-front').addClass('bring-to-back')
+				   .removeClass('fixed');
+
+			});
 		}
 		
 		else if(close)
@@ -753,7 +768,7 @@ function queryCategory( qWord , postfixTargetID ){
 /* draw a pie chart for POS tags */
 function drawPosChart( pos_data , entryName ){
 	
-	var width = 460,
+	var width = 360,
     height = 300,
     radius = Math.min(width, height) / 2;
 
@@ -793,7 +808,7 @@ function drawPosChart( pos_data , entryName ){
 
 /* draw a pie chart for Genre tags */
 function drawGenreChart( genre_data , entryName ){
-	var width = 460,
+	var width = 360,
     height = 300,
     radius = Math.min(width, height) / 2;
 
@@ -1055,7 +1070,7 @@ function update(source, layoutRoot, diagonal ) {
 function drawWordPosition( word_position_data, entryName ){
 
 	var margin = { top: 20, right: 20, bottom: 30, left: 60 },
-    width = 400 - margin.left - margin.right,
+    width = 360 - margin.left - margin.right,
     height = 300 - margin.top - margin.bottom;
 
 	var x = d3.scale.ordinal()
@@ -1314,7 +1329,7 @@ function drawPolarity( data , entryName ){
 
 function drawCategory( root , entryName ){
 
-	var width = 460,
+	var width = 360,
 	    height = 300,
 	    radius = Math.min(width, height) / 2;
 
