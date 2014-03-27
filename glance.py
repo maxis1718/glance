@@ -8,7 +8,7 @@ import language_kit as LK
 from flask_yeoman import flask_yeoman
 
 
-skip_mongo_request = True
+skip_mongo_request = False
 
 if not skip_mongo_request:
 	import mongo as DB  # connect to the MongoDB running on lost
