@@ -1,8 +1,3 @@
-![image](img/logo.png)
-
-
----
-
 glance
 ======
 
@@ -10,42 +5,36 @@ glance
 
     做完請直接用 `~~to-do blah~~` : ~~to-do blah~~ 加上刪除線
 
-    ####1. displine
-    * 加上標籤
-    * 中間放百分比
+    1. displine [(image)](img/displine.png)
+        * 加上標籤
+        * 中間放百分比
     
-    ![image](img/displine.png)
+    1. POS tag [image](img/pos.png)
+        * 浮出 
     
-    ####1. POS tag
-    * 浮出
+    1. ~~one-column~~
     
-    ![image](img/pos.png)
+    1. position [image](img/position.png)
+        * x 軸 value 不對
+        * 改標籤
+        * 改顏色（移過去換色?）
+        
+    1. polarity
+        * ~~換顏色~~
+        * 改標籤位置
     
-    ####1. one-column
-    
-    ####1. position
-    * x 軸 value 不對
-    * 改標籤
-    * 改顏色（移過去換色?）
-    
-    ![image](img/position.png)
-
-    ####1. polarity
-    1. 換顏色
-    1. 改標籤位置
-    
-    ####1. responsive layout
-    1. 大螢幕要設定 max-width or 給固定長度
-    1. 現在平板會爆炸
+    1. responsive layout
+        * ~~大螢幕要設定 max-width or 給固定長度~~
+        * ~~現在平板會爆炸~~
     
     
-    ####1. 前端
-    1. auto-complete
-    1. (進階版) visualize auto-completion (cloud?)
+    1. 前端
+        * auto-complete
+        * (進階版) visualize auto-completion (cloud?)
     
-    ####1. 後端
-    1. 解決 heroku 啟動時的 delay 問題
-    1. 將一部分資料搬到 mongo lab (控制 500 MB 以下)
+    1. 後端
+        * 解決 heroku 啟動時的 delay 問題
+        * 將一部分資料搬到 mongo lab (控制 500 MB 以下)
     
     
 
