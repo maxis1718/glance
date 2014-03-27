@@ -5,3 +5,4 @@ venv
 .tmp
 node_modules
 bower_components
+app/static/styles/*.css
