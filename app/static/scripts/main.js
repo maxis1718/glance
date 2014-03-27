@@ -48,12 +48,22 @@ $( document ).ready(function() {
 	query2 = $.urlParam( 'query2' );
 	test_mode = $.urlParam( 'textmode' );
 
-	console.log('query:',query);
-	console.log('query2:',query2);
-	console.log('test_mode:',test_mode);
+	
+	
+	// console.log('test_mode:',test_mode);
 	
 	glanceFunctions['query'] = query == 0 ? '' : query;
 	glanceFunctions['query2'] = query2 == 0 ? '' : query2;
+
+	glanceFunctions['display'] = query2 == 0 ? 'hide': 'show';
+
+	glanceFunctions['part1'] = query2 == 0 ? '7': '5';
+	glanceFunctions['part2'] = query2 == 0 ? '3': '5';
+
+	console.log('glanceFunctions:',glanceFunctions);
+	console.log(glanceFunctions['display']);
+	// console.log('query:',query);
+	// console.log('query2:',query2);
 
 	if( test_mode == 0 ){
 		loadTemplate( "index", glanceFunctions, $("#main-container") , function(){
@@ -61,10 +71,13 @@ $( document ).ready(function() {
 
 			if(query){
 
+				
 				fetchData( query , postfixFirst );
 
 				// prevent from requesting "/api/word/0"
 				if(query2){
+
+					
 					fetchData( query2 , postfixSecond );	
 				}
 			}
@@ -768,7 +781,7 @@ function queryCategory( qWord , postfixTargetID ){
 /* draw a pie chart for POS tags */
 function drawPosChart( pos_data , entryName ){
 	
-	var width = 360,
+	var width = 300,
     height = 300,
     radius = Math.min(width, height) / 2;
 
@@ -808,7 +821,7 @@ function drawPosChart( pos_data , entryName ){
 
 /* draw a pie chart for Genre tags */
 function drawGenreChart( genre_data , entryName ){
-	var width = 360,
+	var width = 300,
     height = 300,
     radius = Math.min(width, height) / 2;
 
@@ -1070,7 +1083,7 @@ function update(source, layoutRoot, diagonal ) {
 function drawWordPosition( word_position_data, entryName ){
 
 	var margin = { top: 20, right: 20, bottom: 30, left: 60 },
-    width = 360 - margin.left - margin.right,
+    width = 300 - margin.left - margin.right,
     height = 300 - margin.top - margin.bottom;
 
 	var x = d3.scale.ordinal()
@@ -1329,7 +1342,7 @@ function drawPolarity( data , entryName ){
 
 function drawCategory( root , entryName ){
 
-	var width = 360,
+	var width = 300,
 	    height = 300,
 	    radius = Math.min(width, height) / 2;
 

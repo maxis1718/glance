@@ -1,5 +1,5 @@
 <header class="row" id="header-banner-wrap">
-    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-6">
 
         <!-- top menu button -->
         <div class="menu-btn-wrap" id="menu-controler">
@@ -50,14 +50,14 @@
 </header>
 
 <section class="row" id="section-word-wrap">
-    <div class="col compare-grid grid-header col-lg-6 col-md-6 col-sm-6 col-xs-12">
+    <div class="col compare-grid grid-header col-lg-{{part1}} col-md-{{part1}} col-sm-{{part1}} col-xs-12">
         <div class="content-wrap">
             <div class="content">
                 <article class="content-body query-article">{{query}}</article>
             </div>
         </div>
     </div>
-    <div class="col compare-grid grid-header col-lg-6 col-md-6 col-sm-6 col-xs-12">
+    <div class="col compare-grid grid-header col-lg-{{part1}} col-md-{{part1}} col-sm-{{part1}} col-xs-12 {{display}}">
          <div class="content-wrap">
             <div class="content">
                 <article class="content-body query-article">{{query2}}</article>
@@ -68,7 +68,7 @@
 
 {{#function-list}}
 <section class="row">
-    <div class="col compare-grid grid-body col-lg-6 col-md-6 col-sm-6 col-xs-6">
+    <div class="col compare-grid grid-body col-lg-{{../part1}} col-md-{{../part1}} col-sm-{{../part1}} col-xs-12">
         <div class="content-wrap">
             <div class="content">
                 <div class="content-tag">{{display-name}}</div>
@@ -76,7 +76,7 @@
             </div>
         </div>
     </div>
-    <div class="col compare-grid grid-body col-lg-6 col-md-6 col-sm-6 col-xs-6">
+    <div class="col compare-grid grid-body col-lg-{{../part2}} col-md-{{../part2}} col-sm-{{../part2}} col-xs-12 {{../display}}">
          <div class="content-wrap">
             <div class="content">
                 <div class="content-tag">{{display-name}}</div>
