@@ -7,7 +7,7 @@ var glacneWordPolarityID = "wordPolarity";
 var glanceWordGenreID = "wordGenre";
 var glanceWordCategoryID = "wordCategory";
 
-var stopAjax = true;
+var stopAjax = false;
 
 var glanceFunctions = { 
 
