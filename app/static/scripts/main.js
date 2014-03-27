@@ -7,7 +7,7 @@ var glacneWordPolarityID = "wordPolarity";
 var glanceWordGenreID = "wordGenre";
 var glanceWordCategoryID = "wordCategory";
 
-
+var stopAjax = true;
 
 var glanceFunctions = { 
 
@@ -15,12 +15,12 @@ var glanceFunctions = {
 
 		{ 'id': glanceWordDefinitionID  ,"display-name":"Definition"  },
 		{ 'id': glanceWordTranslationID ,"display-name":"Translation" },
-		{ 'id': glanceWordPosID         ,"display-name":"POS"         },
+		{ 'id': glanceWordPosID         ,"display-name":"Part-of-speech"},
 		{ 'id': glanceWordPositionID    ,"display-name":"Position"    },
 		// { 'id': glanceWordTree          ,"display-name":"Structure"   },
 		// { 'id': glacneWordPolarityID    ,"display-name":"Polarity"  },
-		{ 'id': glanceWordGenreID       ,"display-name":"Genre"  },
-		{ 'id': glanceWordCategoryID    ,"display-name":"Register"}
+		{ 'id': glanceWordGenreID       ,"display-name":"Form"  },
+		{ 'id': glanceWordCategoryID    ,"display-name":"Discipline"}
 
 	], 
 	postfixFirst : "1",
@@ -48,12 +48,22 @@ $( document ).ready(function() {
 	query2 = $.urlParam( 'query2' );
 	test_mode = $.urlParam( 'textmode' );
 
-	console.log('query:',query);
-	console.log('query2:',query2);
-	console.log('test_mode:',test_mode);
+	
+	
+	// console.log('test_mode:',test_mode);
 	
 	glanceFunctions['query'] = query == 0 ? '' : query;
 	glanceFunctions['query2'] = query2 == 0 ? '' : query2;
+
+	glanceFunctions['display'] = query2 == 0 ? 'hide': 'show';
+
+	glanceFunctions['part1'] = query2 == 0 ? '7': '5';
+	glanceFunctions['part2'] = query2 == 0 ? '3': '5';
+
+	// console.log('glanceFunctions:',glanceFunctions);
+	// console.log(glanceFunctions['display']);
+	// console.log('query:',query);
+	// console.log('query2:',query2);
 
 	if( test_mode == 0 ){
 		loadTemplate( "index", glanceFunctions, $("#main-container") , function(){
@@ -61,10 +71,13 @@ $( document ).ready(function() {
 
 			if(query){
 
+				
 				fetchData( query , postfixFirst );
 
 				// prevent from requesting "/api/word/0"
 				if(query2){
+
+					
 					fetchData( query2 , postfixSecond );	
 				}
 			}
@@ -165,7 +178,11 @@ function menuHandeler() {
 		// 本來是打開的，而且釘住 --> 隱藏 + 取消 fixed
 		if(open && fixed)
 		{
-			obj.animate( { marginLeft: "-96px" }, 250, function(){ obj.addClass('hide-part').removeClass('fixed'); } );
+			obj.animate( { marginLeft: "-96px" }, 250, function(){ 
+				obj.addClass('hide-part')
+				   .removeClass('fixed')
+				   .removeClass('bring-to-front').addClass('bring-to-back'); 
+			});
 		}
 		// 本來是打開的, 還沒釘住, fixed it
 		else if(open && notfixed)
@@ -175,7 +192,10 @@ function menuHandeler() {
 		// 本來是 close，打開並 fix
 		else if(close)
 		{
-			obj.animate( { marginLeft: "0" }, 250, function(){ obj.removeClass('hide-part').addClass('fixed'); } );
+			obj.animate( { marginLeft: "0" }, 250, function(){ 
+				obj.removeClass('hide-part')
+				   .addClass('fixed'); 
+			});
 		}
 	}
 	var mouseoverEvent = function(){
@@ -192,7 +212,10 @@ function menuHandeler() {
 		// 本來是關著 --> 打開，不釘住
 		else if(close)
 		{
-			obj.animate( { marginLeft: "0" }, 250, function(){ obj.removeClass('hide-part'); } );
+			obj.animate( { marginLeft: "0" }, 250, function(){ 
+				obj.removeClass('hide-part')
+				   .removeClass('bring-to-back').addClass('bring-to-front');
+			});
 		}
 	}
 	
@@ -211,7 +234,12 @@ function menuHandeler() {
 		// 本來是開著，沒釘住 --> 關
 		else if(open && notfixed)
 		{
-			obj.animate( { marginLeft: "-96px" }, 250, function(){ obj.addClass('hide-part').removeClass('fixed'); } );
+			obj.animate( { marginLeft: "-96px" }, 250, function(){ 
+				obj.addClass('hide-part')
+				   .removeClass('bring-to-front').addClass('bring-to-back')
+				   .removeClass('fixed');
+
+			});
 		}
 		
 		else if(close)
@@ -345,6 +373,9 @@ function events(){
 
 	inputHandeler();
 
+	navigation_events();
+	// scrolling_events();
+
 	// navigation('.function-nav-block');
 	// scrolling('.function-content', '.function-nav-block');
 
@@ -376,6 +407,44 @@ function events(){
 	// });	
 }
 
+
+
+function scrolling_events(){
+	var previous = false;
+	var current = false;
+	var scrollEventsHandler = function(){
+
+		var scrollTop = $(window).scrollTop();
+
+		$.each($('.row'), function(i, obj){
+			var txt = $(obj).find('.content-tag').eq(0).text();
+			var blockScreenTop = $(obj).offset().top - scrollTop;
+			// console.log(txt, blockScreenTop);
+		});
+		
+	}
+	$(window).scroll(scrollEventsHandler);
+}
+function navigation_events(){
+
+	var top_offset = $('#section-word-wrap').outerHeight() + $('#header-banner-wrap').outerHeight();
+
+	$('#side-nav-wrap').find('li').click(function(e){
+
+		var section_id = $(this).attr('id').split('-')[1];
+
+		var target = $('#section-'+section_id);
+
+		var total = target.offset().top - top_offset
+
+	    $('html, body').animate({
+    	    scrollTop: total
+    	}, 250);
+
+	});
+}
+
+
 function scrolling(listenTo, changeTarget) {
 
 	var previous = false;
@@ -383,13 +452,15 @@ function scrolling(listenTo, changeTarget) {
 
 	$(window).scroll(function(){
 
+		var scrollTop = $(window).scrollTop();
+
 		$.each($(listenTo), function(i, obj){
 
 			// console.log(i)
 			// console.log(obj)
 			// var text = $(obj).find('.function-tag').text();
 			var nav_id = 'nav-' + $(obj).attr('id').split('-')[1];
-			var scrollTop = $(window).scrollTop();
+			
 			// var allheight = $('#content-container').height();
 
 			var blockScreenTop = $(obj).offset().top - scrollTop;
@@ -430,19 +501,19 @@ function navigation(selector) {
 		$(selector).removeClass('selected');
 		$(this).addClass('selected');
 
-		// var name = $(this).find('.content-head').find('a').attr('href').slice(1);
-		// var name = $(this).attr('id').split('-')[1];
+		var name = $(this).find('.content-head').find('a').attr('href').slice(1);
+		var name = $(this).attr('id').split('-')[1];
 
-		// var block = $("#block-"+name).parent();
-		// // var margin_padding_offset =  block.index() == 0 ? 0 : block.outerHeight(true) - block.height();
-		// var margin_padding_offset =  block.outerHeight(true) - block.height();
+		var block = $("#block-"+name).parent();
+		// var margin_padding_offset =  block.index() == 0 ? 0 : block.outerHeight(true) - block.height();
+		var margin_padding_offset =  block.outerHeight(true) - block.height();
 
-	 //    $('html, body').animate({
-  //   	    scrollTop: $("#block-"+name).offset().top - margin_padding_offset
-  //   	}, 250);
+	    $('html, body').animate({
+    	    scrollTop: $("#block-"+name).offset().top - margin_padding_offset
+    	}, 250);
 
-  //   	// if this is the input wrap
-  //   	$(this).find('#input-area').focus();
+    	// if this is the input wrap
+    	$(this).find('#input-area').focus();
 	});
 }
 
@@ -665,30 +736,33 @@ function queryWord( qWord , postfixTargetID ){
 
 
 function queryPOS( qWord , postfixTargetID ){
-
-	/* get word info */
-	$.get('/api/word/'+qWord+"/postag", function(data) {
-		/*optional stuff to do after success */
-		
-		drawPosChart( data, glanceWordPosID + "_" + postfixTargetID );
-		
-	});
+	if(!stopAjax){
+		/* get word info */
+		$.get('/api/word/'+qWord+"/postag", function(data) {
+			/*optional stuff to do after success */
+			
+			drawPosChart( data, glanceWordPosID + "_" + postfixTargetID );
+			
+		});
+	}
 
 }
 
 function queryPosition( qWord , postfixTargetID ){
 
-	/* get word info */
-	$.get('/api/word/'+qWord+"/wp", function(data) {
-		/*optional stuff to do after success */
-		// var word_position_data = [];
-	 //    $.each(data[1], function( index, value ) {
-		//   word_position_data.push([ index, value]);
-		// });
+	if(!stopAjax){
+		/* get word info */
+		$.get('/api/word/'+qWord+"/wp", function(data) {
+			/*optional stuff to do after success */
+			// var word_position_data = [];
+		 //    $.each(data[1], function( index, value ) {
+			//   word_position_data.push([ index, value]);
+			// });
 
-		drawWordPosition( data , glanceWordPositionID + "_" + postfixTargetID );
-		
-	});
+			drawWordPosition( data , glanceWordPositionID + "_" + postfixTargetID );
+			
+		});
+	}
 
 }
 
@@ -698,32 +772,35 @@ function queryPosition( qWord , postfixTargetID ){
 
 
 function queryTranlastion( qWord , postfixTargetID ){
+	if(!stopAjax){
+		/* get word info */
+		$.get('/api/word/'+qWord+"/translation", function(data) {
+			/*optional stuff to do after success */
+			// var word_position_data = [];
+		 //    $.each(data[1], function( index, value ) {
+			//   word_position_data.push([ index, value]);
+			// });
 
-	/* get word info */
-	$.get('/api/word/'+qWord+"/translation", function(data) {
-		/*optional stuff to do after success */
-		// var word_position_data = [];
-	 //    $.each(data[1], function( index, value ) {
-		//   word_position_data.push([ index, value]);
-		// });
+			loadTemplate("translation", data , $("#"+glanceWordTranslationID + "_" + postfixTargetID ) );
+			
+		});
+	}
 
-		loadTemplate("translation", data , $("#"+glanceWordTranslationID + "_" + postfixTargetID ) );
-		
-	});
 
 }
 
 
 
 function queryGenre( qWord , postfixTargetID ){
+	if(!stopAjax){
 
-
-	/* get word info */
-	$.get('/api/word/'+qWord+"/genre", function(data) {
-	
-		drawGenreChart( data , glanceWordGenreID + "_" + postfixTargetID );	
-	
-	});
+		/* get word info */
+		$.get('/api/word/'+qWord+"/genre", function(data) {
+		
+			drawGenreChart( data , glanceWordGenreID + "_" + postfixTargetID );	
+		
+		});
+	}
 
 	
 
@@ -731,17 +808,18 @@ function queryGenre( qWord , postfixTargetID ){
 
 function queryCategory( qWord , postfixTargetID ){
 
-
+	if(!stopAjax){
 		/* get word info */
-	$.get('/api/word/'+qWord+"/category", function(data) {
-	
-		loadTemplate( "category" , {} , $( "#"+glanceWordCategoryID + "_" + postfixTargetID ) , function(){
+		$.get('/api/word/'+qWord+"/category", function(data) {
+		
+			loadTemplate( "category" , {} , $( "#"+glanceWordCategoryID + "_" + postfixTargetID ) , function(){
 
-			drawCategory( data , glanceWordCategoryID + "_" + postfixTargetID );
+				drawCategory( data , glanceWordCategoryID + "_" + postfixTargetID );
 
-		} );
-	
-	});
+			} );
+		
+		});
+	}
 
 
 
@@ -753,7 +831,7 @@ function queryCategory( qWord , postfixTargetID ){
 /* draw a pie chart for POS tags */
 function drawPosChart( pos_data , entryName ){
 	
-	var width = 460,
+	var width = 300,
     height = 300,
     radius = Math.min(width, height) / 2;
 
@@ -775,7 +853,7 @@ function drawPosChart( pos_data , entryName ){
 
 	var g = svg.selectAll(".arc").data(pie(pos_data)).enter().append("g").attr("class", "arc").on('click', function (d, i) {
 
-		console.log( i + "+" + d.data[0] );
+		// console.log( i + "+" + d.data[0] );
 
 	});
 
@@ -793,7 +871,7 @@ function drawPosChart( pos_data , entryName ){
 
 /* draw a pie chart for Genre tags */
 function drawGenreChart( genre_data , entryName ){
-	var width = 460,
+	var width = 300,
     height = 300,
     radius = Math.min(width, height) / 2;
 
@@ -1055,7 +1133,7 @@ function update(source, layoutRoot, diagonal ) {
 function drawWordPosition( word_position_data, entryName ){
 
 	var margin = { top: 20, right: 20, bottom: 30, left: 60 },
-    width = 400 - margin.left - margin.right,
+    width = 300 - margin.left - margin.right,
     height = 300 - margin.top - margin.bottom;
 
 	var x = d3.scale.ordinal()
@@ -1208,7 +1286,7 @@ function drawPolarity( data , entryName ){
 	    
 	var color = d3.scale.ordinal()
 	.domain(["objective", "positive", "negative"])
-	.range(["#6b486b", "#98abc5", "#ff8c00"]);
+	.range(["#4962a3", "#dd4c39", "#567801"]);
 
 	var xAxis = d3.svg.axis()
 	    .scale(x)
@@ -1314,7 +1392,7 @@ function drawPolarity( data , entryName ){
 
 function drawCategory( root , entryName ){
 
-	var width = 460,
+	var width = 300,
 	    height = 300,
 	    radius = Math.min(width, height) / 2;
 

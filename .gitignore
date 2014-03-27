@@ -7,3 +7,4 @@ Gruntfile.js
 package.json
 node_modules
 bower_components
+app/static/styles/*.css

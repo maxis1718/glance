@@ -1,11 +1,17 @@
 # -*- coding: UTF-8 -*-
 
+
+
 from flask import Flask, render_template, request, redirect, Response, jsonify, url_for
 import json, os, sys
 import language_kit as LK
-import mongo as DB  # fetch data from MongoDB running on moon
 from flask_yeoman import flask_yeoman
 
+
+skip_mongo_request = False
+
+if not skip_mongo_request:
+	import mongo as DB  # connect to the MongoDB running on lost
 
 app = Flask(__name__, static_folder='app/static', template_folder='app/template', static_url_path='')
 app.register_blueprint(flask_yeoman)
@@ -100,14 +106,13 @@ def pos_count(query):
 		return_data = r
 	return Response(json.dumps(return_data), mimetype='application/json')
 
+
 @app.route('/api/word/<query>/translation/')
 @app.route('/api/word/<query>/translation')
 def translate_first_cht(query):
-	res = DB.translation(query)
+	res = None if skip_mongo_request else DB.translation(query)
 	return_data = [] if res == None else res
 	return Response(json.dumps(return_data), mimetype='application/json')
-
-
 
 
 ### wordnet related 
@@ -150,9 +155,12 @@ def test_level(query):
 @app.route('/api/word/<query>/wp/')
 @app.route('/api/word/<query>/wp')
 def word_position(query, step=10):
-	res = DB.position(query)
+	res = None if skip_mongo_request else DB.position(query)
 	return_data = [] if res == None else res
-	compact_data = [ [ i, sum(return_data[1][i*step:(i+1)*step]) ] for i,x in enumerate(return_data[0][::step]) ]
+	if return_data:
+		compact_data = [ [ i, sum(return_data[1][i*step:(i+1)*step]) ] for i,x in enumerate(return_data[0][::step]) ]
+	else:
+		compact_data = return_data
 	# return_data = [] if query not in bnc_wp else bnc_wp[query]
 	# return_data = [] if query not in bnc_test else bnc_test[query]
 	return Response(json.dumps(compact_data), mimetype='application/json')
@@ -160,22 +168,21 @@ def word_position(query, step=10):
 @app.route('/api/cword/<query>/translation/')
 @app.route('/api/cword/<query>/translation')
 def translate_to_english(query):
-	res = DB.translation(query)
+	res = None if skip_mongo_request else DB.translation(query)
 	return_data = [] if res == None else res
 	return Response(json.dumps(return_data), mimetype='application/json')
 
 @app.route('/api/word/<query>/genre/')
 @app.route('/api/word/<query>/genre')
 def word_genre(query):
-	res = DB.category(query)
-	return_data = [] if res == None else res
-	return Response(json.dumps(res[0]), mimetype='application/json')
+	res = None if skip_mongo_request else DB.category(query)
+	return_data = [] if res == None else res[0]
+	return Response(json.dumps(return_data), mimetype='application/json')
 
 @app.route('/api/word/<query>/category/')
 @app.route('/api/word/<query>/category')
 def word_category(query):
 	res = LK.query_category( query )
-
 	return Response(json.dumps(res), mimetype='application/json')
 
 
