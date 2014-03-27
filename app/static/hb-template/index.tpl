@@ -20,7 +20,7 @@
             <nav class="side-nav">
                 <ul class="part hide-part" id="menu-nav">
                     {{#function-list}}
-                    <li class="nav-{{ id }}">
+                    <li id="nav-{{ id }}">
                         <div class="nav-full">{{ display-name }}</div>
                     </li>
                     {{/function-list}}
@@ -67,7 +67,7 @@
 </section>
 
 {{#function-list}}
-<section class="row">
+<section class="row" id="section-{{id}}">
     <div class="col compare-grid grid-body col-lg-{{../part1}} col-md-{{../part1}} col-sm-{{../part1}} col-xs-12">
         <div class="content-wrap">
             <div class="content">

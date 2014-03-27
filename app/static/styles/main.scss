@@ -10,6 +10,10 @@ $icon-font-path: "/bower_components/sass-bootstrap/fonts/";
 //     src: url('segoe_ui_light.ttf');
 // }
 
+$facebook-bgcolor: #40569d;
+$facebook-notification-color: #fc0228;
+
+
 /* fonts */
 $header-font: 'Telex', sans-serif;
 $body-font: 'Josefin Sans', sans-serif;
@@ -438,7 +442,9 @@ html, body {
 
 // bootstrap default
 .tab-content {
-    margin-top: 12px;
+
+    // margin-top: 12px;
+
     .tab-pane {
         max-width: 100%;
         .panel-group {
@@ -446,15 +452,20 @@ html, body {
                 margin-bottom: 12px!important;
                 border: 0;
 
-                @include border-radius(3px);
+                // @include border-radius(3px);
+                border-top-right-radius: 3px;
+                border-bottom-right-radius: 3px;
+                border-bottom-left-radius: 3px;
+                border-top-left-radius: 0;
+
                 &:hover {
                     cursor: pointer;
                     .panel-heading {
-                        background: $glance-theme-color-wheat;
+                        // background: $glance-theme-color-wheat;
                     }
                 }    
                 .heading-selected {
-                    background: $glance-theme-color-wheat;
+                    background: whitesmoke;
                 }                 
                 .panel-heading {
                     li {
@@ -515,14 +526,18 @@ html, body {
         font-family: monospace;
         li {
             a {
+                color: #444;
+                // background-color: #;
+                @include border-radius(0px);
             }
         }
         li.active {
             a {
                 color: #444;
-                background-color: $glance-theme-color-wheat;
+                background-color: whitesmoke;
                 .badge {
-                    background: #428bca;
+                    // background: #428bca;
+                    background: #666;
                     color: white;
                 }
             }

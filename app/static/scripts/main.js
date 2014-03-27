@@ -7,7 +7,7 @@ var glacneWordPolarityID = "wordPolarity";
 var glanceWordGenreID = "wordGenre";
 var glanceWordCategoryID = "wordCategory";
 
-
+var stopAjax = true;
 
 var glanceFunctions = { 
 
@@ -60,8 +60,8 @@ $( document ).ready(function() {
 	glanceFunctions['part1'] = query2 == 0 ? '7': '5';
 	glanceFunctions['part2'] = query2 == 0 ? '3': '5';
 
-	console.log('glanceFunctions:',glanceFunctions);
-	console.log(glanceFunctions['display']);
+	// console.log('glanceFunctions:',glanceFunctions);
+	// console.log(glanceFunctions['display']);
 	// console.log('query:',query);
 	// console.log('query2:',query2);
 
@@ -373,6 +373,9 @@ function events(){
 
 	inputHandeler();
 
+	navigation_events();
+	// scrolling_events();
+
 	// navigation('.function-nav-block');
 	// scrolling('.function-content', '.function-nav-block');
 
@@ -404,6 +407,44 @@ function events(){
 	// });	
 }
 
+
+
+function scrolling_events(){
+	var previous = false;
+	var current = false;
+	var scrollEventsHandler = function(){
+
+		var scrollTop = $(window).scrollTop();
+
+		$.each($('.row'), function(i, obj){
+			var txt = $(obj).find('.content-tag').eq(0).text();
+			var blockScreenTop = $(obj).offset().top - scrollTop;
+			// console.log(txt, blockScreenTop);
+		});
+		
+	}
+	$(window).scroll(scrollEventsHandler);
+}
+function navigation_events(){
+
+	var top_offset = $('#section-word-wrap').outerHeight() + $('#header-banner-wrap').outerHeight();
+
+	$('#side-nav-wrap').find('li').click(function(e){
+
+		var section_id = $(this).attr('id').split('-')[1];
+
+		var target = $('#section-'+section_id);
+
+		var total = target.offset().top - top_offset
+
+	    $('html, body').animate({
+    	    scrollTop: total
+    	}, 250);
+
+	});
+}
+
+
 function scrolling(listenTo, changeTarget) {
 
 	var previous = false;
@@ -411,13 +452,15 @@ function scrolling(listenTo, changeTarget) {
 
 	$(window).scroll(function(){
 
+		var scrollTop = $(window).scrollTop();
+
 		$.each($(listenTo), function(i, obj){
 
 			// console.log(i)
 			// console.log(obj)
 			// var text = $(obj).find('.function-tag').text();
 			var nav_id = 'nav-' + $(obj).attr('id').split('-')[1];
-			var scrollTop = $(window).scrollTop();
+			
 			// var allheight = $('#content-container').height();
 
 			var blockScreenTop = $(obj).offset().top - scrollTop;
@@ -458,19 +501,19 @@ function navigation(selector) {
 		$(selector).removeClass('selected');
 		$(this).addClass('selected');
 
-		// var name = $(this).find('.content-head').find('a').attr('href').slice(1);
-		// var name = $(this).attr('id').split('-')[1];
+		var name = $(this).find('.content-head').find('a').attr('href').slice(1);
+		var name = $(this).attr('id').split('-')[1];
 
-		// var block = $("#block-"+name).parent();
-		// // var margin_padding_offset =  block.index() == 0 ? 0 : block.outerHeight(true) - block.height();
-		// var margin_padding_offset =  block.outerHeight(true) - block.height();
+		var block = $("#block-"+name).parent();
+		// var margin_padding_offset =  block.index() == 0 ? 0 : block.outerHeight(true) - block.height();
+		var margin_padding_offset =  block.outerHeight(true) - block.height();
 
-	 //    $('html, body').animate({
-  //   	    scrollTop: $("#block-"+name).offset().top - margin_padding_offset
-  //   	}, 250);
+	    $('html, body').animate({
+    	    scrollTop: $("#block-"+name).offset().top - margin_padding_offset
+    	}, 250);
 
-  //   	// if this is the input wrap
-  //   	$(this).find('#input-area').focus();
+    	// if this is the input wrap
+    	$(this).find('#input-area').focus();
 	});
 }
 
@@ -693,30 +736,33 @@ function queryWord( qWord , postfixTargetID ){
 
 
 function queryPOS( qWord , postfixTargetID ){
-
-	/* get word info */
-	$.get('/api/word/'+qWord+"/postag", function(data) {
-		/*optional stuff to do after success */
-		
-		drawPosChart( data, glanceWordPosID + "_" + postfixTargetID );
-		
-	});
+	if(!stopAjax){
+		/* get word info */
+		$.get('/api/word/'+qWord+"/postag", function(data) {
+			/*optional stuff to do after success */
+			
+			drawPosChart( data, glanceWordPosID + "_" + postfixTargetID );
+			
+		});
+	}
 
 }
 
 function queryPosition( qWord , postfixTargetID ){
 
-	/* get word info */
-	$.get('/api/word/'+qWord+"/wp", function(data) {
-		/*optional stuff to do after success */
-		// var word_position_data = [];
-	 //    $.each(data[1], function( index, value ) {
-		//   word_position_data.push([ index, value]);
-		// });
+	if(!stopAjax){
+		/* get word info */
+		$.get('/api/word/'+qWord+"/wp", function(data) {
+			/*optional stuff to do after success */
+			// var word_position_data = [];
+		 //    $.each(data[1], function( index, value ) {
+			//   word_position_data.push([ index, value]);
+			// });
 
-		drawWordPosition( data , glanceWordPositionID + "_" + postfixTargetID );
-		
-	});
+			drawWordPosition( data , glanceWordPositionID + "_" + postfixTargetID );
+			
+		});
+	}
 
 }
 
@@ -726,32 +772,35 @@ function queryPosition( qWord , postfixTargetID ){
 
 
 function queryTranlastion( qWord , postfixTargetID ){
+	if(!stopAjax){
+		/* get word info */
+		$.get('/api/word/'+qWord+"/translation", function(data) {
+			/*optional stuff to do after success */
+			// var word_position_data = [];
+		 //    $.each(data[1], function( index, value ) {
+			//   word_position_data.push([ index, value]);
+			// });
 
-	/* get word info */
-	$.get('/api/word/'+qWord+"/translation", function(data) {
-		/*optional stuff to do after success */
-		// var word_position_data = [];
-	 //    $.each(data[1], function( index, value ) {
-		//   word_position_data.push([ index, value]);
-		// });
+			loadTemplate("translation", data , $("#"+glanceWordTranslationID + "_" + postfixTargetID ) );
+			
+		});
+	}
 
-		loadTemplate("translation", data , $("#"+glanceWordTranslationID + "_" + postfixTargetID ) );
-		
-	});
 
 }
 
 
 
 function queryGenre( qWord , postfixTargetID ){
+	if(!stopAjax){
 
-
-	/* get word info */
-	$.get('/api/word/'+qWord+"/genre", function(data) {
-	
-		drawGenreChart( data , glanceWordGenreID + "_" + postfixTargetID );	
-	
-	});
+		/* get word info */
+		$.get('/api/word/'+qWord+"/genre", function(data) {
+		
+			drawGenreChart( data , glanceWordGenreID + "_" + postfixTargetID );	
+		
+		});
+	}
 
 	
 
@@ -759,17 +808,18 @@ function queryGenre( qWord , postfixTargetID ){
 
 function queryCategory( qWord , postfixTargetID ){
 
-
+	if(!stopAjax){
 		/* get word info */
-	$.get('/api/word/'+qWord+"/category", function(data) {
-	
-		loadTemplate( "category" , {} , $( "#"+glanceWordCategoryID + "_" + postfixTargetID ) , function(){
+		$.get('/api/word/'+qWord+"/category", function(data) {
+		
+			loadTemplate( "category" , {} , $( "#"+glanceWordCategoryID + "_" + postfixTargetID ) , function(){
 
-			drawCategory( data , glanceWordCategoryID + "_" + postfixTargetID );
+				drawCategory( data , glanceWordCategoryID + "_" + postfixTargetID );
 
-		} );
-	
-	});
+			} );
+		
+		});
+	}
 
 
 
@@ -803,7 +853,7 @@ function drawPosChart( pos_data , entryName ){
 
 	var g = svg.selectAll(".arc").data(pie(pos_data)).enter().append("g").attr("class", "arc").on('click', function (d, i) {
 
-		console.log( i + "+" + d.data[0] );
+		// console.log( i + "+" + d.data[0] );
 
 	});
 
@@ -1236,7 +1286,7 @@ function drawPolarity( data , entryName ){
 	    
 	var color = d3.scale.ordinal()
 	.domain(["objective", "positive", "negative"])
-	.range(["#6b486b", "#98abc5", "#ff8c00"]);
+	.range(["#4962a3", "#dd4c39", "#567801"]);
 
 	var xAxis = d3.svg.axis()
 	    .scale(x)
