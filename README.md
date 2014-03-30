@@ -5,7 +5,7 @@ glance
 
     做完請直接用 `~~to-do blah~~` : ~~to-do blah~~ 加上刪除線
 
-    1. displine [(image)](img/displine.png)
+    1. displine [image](img/displine.png)
         * 加上標籤
         * 中間放百分比
     
@@ -28,13 +28,15 @@ glance
         * ~~現在平板會爆炸~~
     
     
-    1. 前端
+    1. 功能
         * auto-complete
-        * (進階版) visualize auto-completion (cloud?)
+        * `(Low priority)` 字源，使用時間
+        * `(Low priority)` 呈現字的難易度
+        * `(Low priority)` (進階版) visualize auto-completion (cloud?)
     
     1. 後端
-        * 解決 heroku 啟動時的 delay 問題
-        * 將一部分資料搬到 mongo lab (控制 500 MB 以下)
+        * `(critical)` 解決 heroku 啟動時的 delay 問題
+        * `(critical)`將一部分資料搬到 mongo lab (壓縮到 500 MB 以下？)
     
     
 
