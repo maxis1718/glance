@@ -10,6 +10,7 @@ glance
         * 中間放百分比
     
     1. POS tag [image](img/pos.png)
+        * 改配色
         * 浮出 
     
     1. ~~one-column~~
@@ -33,6 +34,7 @@ glance
         * `(Low priority)` 字源，使用時間
         * `(Low priority)` 呈現字的難易度
         * `(Low priority)` (進階版) visualize auto-completion (cloud?)
+        * `(critical)` Hello page
     
     1. 後端
         * `(critical)` 解決 heroku 啟動時的 delay 問題
@@ -106,34 +108,6 @@ templateName這個參數就是傳`.tpl`之前的檔案名稱(不包括副檔名)
 
 
 ---
-
-* ### to do list
-    
-    * ##### re-arrange grid
-    
-        * issue: 現在螢幕縮小之後，右邊那塊會出現捲軸..
-        
-        1. 重新用 bootstrap 刻好
-        2. 直接把右邊那塊釘死
-    
-    * ##### add loading icon
-        1. 發送 ajax 之後再每個區塊加 loading
-        2. 全部放一個 loading 就好
-    
-    * ##### hello page
-        1. 要一次 show 出全部？
-        2. 先全部隱藏
-    
-    * ##### N, V 並排
-        1. 改變呈現方式
-        2. 直接把 V -> Verb, N -> Noun
-        
-    * ##### POS 大餅圖
-        1. 顏色要改 (葛蘭斯配色，要找協調色
-        2. 可點選 + highlight 的圖例？
-    
-    
-
 
 
 > Written with [StackEdit](https://stackedit.io/).
