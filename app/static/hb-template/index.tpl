@@ -49,6 +49,7 @@
     </div>
 </header>
 
+
 <section class="row" id="section-word-wrap">
     <div class="col compare-grid grid-header col-lg-{{part1}} col-md-{{part1}} col-sm-{{part1}} col-xs-12">
         <div class="content-wrap">
@@ -67,7 +68,7 @@
 </section>
 
 {{#function-list}}
-<section class="row" id="section-{{id}}">
+<section class="row {{../no_query}}" id="section-{{id}}">
     <div class="col compare-grid grid-body col-lg-{{../part1}} col-md-{{../part1}} col-sm-{{../part1}} col-xs-12">
         <div class="content-wrap">
             <div class="content">
@@ -86,3 +87,4 @@
     </div>
 </section>
 {{/function-list}}
+
