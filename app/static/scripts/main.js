@@ -27,6 +27,15 @@ var glanceFunctions = {
 	postfixSecond : "2"
 };
 
+var greeting = {
+	'hint': [
+		{'word1':'saw', 		'word2':'',  		'show1': '12',	'show2':'hide',	'question': 'What is the most common part-of-speech of saw?', 				'href':'/?query=saw'},
+		{'word1':'however', 	'word2':'but',   	'show1': '5',	'show2':'',		'question': 'In general, does "however" occur in the end of a sentence?', 	'href':'/?query=however&query2=but'},
+		{'word1':'maybe', 		'word2':'perhaps', 	'show1': '5',	'show2':'',		'question': 'Which one is more commonly used in spoken language?',			'href':'/?query=maybe&query2=perhaps'}
+	]
+}
+
+
 // var svgPosChart;
 
 var postfixFirst = "1";
@@ -55,60 +64,42 @@ $( document ).ready(function() {
 	glanceFunctions['query'] = query == 0 ? '' : query;
 	glanceFunctions['query2'] = query2 == 0 ? '' : query2;
 
+	// glanceFunctions['no_query'] = query == 0 && query2 == 0 ? 'hide' : 'show'
+
 	glanceFunctions['display'] = query2 == 0 ? 'hide': 'show';
 
 	glanceFunctions['part1'] = query2 == 0 ? '7': '5';
 	glanceFunctions['part2'] = query2 == 0 ? '3': '5';
 
-	// console.log('glanceFunctions:',glanceFunctions);
-	// console.log(glanceFunctions['display']);
-	// console.log('query:',query);
-	// console.log('query2:',query2);
-
+	
+	var tempalteData = query == 0 && query2 == 0 ? greeting : glanceFunctions;
 	if( test_mode == 0 ){
-		loadTemplate( "index", glanceFunctions, $("#main-container") , function(){
-
-
+		var tempalteTarget = query == 0 && query2 == 0 ? "greeting" : "index";
+		loadTemplate( tempalteTarget, tempalteData, $("#main-container") , function(){
 			if(query){
-
-				
 				fetchData( query , postfixFirst );
-
 				// prevent from requesting "/api/word/0"
 				if(query2){
-
-					
 					fetchData( query2 , postfixSecond );	
 				}
 			}
-
-
-
 			events();
 			init();
 			bindKeyboardActionToForm();
-			// $("#basic-search-bar").val(query);
-			// $("#compare-search-bar").val(query2);
 		});
 	}else{
-
-		loadTemplate( "index_text", glanceFunctions, $("#main-container") , function(){
-
+		var tempalteTarget = query == 0 && query2 == 0 ? "greeting" : "index";
+		loadTemplate( tempalteTarget, tempalteData, $("#main-container") , function(){
 			if(query){
-
 				fetchTextData( query , postfixFirst );	
-
 				// prevent from requesting "/api/word/0"
 				if(query2){
 					fetchTextData( query2 , postfixSecond );
 				}
 			}
-
 			events();
 			init();
 			bindKeyboardActionToForm();
-			// $("#basic-search-bar").val(query);
-			// $("#compare-search-bar").val(query2);
 		});
 
 	}
@@ -1277,7 +1268,7 @@ function drawPolarity( data , entryName ){
 	// var margin = {top: 20, right: 100, bottom: 30, left: 40},
 	var margin = {top: 0, right: 0, bottom: 0, left: 0},
 	    width = 370;
-	    height = 7;
+	    height = 3;
 
 	var y = d3.scale.ordinal()
 	    .rangeRoundBands([0, width], .1);
@@ -1286,7 +1277,8 @@ function drawPolarity( data , entryName ){
 	    
 	var color = d3.scale.ordinal()
 	.domain(["objective", "positive", "negative"])
-	.range(["#4962a3", "#dd4c39", "#567801"]);
+	// .range(["#4962a3", "#dd4c39", "#567801"]); // rgba(102, 119, 164, 0.2);
+	.range(["rgba(102, 119, 164, 0.2)", "#dd4c39", "#567801"]); // ;
 
 	var xAxis = d3.svg.axis()
 	    .scale(x)
