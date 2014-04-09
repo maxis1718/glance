@@ -29,9 +29,9 @@ var glanceFunctions = {
 
 var greeting = {
 	'hint': [
-		{'word1':'saw', 		'word2':'',  		'show1': '12',	'show2':'hide',	'question': 'What is the most common part-of-speech of saw?', 				'href':'/?query=saw'},
-		{'word1':'however', 	'word2':'but',   	'show1': '5',	'show2':'',		'question': 'In general, does "however" occur in the end of a sentence?', 	'href':'/?query=however&query2=but'},
-		{'word1':'maybe', 		'word2':'perhaps', 	'show1': '5',	'show2':'',		'question': 'Which one is more commonly used in spoken language?',			'href':'/?query=maybe&query2=perhaps'}
+		{'word1':'saw', 		'word2':'',  		'show1': '12',	'show2':'hide',	'question': 'What is the most common part-of-speech of "saw"?', 			'href':'/?query=saw'},
+		{'word1':'however', 	'word2':'but',   	'show1': '5',	'show2':'',		'question': 'Where do "however" and "but" often appear in a sentence?', 	'href':'/?query=however&query2=but'},
+		{'word1':'maybe', 		'word2':'perhaps', 	'show1': '5',	'show2':'',		'question': 'Which one is more commonly used in the spoken language?',		'href':'/?query=maybe&query2=perhaps'}
 	]
 }
 
