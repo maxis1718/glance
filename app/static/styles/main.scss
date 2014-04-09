@@ -103,7 +103,14 @@ html, body {
 .bring-to-back {
     z-index: 0;
 }
-
+.arrow-right {
+    width: 0px;
+    height: 0px;
+    border-top: 6px solid transparent;
+    border-bottom: 6px solid transparent;
+    border-left: 7px solid $glance-theme-color;
+    display: inline-block;
+}
 .container-fluid {
 
     header {
@@ -258,6 +265,71 @@ html, body {
             // color: $header-back-color;         
     }
            
+    }
+
+    #greeting-wrap {
+        display: table;
+        height: 240px;
+        width: 720px;
+        // border: 1px solid #eee;
+        // box-shadow: 2px 2px 3px #bbb;
+        position: relative;
+        margin: 0 auto;
+        top: 108px;
+        div.suggestion-wrap {
+            // width: 320px;
+            width: 100%;
+            min-height: 24px;
+            line-height: 24px;
+            display: block;
+            margin: 0 auto 24px auto;
+            border-bottom: 1px dashed #aaa;
+            padding-top: 20px;
+
+            &:nth-last-child(1) {
+                border-bottom: 0;
+            }
+            .word1, .word2 {
+                padding: 2px 5px;
+                display: inline-block;
+                // border: 1px solid $glance-theme-color;
+                // background: $glance-theme-color;
+                color: #999;
+                font-family: "Josefin Sans";
+                font-size: 20px;
+                // border-radius: 2px;
+            }
+            &:hover {
+                text-decoration: none;
+                cursor: pointer;
+                color: inherit;
+                // &:hover {
+                .word1, .word2 {
+                    color: #BC0808
+                    // border-bottom: 1px;
+                    // border-bottom: 1px solid #aaa;
+                    // border: 1px solid #870606;
+                    // background: #BC0808;
+                }
+                // }                
+            }
+            div.question {
+                text-align: left;
+                font-size: 24px;
+                color: #909090;
+                font-family: "Josefin Sans";
+            }
+            div.suggest {
+                display: inline-block;
+                padding-top: 20px;
+                padding-bottom: 20px;
+            }
+            .word1 {
+                margin-left: 8px;
+            }
+
+
+        }
     }
     section {
         top: $header-height * 2 + 48px;
@@ -473,7 +545,7 @@ html, body {
                         padding-bottom: 4px;
                     }
                     padding: 2px 0 0 0;
-                    box-shadow: 0px 1px 5px #888;
+                    // box-shadow: 0px 1px 5px #888;
                     .panel-title {
                         min-height: 32px;
                         line-height: 16px;
@@ -489,8 +561,10 @@ html, body {
                                 
                             }
                             .panel-title-definition {
-                                font-size: 1.1em;
-                                font-family: monospace;
+                                font-size: 17px;
+                                font-family: sans-serif;
+                                color: #444;
+
                             }
 
                         }             
