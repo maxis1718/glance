@@ -12,8 +12,10 @@
 
 
         <div id="logo-wrap">
+            <a href="/">
             <div id="logo">Glance</div>
-        </div>        
+            </a>
+        </div>         
 
         <!-- side navigation -->
         <div id="side-nav-wrap">
