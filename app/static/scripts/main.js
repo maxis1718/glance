@@ -1606,7 +1606,7 @@ function drawCategory( root , entryName ){
 
 			// Fade all the segments.
 			d3.selectAll("#"+entryName+" path")
-			  .style("opacity", 0.3);
+			  .style("opacity", 0.45);
 
 			// Then highlight only those that are an ancestor of the current segment.
 			svg.selectAll("#"+entryName+" path")
