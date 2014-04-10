@@ -1493,9 +1493,76 @@ function drawCategory( root , entryName ){
 	    radius = Math.min(width, height) / 2;
 
 	var color = d3.scale.ordinal()
-	.domain(['written others','natural science','social science','others','lore & religion','spoken others','fiction','humanities arts','politics, law, education','sports','medicine','letter','lectures','students','technological engineering','Written','arts ','report','commerce','non-academic','science','Spoken','academic','popular science','editorial','social','newspaper','talk'])
-	.range(['#1f77b4', '#aec7e8', '#ff7f0e', '#bcbd22', '#dbdb8d', '#98df8a', '#c5b0d5', '#ff9896', '#9467bd', '#d62728', '#8c564b', '#c49c94', '#e377c2', '#f7b6d2', '#5254a3', '#c7c7c7', '#ffbb78', '#2ca02c', '#17becf', '#9edae5', '#393b79', '#7f7f7f', '#6b6ecf', '#cedb9c', '#637939', '#8ca252', '#b5cf6b', '#9c9ede']);
-	    
+	.domain([
+		'written others',
+		'natural science',
+		'social science',
+		'others',
+		'lore & religion',
+
+		'spoken others',
+		'fiction',
+		'humanities arts',
+		'politics, law, education',
+		'sports',
+
+		'medicine',
+		'letter',
+		'lectures',
+		'students',
+		'technological engineering',
+
+		'Written',
+		'arts',
+		'report',
+		'commerce',
+		'non-academic',
+
+		'science',
+		'Spoken',
+		'academic',
+		'popular science',
+		'editorial',
+
+		'social',
+		'newspaper',
+		'talk'])
+	.range([
+		'#1f77b4',
+		'#aec7e8', 
+		'#ff7f0e', 
+		'#bcbd22', 
+		'#dbdb8d', 
+
+		'#98df8a', 
+		'#c5b0d5', 
+		'#ff9896', 
+		'#9467bd', 
+		'#d62728', 
+
+		'#8c564b', 
+		'#c49c94', 
+		'#e377c2', 
+		'#f7b6d2', 
+		'#5254a3', 
+
+		'#5787d1', // '#c7c7c7', // Written
+		'#ffbb78', 
+		'#2ca02c', 
+		'#17becf', 
+		'#9edae5', 
+
+		'#393b79', 
+		'#7b605c', // '#7f7f7f', // Spoken
+		'#dc3910', // '#6b6ecf', // academic
+		'#de783b', // '#cedb9c', // popular science
+		'#637939', 
+
+		'#8ca252', 
+		'#6ab975', // '#b5cf6b', // newspaper
+		'#9c9ede']);
+	
+	
 
 	var svg = d3.select("#"+entryName+" #chart").append("svg")
 	    .attr("width", width)
@@ -1520,8 +1587,10 @@ function drawCategory( root , entryName ){
 	  .attr("display", function(d) { return d.depth ? null : "none"; }) // hide inner ring
 	  .attr("d", arc)
 	  .style("stroke", "#fff")
-	  .style("fill", function(d) { return color((d.children ? d : d.parent).name); })
-	  .style("fill-rule", "evenodd")
+	  .style("fill", function(d) { 
+	  	return color( (d.children ? d : d.parent).name ); 
+	  })
+	  // .style("fill-rule", "evenodd")
 	  .each(stash)
 	  .on("mouseover", function(d){
 	  		var sequenceArray = getAncestors(d);
