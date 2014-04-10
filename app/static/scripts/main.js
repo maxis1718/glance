@@ -822,6 +822,7 @@ function queryCategory( qWord , postfixTargetID ){
 }
 /* ===================== drawing functions ======================= */
 
+var GoogleChart = { green: '#109618', blue: '#3265cc', purple: '#990299', red: '#dc3910', orange: '#ff9800'}
 
 
 /* draw a pie chart for POS tags */
@@ -832,7 +833,19 @@ function drawPosChart( pos_data , entryName ){
     radius = Math.min(width, height) / 2;
 
 	var color = d3.scale.category20();
-	
+
+	// var color = d3.scale.ordinal()
+	// 	.domain(["Spoken", "Written"])
+	// 	// .range(["#dc3911", "#fe991e", "#10961d", "#3265cc"]);
+	// 	// .range(["rgba(50, 101, 204, 1.0)", "#dc3910"]);
+	// 	// .range(["rgba(220, 57, 17, 1.0)", "rgba(220, 57, 17, 0.7)", "rgba(220, 57, 17, 0.4)"]);
+	// 	.range(['#334F78', '#4F7AB8']);	
+
+	// var color = 
+	// 	.range([]);
+		
+	// var color = [GoogleChart.red, GoogleChart.orange, GoogleChart.green, GoogleChart.purple, GoogleChart.blue]
+
 	var arc = d3.svg.arc()
 	    .outerRadius(radius - 10)
 	    .innerRadius(0);
@@ -847,15 +860,24 @@ function drawPosChart( pos_data , entryName ){
 	  .append("g")
 	    .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
 
-	var g = svg.selectAll(".arc").data(pie(pos_data)).enter().append("g").attr("class", "arc").on('click', function (d, i) {
 
-		// console.log( i + "+" + d.data[0] );
+	var g = svg.selectAll(".arc")
+		.data(pie(pos_data))
+		.enter().append("g")
+			.attr("class", "arc")
+			.on('click', function (d, i) { /* Handle onClickEvent here*/ });
 
-	});
+	g.append("path")
+		.attr("d", arc)
+		.style('fill', function(d){ return color(d.data); })
+		// .style("fill", color)
+		// .style('opacity', opacity);
 
-	g.append("path").attr("d", arc).style("fill", function(d) { return color(d.data); });
-	g.transition().attr("d", arc).duration(500);
-	g.append("text")
+	g.transition()
+		.attr("d", arc)
+		.duration(500);
+
+	var pie_label = g.append("text")
 	  .attr("transform", function(d) { return "translate(" + arc.centroid(d) + ")"; })
 	  .attr("dy", ".35em")
 	  .style("text-anchor", "middle")
@@ -872,7 +894,17 @@ function drawGenreChart( genre_data , entryName ){
     height = 300,
     radius = Math.min(width, height) / 2;
 
-	var color = d3.scale.category20();
+	// var color = d3.scale.category20();
+
+	var color = d3.scale.ordinal()
+		.domain(["Spoken", "Written"])
+		// .range(["#dc3911", "#fe991e", "#10961d", "#3265cc"]);
+		// .range(["rgba(50, 101, 204, 1.0)", "#dc3910"]);
+		// .range(["rgba(220, 57, 17, 1.0)", "rgba(220, 57, 17, 0.7)", "rgba(220, 57, 17, 0.4)"]);
+		.range(['#334F78', '#4F7AB8']);
+
+	// var color = ['#1f77b4', '#1f77b4'];
+	var opacity = [1.0, 0.9]
 
 	var arc = d3.svg.arc()
 	    .outerRadius(radius - 10)
@@ -888,11 +920,16 @@ function drawGenreChart( genre_data , entryName ){
 	  .append("g")
 	    .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
 
-	var g = svg.selectAll(".arc").data(pie(genre_data)).enter().append("g").attr("class", "arc");
+	var g = svg.selectAll(".arc")
+		.data(pie(genre_data))
+		.enter().append("g")
+			.attr("class", "arc");
 
 	var pie_part = g.append("path")
 		.attr("d", arc)
-		.style("fill", function(d) { return color(d.data); });
+		// .style('fill', '#1f77b4')
+		.style('fill', function(d) { return color(d.data[0]); });
+		// .style("fill", function(d) { return color(d.data); });
 
 	var pie_label = g.append("text")
 	  .attr("transform", function(d) { return "translate(" + arc.centroid(d) + ")"; })
@@ -1141,8 +1178,9 @@ function drawWordPosition( word_position_data, entryName ){
 
 	var color = d3.scale.ordinal()
 		.domain(["front", "middle", "back"])
-		// .range(["#dc3911", "#fe991e", "#10961d"]);
-		.range(["rgba(220, 57, 17, 1.0)", "rgba(220, 57, 17, 0.7)", "rgba(220, 57, 17, 0.4)"]);
+		// .range(["#dc3911", "#fe991e", "#10961d"]); // google chart theme
+		.range(['#F35128', '#F57126', '#F69625']); // orange
+		// .range(['#009600','#6c9c00','#aeff08']); // green
 
 	var margin = { top: 20, right: 20, bottom: 30, left: 80 },
 	/* -------------- #end config -------------- */
@@ -1228,7 +1266,7 @@ function drawWordPosition( word_position_data, entryName ){
 		.attr('fill','none')
 
 	// x.rangeBand(): default width of each bar
-	console.log(x.rangeBand())
+	// console.log(x.rangeBand())
 
 	// deal with auto or self-defined width
 	var barTanslateX = barWidth == 'auto' ? 0 : (x.rangeBand() - barWidth)/2;
