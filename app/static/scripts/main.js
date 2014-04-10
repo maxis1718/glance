@@ -1129,21 +1129,27 @@ function update(source, layoutRoot, diagonal ) {
 function drawWordPosition( word_position_data, entryName ){
 
 	var margin = { top: 20, right: 20, bottom: 30, left: 60 },
-    width = 300 - margin.left - margin.right,
+    width = 400 - margin.left - margin.right,
     height = 300 - margin.top - margin.bottom;
 
 	var x = d3.scale.ordinal()
     .rangeRoundBands([0, width], .1);
+
+	var x2 = d3.scale.ordinal()
+    .rangeRoundBands([0, width], .3);
 
 	var y = d3.scale.linear()
 	    .range([height, 0]);
 
 	// var xLabel = 
 
+	var formatPercent = d3.format(".0%");
+
 	var xAxis = d3.svg.axis()
 	    .scale( x )
 	    .orient("bottom")
-	    .tickValues( [0,10,20, 30, 40, 50 , 60 , 70 , 80 , 90 ] );
+	    // .data()
+	    // .tickFormat( formatPercent );
 
 	var yAxis = d3.svg.axis()
 	    .scale( y )
@@ -1163,8 +1169,13 @@ function drawWordPosition( word_position_data, entryName ){
 
 	svg.append("g")
 	  .attr("class", "x axis")
-	  .call(xAxis)
+	  .call( xAxis )
 	  .attr("transform", "translate(0," + height + ")");
+	  // .append('text')
+  	  
+	  
+	  // .style("text-anchor", "end")
+	  // .text("Position");
 
 	svg.append("g")
 	  .attr("class", "y axis")

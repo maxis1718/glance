@@ -151,11 +151,12 @@ def test_level(query):
 # @app.route('/api/wp/<query>')
 @app.route('/api/word/<query>/wp/')
 @app.route('/api/word/<query>/wp')
-def word_position(query, step=10):
+def word_position(query, step=34):
 	res = None if skip_mongo_request else DB.position(query)
 	return_data = [] if res == None else res
 	if return_data:
-		compact_data = [ [ i, sum(return_data[1][i*step:(i+1)*step]) ] for i,x in enumerate(return_data[0][::step]) ]
+		nameLst = ['beginning', 'middle', 'end']
+		compact_data = [ [ nameLst[i], sum(return_data[1][i*step:(i+1)*step]) ] for i,x in enumerate(return_data[0][::step]) ]
 	else:
 		compact_data = return_data
 	# return_data = [] if query not in bnc_wp else bnc_wp[query]
