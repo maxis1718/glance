@@ -122,11 +122,16 @@ html, body {
         min-width: 586px;
 
         #logo-wrap {
+
             position: relative;
             width: 192px;
             height: $header-height;
             line-height: $header-height + 10;
             float: left;
+
+            a {
+                text-decoration: none;   
+            }
 
             #logo {
                 font-size: 34px;
@@ -270,9 +275,12 @@ html, body {
     #greeting-wrap {
         display: table;
         height: 240px;
-        width: 720px;
-        // border: 1px solid #eee;
-        // box-shadow: 2px 2px 3px #bbb;
+        min-width: 360px;
+
+        width: 80%;
+        min-width: 320px;
+        max-width: 840px;
+
         position: relative;
         margin: 0 auto;
         top: 108px;
@@ -292,12 +300,16 @@ html, body {
             .word1, .word2 {
                 padding: 2px 5px;
                 display: inline-block;
-                // border: 1px solid $glance-theme-color;
-                // background: $glance-theme-color;
-                color: #999;
-                font-family: "Josefin Sans";
+
+                color: #888;
+                font-family: sans-serif;
+                font-weight: 300;
+                letter-spacing: 1px;
                 font-size: 20px;
-                // border-radius: 2px;
+                
+                background: rgba(245, 245, 245, 0.32);
+                border-radius: 4px;
+                border: 1px solid #eee;
             }
             &:hover {
                 text-decoration: none;
@@ -305,6 +317,10 @@ html, body {
                 color: inherit;
                 // &:hover {
                 .word1, .word2 {
+
+                    background: rgba(255, 237, 25, 0.23);
+                    border: 1px solid #ddd;
+
                     color: #BC0808
                     // border-bottom: 1px;
                     // border-bottom: 1px solid #aaa;
@@ -315,9 +331,12 @@ html, body {
             }
             div.question {
                 text-align: left;
-                font-size: 24px;
-                color: #909090;
-                font-family: "Josefin Sans";
+                line-height: 26px;
+                font-size: 22px;
+                letter-spacing: 1px;
+                color: #555;
+                font-family: sans-serif;
+                font-weight: 200;
             }
             div.suggest {
                 display: inline-block;
