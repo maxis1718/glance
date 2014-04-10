@@ -832,19 +832,31 @@ function drawPosChart( pos_data , entryName ){
     height = 300,
     radius = Math.min(width, height) / 2;
 
+	// var posMap = {
+	// 	'NN': 'noun',
+	// 	'JJ': 'adj',
+	// 	'RB': 'adv',
+	// 	'IN': 'prep',
+	// 	'PR': 'prep'
+	// }
+	// var GoogleColor = d3.scale.ordinal()
+	// 	.domain(['noun', 'adj', 'adv', 'prep', 'verb', 'other'])
+	// 	.range([
+	// 			'#0B486B',
+	// 			'#3B8686',
+	// 			'#79BD9A',
+	// 			'#A8DBA8',
+	// 			'#CFF09E'
+	// 			]);		
+		// .range([
+		// 		GoogleChart.purple,
+		// 		GoogleChart.green,
+		// 		GoogleChart.orange, 
+		// 		GoogleChart.red,
+		// 		GoogleChart.blue, 
+		// 		]);
+
 	var color = d3.scale.category20();
-
-	// var color = d3.scale.ordinal()
-	// 	.domain(["Spoken", "Written"])
-	// 	// .range(["#dc3911", "#fe991e", "#10961d", "#3265cc"]);
-	// 	// .range(["rgba(50, 101, 204, 1.0)", "#dc3910"]);
-	// 	// .range(["rgba(220, 57, 17, 1.0)", "rgba(220, 57, 17, 0.7)", "rgba(220, 57, 17, 0.4)"]);
-	// 	.range(['#334F78', '#4F7AB8']);	
-
-	// var color = 
-	// 	.range([]);
-		
-	// var color = [GoogleChart.red, GoogleChart.orange, GoogleChart.green, GoogleChart.purple, GoogleChart.blue]
 
 	var arc = d3.svg.arc()
 	    .outerRadius(radius - 10)
@@ -869,10 +881,12 @@ function drawPosChart( pos_data , entryName ){
 
 	g.append("path")
 		.attr("d", arc)
-		.style('fill', function(d){ return color(d.data); })
-		// .style("fill", color)
-		// .style('opacity', opacity);
+		.style('fill', function(d){ 
+			// var pos = d.data[0] in posMap ? posMap[d.data[0]] : 'other';
 
+			return color(d.data);
+			// return GoogleColor(pos); 
+		})
 	g.transition()
 		.attr("d", arc)
 		.duration(500);
@@ -1170,14 +1184,13 @@ function update(source, layoutRoot, diagonal ) {
 function drawWordPosition( word_position_data, entryName ){
 
 	/* -------------- #begin config -------------- */
-	var axis_color = { x: '#666', y: '#666'};
+	var axis_color = { x: '#666', y: '#777'};
 	var y_axis_xoffset = 6;
 	// self-defined width
 	var barWidth = 60; 
 	// var barWidth = 'auto'; 
 
 	var color = d3.scale.ordinal()
-		.domain(["front", "middle", "back"])
 		// .range(["#dc3911", "#fe991e", "#10961d"]); // google chart theme
 		.range(['#F35128', '#F57126', '#F69625']); // orange
 		// .range(['#009600','#6c9c00','#aeff08']); // green
