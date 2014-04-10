@@ -867,6 +867,7 @@ function drawPosChart( pos_data , entryName ){
 
 /* draw a pie chart for Genre tags */
 function drawGenreChart( genre_data , entryName ){
+
 	var width = 300,
     height = 300,
     radius = Math.min(width, height) / 2;
@@ -889,9 +890,11 @@ function drawGenreChart( genre_data , entryName ){
 
 	var g = svg.selectAll(".arc").data(pie(genre_data)).enter().append("g").attr("class", "arc");
 
-	g.append("path").attr("d", arc).style("fill", function(d) { return color(d.data); });
+	var pie_part = g.append("path")
+		.attr("d", arc)
+		.style("fill", function(d) { return color(d.data); });
 
-	g.append("text")
+	var pie_label = g.append("text")
 	  .attr("transform", function(d) { return "translate(" + arc.centroid(d) + ")"; })
 	  .attr("dy", ".35em")
 	  .style("text-anchor", "middle")
@@ -1137,8 +1140,9 @@ function drawWordPosition( word_position_data, entryName ){
 	// var barWidth = 'auto'; 
 
 	var color = d3.scale.ordinal()
-		.domain(["beginning", "middle", "end"])
-		.range(["#dc3911", "#fe991e", "#10961d"]);
+		.domain(["front", "middle", "back"])
+		// .range(["#dc3911", "#fe991e", "#10961d"]);
+		.range(["rgba(220, 57, 17, 1.0)", "rgba(220, 57, 17, 0.7)", "rgba(220, 57, 17, 0.4)"]);
 
 	var margin = { top: 20, right: 20, bottom: 30, left: 80 },
 	/* -------------- #end config -------------- */
@@ -1244,9 +1248,6 @@ function drawWordPosition( word_position_data, entryName ){
 			.attr("height", function(d) { return height - y(d[1]); });
 }
 
-
-
-
 /* polarity */
 function drawPolarity2( data , entryName ) {
 	var width = 450,
@@ -1316,15 +1317,6 @@ function drawPolarity2( data , entryName ) {
 		});
 
 }
-
-function type(d) {
-  d.apples = +d.apples;
-  d.oranges = +d.oranges;
-  return d;
-}
-
-
-
 
 function drawPolarity( data , entryName ){
 	
@@ -1437,8 +1429,6 @@ function drawPolarity( data , entryName ){
 	  //     .attr("x", 13)
 	  //     .attr("dy", ".35em")
 	  //     .text(function(d) { return d.name; });
-
-	
 
 }
 
