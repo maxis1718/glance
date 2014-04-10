@@ -1126,9 +1126,23 @@ function update(source, layoutRoot, diagonal ) {
 }
 
 /* draw word position */
+
 function drawWordPosition( word_position_data, entryName ){
 
-	var margin = { top: 20, right: 20, bottom: 30, left: 60 },
+	/* -------------- #begin config -------------- */
+	var axis_color = { x: '#666', y: '#666'};
+	var y_axis_xoffset = 6;
+	// self-defined width
+	var barWidth = 60; 
+	// var barWidth = 'auto'; 
+
+	var color = d3.scale.ordinal()
+		.domain(["beginning", "middle", "end"])
+		.range(["#dc3911", "#fe991e", "#10961d"]);
+
+	var margin = { top: 20, right: 20, bottom: 30, left: 80 },
+	/* -------------- #end config -------------- */
+
     width = 400 - margin.left - margin.right,
     height = 300 - margin.top - margin.bottom;
 
@@ -1148,14 +1162,10 @@ function drawWordPosition( word_position_data, entryName ){
 	var xAxis = d3.svg.axis()
 	    .scale( x )
 	    .orient("bottom")
-	    // .data()
-	    // .tickFormat( formatPercent );
 
 	var yAxis = d3.svg.axis()
 	    .scale( y )
 	    .orient("left");
-
-
 
 	var svg = d3.select("#"+entryName).append("svg")
 	    .attr("width", width + margin.left + margin.right)
@@ -1167,34 +1177,71 @@ function drawWordPosition( word_position_data, entryName ){
 	x.domain( word_position_data.map(function(d) { return d[0]; }));
 	y.domain([0, d3.max(word_position_data, function(d) { return d[1]; })]);
 
-	svg.append("g")
+	var x_axis = svg.append("g")
 	  .attr("class", "x axis")
-	  .call( xAxis )
-	  .attr("transform", "translate(0," + height + ")");
-	  // .append('text')
-  	  
-	  
-	  // .style("text-anchor", "end")
-	  // .text("Position");
+	  .style("fill", axis_color.x)
+	  .attr("transform", "translate(0," + height + ")")
+	  .call( xAxis );
 
-	svg.append("g")
+  	var x_axis_line = x_axis.append('line')
+		.attr('x1', 0)
+		.attr('x2', width)
+		.attr('y1', 0)
+		.attr('y2', 0)
+		.style('stroke', axis_color.y)
+		.style('stroke-width', 1)
+		.style('shape-rendering', 'crispEdges');
+
+	// Y axis
+	var y_axis = svg.append("g")
 	  .attr("class", "y axis")
-	  .call(yAxis)
-	.append("text")
-	  .attr("transform", "rotate(-90)")
-	  .attr("y", 6)
-	  .attr("dy", ".71em")
+	  .style("fill", axis_color.y)
+	  .attr("transform", "translate("+y_axis_xoffset+",0)")
+	  .call(yAxis);
+
+	var y_axis_texts = y_axis.selectAll('text')
+		.style('font-size', 12)
+		.style('fill', axis_color.y);
+
+	var y_axis_legend = y_axis.append("text")
+	  .attr("transform", "translate("+((-1*margin.left)+10)+","+height/3+") rotate(-90)")
+	  .style("fill", axis_color.y)
 	  .style("text-anchor", "end")
 	  .text("Frequency");
 
-	svg.selectAll(".bar")
+  	var y_axis_line = y_axis.append('line')
+		.attr('x1', 0)
+		.attr('x2', height)
+		.attr('y1', 0)
+		.attr('y2', 0)
+		.attr("transform", "translate("+-1*y_axis_xoffset+",0) rotate(90)")	
+		.style('stroke', '#666')
+		.style('stroke-width', 1)
+		.style('shape-rendering', 'crispEdges');
+
+	// disable default axis style
+	svg.selectAll('.domain')
+		.attr('fill','none')
+
+	// x.rangeBand(): default width of each bar
+	console.log(x.rangeBand())
+
+	// deal with auto or self-defined width
+	var barTanslateX = barWidth == 'auto' ? 0 : (x.rangeBand() - barWidth)/2;
+	barWidth = barWidth == 'auto' ? x.rangeBand() : barWidth;
+	
+
+	var bars = svg.selectAll(".bar")
 		.data( word_position_data )
-		.enter().append("rect")
-		.attr("class", "bar")
-		.attr( "x" , function(d) { return x(d[0]); })
-		.attr( "width" , x.rangeBand() )
-		.attr( "y" , function(d) { return y(d[1]); })
-		.attr("height", function(d) { return height - y(d[1]); });
+		.enter()
+		.append("rect")
+			.attr("class", "bar")
+			.style("fill", function(d) { return color(d[0]); })
+			.attr( "x" , function(d) { return x(d[0]); })
+			.attr( "width" , barWidth )
+			.attr( "transform" , 'translate('+ barTanslateX +',0)' )
+			.attr( "y" , function(d) { return y(d[1]); })
+			.attr("height", function(d) { return height - y(d[1]); });
 }
 
 
