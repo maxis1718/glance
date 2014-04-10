@@ -568,7 +568,12 @@ function fetchData( qWord , postfixTargetID ){
 	/* load difinition */
 	queryWord( qWord , postfixTargetID );
 
+	console.log('queryWord', qWord, postfixTargetID)
+	
+
 	queryPOS( qWord , postfixTargetID );
+
+	console.log('queryPOS', qWord, postfixTargetID)
 
 	queryGenre( qWord , postfixTargetID );
 
@@ -817,6 +822,7 @@ function queryCategory( qWord , postfixTargetID ){
 }
 /* ===================== drawing functions ======================= */
 
+var GoogleChart = { green: '#109618', blue: '#3265cc', purple: '#990299', red: '#dc3910', orange: '#ff9800'}
 
 
 /* draw a pie chart for POS tags */
@@ -826,8 +832,32 @@ function drawPosChart( pos_data , entryName ){
     height = 300,
     radius = Math.min(width, height) / 2;
 
+	// var posMap = {
+	// 	'NN': 'noun',
+	// 	'JJ': 'adj',
+	// 	'RB': 'adv',
+	// 	'IN': 'prep',
+	// 	'PR': 'prep'
+	// }
+	// var GoogleColor = d3.scale.ordinal()
+	// 	.domain(['noun', 'adj', 'adv', 'prep', 'verb', 'other'])
+	// 	.range([
+	// 			'#0B486B',
+	// 			'#3B8686',
+	// 			'#79BD9A',
+	// 			'#A8DBA8',
+	// 			'#CFF09E'
+	// 			]);		
+		// .range([
+		// 		GoogleChart.purple,
+		// 		GoogleChart.green,
+		// 		GoogleChart.orange, 
+		// 		GoogleChart.red,
+		// 		GoogleChart.blue, 
+		// 		]);
+
 	var color = d3.scale.category20();
-	
+
 	var arc = d3.svg.arc()
 	    .outerRadius(radius - 10)
 	    .innerRadius(0);
@@ -842,15 +872,26 @@ function drawPosChart( pos_data , entryName ){
 	  .append("g")
 	    .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
 
-	var g = svg.selectAll(".arc").data(pie(pos_data)).enter().append("g").attr("class", "arc").on('click', function (d, i) {
 
-		// console.log( i + "+" + d.data[0] );
+	var g = svg.selectAll(".arc")
+		.data(pie(pos_data))
+		.enter().append("g")
+			.attr("class", "arc")
+			.on('click', function (d, i) { /* Handle onClickEvent here*/ });
 
-	});
+	g.append("path")
+		.attr("d", arc)
+		.style('fill', function(d){ 
+			// var pos = d.data[0] in posMap ? posMap[d.data[0]] : 'other';
 
-	g.append("path").attr("d", arc).style("fill", function(d) { return color(d.data); });
-	g.transition().attr("d", arc).duration(500);
-	g.append("text")
+			return color(d.data);
+			// return GoogleColor(pos); 
+		})
+	g.transition()
+		.attr("d", arc)
+		.duration(500);
+
+	var pie_label = g.append("text")
 	  .attr("transform", function(d) { return "translate(" + arc.centroid(d) + ")"; })
 	  .attr("dy", ".35em")
 	  .style("text-anchor", "middle")
@@ -862,11 +903,22 @@ function drawPosChart( pos_data , entryName ){
 
 /* draw a pie chart for Genre tags */
 function drawGenreChart( genre_data , entryName ){
+
 	var width = 300,
     height = 300,
     radius = Math.min(width, height) / 2;
 
-	var color = d3.scale.category20();
+	// var color = d3.scale.category20();
+
+	var color = d3.scale.ordinal()
+		.domain(["Spoken", "Written"])
+		// .range(["#dc3911", "#fe991e", "#10961d", "#3265cc"]);
+		// .range(["rgba(50, 101, 204, 1.0)", "#dc3910"]);
+		// .range(["rgba(220, 57, 17, 1.0)", "rgba(220, 57, 17, 0.7)", "rgba(220, 57, 17, 0.4)"]);
+		.range(['#334F78', '#4F7AB8']);
+
+	// var color = ['#1f77b4', '#1f77b4'];
+	var opacity = [1.0, 0.9]
 
 	var arc = d3.svg.arc()
 	    .outerRadius(radius - 10)
@@ -882,11 +934,18 @@ function drawGenreChart( genre_data , entryName ){
 	  .append("g")
 	    .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
 
-	var g = svg.selectAll(".arc").data(pie(genre_data)).enter().append("g").attr("class", "arc");
+	var g = svg.selectAll(".arc")
+		.data(pie(genre_data))
+		.enter().append("g")
+			.attr("class", "arc");
 
-	g.append("path").attr("d", arc).style("fill", function(d) { return color(d.data); });
+	var pie_part = g.append("path")
+		.attr("d", arc)
+		// .style('fill', '#1f77b4')
+		.style('fill', function(d) { return color(d.data[0]); });
+		// .style("fill", function(d) { return color(d.data); });
 
-	g.append("text")
+	var pie_label = g.append("text")
 	  .attr("transform", function(d) { return "translate(" + arc.centroid(d) + ")"; })
 	  .attr("dy", ".35em")
 	  .style("text-anchor", "middle")
@@ -1121,30 +1180,47 @@ function update(source, layoutRoot, diagonal ) {
 }
 
 /* draw word position */
+
 function drawWordPosition( word_position_data, entryName ){
 
-	var margin = { top: 20, right: 20, bottom: 30, left: 60 },
-    width = 300 - margin.left - margin.right,
+	/* -------------- #begin config -------------- */
+	var axis_color = { x: '#666', y: '#777'};
+	var y_axis_xoffset = 6;
+	// self-defined width
+	var barWidth = 60; 
+	// var barWidth = 'auto'; 
+
+	var color = d3.scale.ordinal()
+		// .range(["#dc3911", "#fe991e", "#10961d"]); // google chart theme
+		.range(['#F35128', '#F57126', '#F69625']); // orange
+		// .range(['#009600','#6c9c00','#aeff08']); // green
+
+	var margin = { top: 20, right: 20, bottom: 30, left: 80 },
+	/* -------------- #end config -------------- */
+
+    width = 400 - margin.left - margin.right,
     height = 300 - margin.top - margin.bottom;
 
 	var x = d3.scale.ordinal()
     .rangeRoundBands([0, width], .1);
+
+	var x2 = d3.scale.ordinal()
+    .rangeRoundBands([0, width], .3);
 
 	var y = d3.scale.linear()
 	    .range([height, 0]);
 
 	// var xLabel = 
 
+	var formatPercent = d3.format(".0%");
+
 	var xAxis = d3.svg.axis()
 	    .scale( x )
 	    .orient("bottom")
-	    .tickValues( [0,10,20, 30, 40, 50 , 60 , 70 , 80 , 90 ] );
 
 	var yAxis = d3.svg.axis()
 	    .scale( y )
 	    .orient("left");
-
-
 
 	var svg = d3.select("#"+entryName).append("svg")
 	    .attr("width", width + margin.left + margin.right)
@@ -1156,33 +1232,72 @@ function drawWordPosition( word_position_data, entryName ){
 	x.domain( word_position_data.map(function(d) { return d[0]; }));
 	y.domain([0, d3.max(word_position_data, function(d) { return d[1]; })]);
 
-	svg.append("g")
+	var x_axis = svg.append("g")
 	  .attr("class", "x axis")
-	  .call(xAxis)
-	  .attr("transform", "translate(0," + height + ")");
+	  .style("fill", axis_color.x)
+	  .attr("transform", "translate(0," + height + ")")
+	  .call( xAxis );
 
-	svg.append("g")
+  	var x_axis_line = x_axis.append('line')
+		.attr('x1', 0)
+		.attr('x2', width)
+		.attr('y1', 0)
+		.attr('y2', 0)
+		.style('stroke', axis_color.y)
+		.style('stroke-width', 1)
+		.style('shape-rendering', 'crispEdges');
+
+	// Y axis
+	var y_axis = svg.append("g")
 	  .attr("class", "y axis")
-	  .call(yAxis)
-	.append("text")
-	  .attr("transform", "rotate(-90)")
-	  .attr("y", 6)
-	  .attr("dy", ".71em")
+	  .style("fill", axis_color.y)
+	  .attr("transform", "translate("+y_axis_xoffset+",0)")
+	  .call(yAxis);
+
+	var y_axis_texts = y_axis.selectAll('text')
+		.style('font-size', 12)
+		.style('fill', axis_color.y);
+
+	var y_axis_legend = y_axis.append("text")
+	  .attr("transform", "translate("+((-1*margin.left)+10)+","+height/3+") rotate(-90)")
+	  .style("fill", axis_color.y)
 	  .style("text-anchor", "end")
 	  .text("Frequency");
 
-	svg.selectAll(".bar")
+  	var y_axis_line = y_axis.append('line')
+		.attr('x1', 0)
+		.attr('x2', height)
+		.attr('y1', 0)
+		.attr('y2', 0)
+		.attr("transform", "translate("+-1*y_axis_xoffset+",0) rotate(90)")	
+		.style('stroke', '#666')
+		.style('stroke-width', 1)
+		.style('shape-rendering', 'crispEdges');
+
+	// disable default axis style
+	svg.selectAll('.domain')
+		.attr('fill','none')
+
+	// x.rangeBand(): default width of each bar
+	// console.log(x.rangeBand())
+
+	// deal with auto or self-defined width
+	var barTanslateX = barWidth == 'auto' ? 0 : (x.rangeBand() - barWidth)/2;
+	barWidth = barWidth == 'auto' ? x.rangeBand() : barWidth;
+	
+
+	var bars = svg.selectAll(".bar")
 		.data( word_position_data )
-		.enter().append("rect")
-		.attr("class", "bar")
-		.attr( "x" , function(d) { return x(d[0]); })
-		.attr( "width" , x.rangeBand() )
-		.attr( "y" , function(d) { return y(d[1]); })
-		.attr("height", function(d) { return height - y(d[1]); });
+		.enter()
+		.append("rect")
+			.attr("class", "bar")
+			.style("fill", function(d) { return color(d[0]); })
+			.attr( "x" , function(d) { return x(d[0]); })
+			.attr( "width" , barWidth )
+			.attr( "transform" , 'translate('+ barTanslateX +',0)' )
+			.attr( "y" , function(d) { return y(d[1]); })
+			.attr("height", function(d) { return height - y(d[1]); });
 }
-
-
-
 
 /* polarity */
 function drawPolarity2( data , entryName ) {
@@ -1253,15 +1368,6 @@ function drawPolarity2( data , entryName ) {
 		});
 
 }
-
-function type(d) {
-  d.apples = +d.apples;
-  d.oranges = +d.oranges;
-  return d;
-}
-
-
-
 
 function drawPolarity( data , entryName ){
 	
@@ -1374,8 +1480,6 @@ function drawPolarity( data , entryName ){
 	  //     .attr("x", 13)
 	  //     .attr("dy", ".35em")
 	  //     .text(function(d) { return d.name; });
-
-	
 
 }
 
