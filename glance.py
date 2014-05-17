@@ -43,48 +43,6 @@ print >> sys.stderr, 'done.'
 def hello():
     return render_template('index.html')
 
-
-# ==== API =====
-
-
-@app.route("/demo/pos")
-@app.route("/demo/pos/")
-@app.route('/demo/postag')
-@app.route('/demo/postag/')
-def show_pos():
-	return render_template('pos.html')
-
-
-@app.route("/demo/test")
-@app.route("/demo/test/")
-@app.route('/demo/difficulty')
-@app.route('/demo/difficulty/')
-def show_test():
-	return render_template('test.html')
-
-@app.route("/demo/wp")
-@app.route("/demo/wp/")
-def show_wp():
-	return render_template('wp.html')
-
-
-@app.route('/demo/translation')
-@app.route('/demo/translation/')
-def show_translation_cht():
-	return render_template('translation.html')
-
-@app.route("/demo/char")
-def show_wp():
-	return render_template('char.html')
-
-@app.route("/demo/plot")
-def show_plot():
-	return render_template('plot.html')
-
-@app.route("/demo/cluster")
-def show_cluster():
-	return render_template('cluster.html')
-
 ### ---------------------------- API ---------------------------- ###
 ### pos API
 @app.route('/api/word/<query>/usages/')
