@@ -150,5 +150,5 @@ if __name__ == "__main__":
 	    DEBUG=False,
 	    SEND_FILE_MAX_AGE_DEFAULT=0
 	)
-	app.run(host="0.0.0.0")
+	app.run(host="0.0.0.0",port=55688)
 

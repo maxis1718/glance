@@ -25,14 +25,15 @@
 			{{#ifCond POS @key}}
 			  <div class="panel panel-default">
 			    <div class="panel-heading">
-			      <h4 class="panel-title">
-			        <a data-toggle="collapse" data-parent="#accordion-{{../../../postfixTargetID}}" href="#collapse-{{@index}}-{{../../../postfixTargetID}}">
-			           <span class="panel-title-definition">{{definition}}</span>
-						
-			        </a>
-			      </h4>
-					<div id="wordPolarity-{{@index}}-{{../../../postfixTargetID}}">
-
+					<h4 class="panel-title">
+						<a data-toggle="collapse" data-parent="#accordion-{{../../../postfixTargetID}}" href="#collapse-{{@index}}-{{../../../postfixTargetID}}">
+					   		<span class="panel-title-definition">{{definition}}</span>
+						</a>
+					</h4>
+					<div class="polarity-wrap" id="wordPolarity-{{@index}}-{{../../../postfixTargetID}}">
+						<div class="polarity-bar polarity-positive"></div>
+						<div class="polarity-bar polarity-negative"></div>
+						<div class="polarity-bar polarity-objective"></div>
 					</div>
 			    </div>
 			    <div id="collapse-{{@index}}-{{../../../postfixTargetID}}" class="panel-collapse collapse {{#if @first}}in{{/if}}">

@@ -365,6 +365,8 @@ function events(){
 	inputHandeler();
 
 	navigation_events();
+
+	bindShowPolarityLabel();
 	// scrolling_events();
 
 	// navigation('.function-nav-block');
@@ -527,7 +529,6 @@ function loadTemplate( templateName , data , entry , callback ){
             
 			var template = Handlebars.compile(source);
 			var html    = template(data);
-
 			/* put html string into entry */
 			entry.html( html );	
 			if(callback){
@@ -568,20 +569,20 @@ function fetchData( qWord , postfixTargetID ){
 	/* load difinition */
 	queryWord( qWord , postfixTargetID );
 
-	console.log('queryWord', qWord, postfixTargetID)
+	// console.log('queryWord', qWord, postfixTargetID)
 	
 
-	queryPOS( qWord , postfixTargetID );
+	// queryPOS( qWord , postfixTargetID );
 
-	console.log('queryPOS', qWord, postfixTargetID)
+	// console.log('queryPOS', qWord, postfixTargetID)
 
-	queryGenre( qWord , postfixTargetID );
+	// queryGenre( qWord , postfixTargetID );
 
-	queryPosition( qWord , postfixTargetID );
+	// queryPosition( qWord , postfixTargetID );
 
-	queryTranlastion( qWord , postfixTargetID );
+	// queryTranlastion( qWord , postfixTargetID );
 
-	queryCategory( qWord , postfixTargetID );
+	// queryCategory( qWord , postfixTargetID );
 
 }
 
@@ -685,8 +686,29 @@ function fetchTextData( qWord , postfixTargetID ){
 
 }
 
+function bindShowPolarityLabel()
+{
+	console.log('bindShowPolarityLabel');
+	$('.polarity-bar').on('mouseover', function(e){
+		console.log( $(this).attr('val') );
+	});
+}
 
 /* ===================== module specific =================== */
+
+function put_polarity (polarity, entryName) {
+
+	var entry = $('#'+entryName);
+
+	entry.find('.polarity-positive').attr('val', polarity.positive.toString())
+									.css({'width': (polarity.positive*100).toString()+'%'});
+
+	entry.find('.polarity-negative').attr('val', polarity.negative.toString())
+									.css({'width': (polarity.negative*100).toString()+'%'});
+
+	entry.find('.polarity-objective').attr('val', polarity.objective.toString())
+									.css({'width': (polarity.objective*100).toString()+'%'});
+}
 
 var wordsense;
 function queryWord( qWord , postfixTargetID ){
@@ -697,26 +719,34 @@ function queryWord( qWord , postfixTargetID ){
 		data['postfixTargetID'] = postfixTargetID;
 		loadTemplate("definition", data , $("#"+glanceWordDefinitionID+"_"+postfixTargetID) , function(){
 
-			loadTemplate("polarity", data, $("#"+glacneWordPolarityID+"_"+postfixTargetID), function(){
-					
+
+
+			// loadTemplate("polarity", data, $("#"+glacneWordPolarityID+"_"+postfixTargetID), function(){
 				
+				// console.log('loadTemplate > polarity');
+				
+				// polarities = []
 				$.each(data['contents'], function(index, val) {
 					 /* iterate through array or object */
 					var polarity = val['polarity'];
 
-					var word_polarity_data = [];
-				    $.each(polarity, function( key, value ) {
-				      if(value>0){
-						  word_polarity_data.push([ key, value]);
-						}
-					});
-				    
-				    drawPolarity( word_polarity_data , "wordPolarity-"+index+"-"+postfixTargetID );
+					console.log(polarity)
+
+					// var word_polarity_data = [];
+				 //    $.each(polarity, function( key, value ) {
+				 //      if(value>0){
+					// 	  word_polarity_data.push([ key, value]);
+					// 	}
+					// });
+
+				    // console.log("wordPolarity-"+index+"-"+postfixTargetID);
+				    put_polarity(polarity, "wordPolarity-"+index+"-"+postfixTargetID);
+				    // drawPolarity( word_polarity_data , "wordPolarity-"+index+"-"+postfixTargetID );
 					
 					
 				});
 
-			});
+			// });
 
 		});
 
