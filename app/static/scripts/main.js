@@ -599,7 +599,6 @@ function fetchTextData( qWord , postfixTargetID ){
 		data['postfixTargetID'] = postfixTargetID;
 		loadTemplate("definition", data , $("#"+glanceWordDefinitionID+"_"+postfixTargetID) , function(){
 
-				
 			$.each(data['contents'], function(index, val) {
 				 /* iterate through array or object */
 				var polarity = val['polarity'];
@@ -691,19 +690,16 @@ function bindShowPolarityLabel()
 		var trigger = $(this);
 		var percent = (parseFloat(trigger.attr('val'))*100).toString()+'%';
 		var polarity = trigger.attr('polarity');
-		// $('.polarity-label').remove();
 
-		// $('.polarity-label-wrap')
-		// .addClass('polarity-label')
-		// var entry = $(this).siblings('.polarity-label-wrap').find('.polarity-label');
+		$('.polarity-label').delay(250).slideUp(300, function(){
+			$(this).remove();
+		});
 
 		var label = $('<div/>').addClass('polarity-label')
 					.text(polarity+' '+percent)
 					.appendTo(trigger.parent())
 					.css({
 						'width': trigger.width(),
-						// 'height': 16px,
-						// 'line-height': 16px,
 						'background': trigger.css('background'), 
 						'position': 'absolute',
 						'top': trigger.position().top+3,
@@ -711,21 +707,20 @@ function bindShowPolarityLabel()
 						'font-size': 12,
 						'color': 'white',
 						'display': 'none',
-						'padding': 3
+						'padding': 3,
+						'font-family': 'verdana'
 					});
 
-		label.slideDown(300);
-		// console.log(trigger.position().top)
-		// console.log(trigger.position().left)
-		// console.log(percent)
-		// console.log(percent)
-		// var polarity = $(this).offset.top
+		label.delay(0).slideDown(200);
+
 	}).mouseleave(function(e){
-		$('.polarity-label').delay(100).slideUp(300, function(){
-			$(this).remove();
-		});
-		// $('.polarity-label-wrap').find('.polarity-label').css('background', 'none').html('');
+		$('.polarity-label').delay(500).slideUp(200);
 	});
+	// .mouseleave(function(e){
+	// 	$('.polarity-label').delay(250).slideUp(300, function(){
+	// 		// $(this).remove();
+	// 	});
+	// });
 }
 
 /* ===================== module specific =================== */
@@ -735,15 +730,15 @@ function put_polarity (polarity, entryName) {
 	var entry = $('#'+entryName);
 
 	entry.find('.polarity-positive').attr('val', polarity.positive.toString())
-									.attr('polarity', 'positive')
+									.attr('polarity', 'pos.')
 									.css({'width': (polarity.positive*100).toString()+'%'});
 
 	entry.find('.polarity-negative').attr('val', polarity.negative.toString())
-									.attr('polarity', 'negative')
+									.attr('polarity', 'neg.')
 									.css({'width': (polarity.negative*100).toString()+'%'});
 
 	entry.find('.polarity-objective').attr('val', polarity.objective.toString())
-									.attr('polarity', 'objective')
+									.attr('polarity', 'obj.')
 									.css({'width': (polarity.objective*100).toString()+'%'});
 
 	
@@ -754,12 +749,13 @@ function queryWord( qWord , postfixTargetID ){
 
 	/* get word info */
 	$.get('/api/word/'+qWord, function(data) {
-		/*optional stuff to do after success */
+
 		data['postfixTargetID'] = postfixTargetID;
 		loadTemplate("definition", data , $("#"+glanceWordDefinitionID+"_"+postfixTargetID) , function(){
 
 
 
+			console.log(data);
 			// loadTemplate("polarity", data, $("#"+glacneWordPolarityID+"_"+postfixTargetID), function(){
 				
 				// console.log('loadTemplate > polarity');
@@ -769,18 +765,7 @@ function queryWord( qWord , postfixTargetID ){
 					 /* iterate through array or object */
 					var polarity = val['polarity'];
 
-					console.log(polarity)
-
-					// var word_polarity_data = [];
-				 //    $.each(polarity, function( key, value ) {
-				 //      if(value>0){
-					// 	  word_polarity_data.push([ key, value]);
-					// 	}
-					// });
-
-				    // console.log("wordPolarity-"+index+"-"+postfixTargetID);
 				    put_polarity(polarity, "wordPolarity-"+index+"-"+postfixTargetID);
-				    // drawPolarity( word_polarity_data , "wordPolarity-"+index+"-"+postfixTargetID );
 					
 					
 				});
