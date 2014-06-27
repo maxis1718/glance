@@ -366,7 +366,7 @@ function events(){
 
 	navigation_events();
 
-	bindShowPolarityLabel();
+	
 	// scrolling_events();
 
 	// navigation('.function-nav-block');
@@ -619,8 +619,6 @@ function fetchTextData( qWord , postfixTargetID ){
 				/* put html string into entry */
 				$( "#wordPolarity-"+index+"-"+postfixTargetID ).html( html );
 			});
-
-
 		});
 
 		wordsense = data['contents'][0];
@@ -688,9 +686,45 @@ function fetchTextData( qWord , postfixTargetID ){
 
 function bindShowPolarityLabel()
 {
-	console.log('bindShowPolarityLabel');
-	$('.polarity-bar').on('mouseover', function(e){
-		console.log( $(this).attr('val') );
+	$('.polarity-bar').mouseenter(function(e){
+
+		var trigger = $(this);
+		var percent = (parseFloat(trigger.attr('val'))*100).toString()+'%';
+		var polarity = trigger.attr('polarity');
+		// $('.polarity-label').remove();
+
+		// $('.polarity-label-wrap')
+		// .addClass('polarity-label')
+		// var entry = $(this).siblings('.polarity-label-wrap').find('.polarity-label');
+
+		var label = $('<div/>').addClass('polarity-label')
+					.text(polarity+' '+percent)
+					.appendTo(trigger.parent())
+					.css({
+						'width': trigger.width(),
+						// 'height': 16px,
+						// 'line-height': 16px,
+						'background': trigger.css('background'), 
+						'position': 'absolute',
+						'top': trigger.position().top+3,
+						'left': trigger.position().left,
+						'font-size': 12,
+						'color': 'white',
+						'display': 'none',
+						'padding': 3
+					});
+
+		label.slideDown(300);
+		// console.log(trigger.position().top)
+		// console.log(trigger.position().left)
+		// console.log(percent)
+		// console.log(percent)
+		// var polarity = $(this).offset.top
+	}).mouseleave(function(e){
+		$('.polarity-label').delay(100).slideUp(300, function(){
+			$(this).remove();
+		});
+		// $('.polarity-label-wrap').find('.polarity-label').css('background', 'none').html('');
 	});
 }
 
@@ -701,13 +735,18 @@ function put_polarity (polarity, entryName) {
 	var entry = $('#'+entryName);
 
 	entry.find('.polarity-positive').attr('val', polarity.positive.toString())
+									.attr('polarity', 'positive')
 									.css({'width': (polarity.positive*100).toString()+'%'});
 
 	entry.find('.polarity-negative').attr('val', polarity.negative.toString())
+									.attr('polarity', 'negative')
 									.css({'width': (polarity.negative*100).toString()+'%'});
 
 	entry.find('.polarity-objective').attr('val', polarity.objective.toString())
+									.attr('polarity', 'objective')
 									.css({'width': (polarity.objective*100).toString()+'%'});
+
+	
 }
 
 var wordsense;
@@ -745,6 +784,7 @@ function queryWord( qWord , postfixTargetID ){
 					
 					
 				});
+				bindShowPolarityLabel();
 
 			// });
 
