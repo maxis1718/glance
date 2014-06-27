@@ -572,17 +572,15 @@ function fetchData( qWord , postfixTargetID ){
 	// console.log('queryWord', qWord, postfixTargetID)
 	
 
-	// queryPOS( qWord , postfixTargetID );
+	queryPOS( qWord , postfixTargetID );
 
-	// console.log('queryPOS', qWord, postfixTargetID)
+	queryGenre( qWord , postfixTargetID );
 
-	// queryGenre( qWord , postfixTargetID );
+	queryPosition( qWord , postfixTargetID );
 
-	// queryPosition( qWord , postfixTargetID );
+	queryTranlastion( qWord , postfixTargetID );
 
-	// queryTranlastion( qWord , postfixTargetID );
-
-	// queryCategory( qWord , postfixTargetID );
+	queryCategory( qWord , postfixTargetID );
 
 }
 
@@ -753,9 +751,6 @@ function queryWord( qWord , postfixTargetID ){
 		data['postfixTargetID'] = postfixTargetID;
 		loadTemplate("definition", data , $("#"+glanceWordDefinitionID+"_"+postfixTargetID) , function(){
 
-
-
-			console.log(data);
 			// loadTemplate("polarity", data, $("#"+glacneWordPolarityID+"_"+postfixTargetID), function(){
 				
 				// console.log('loadTemplate > polarity');
