@@ -541,7 +541,7 @@ html, body {
         max-width: 100%;
         .panel-group {
             .panel {
-                margin-bottom: 12px!important;
+                margin-bottom: 28px!important;
                 border: 0;
 
                 // @include border-radius(3px);
@@ -614,6 +614,8 @@ html, body {
                     border-right: 1px dashed #ddd;
                     border-left: 1px dashed #ddd;
                     .panel-body {
+                        padding-top: 32px;
+
                         b {
                             border-bottom: 1px dashed $glance-theme-color;
                             padding-left: 3px;
