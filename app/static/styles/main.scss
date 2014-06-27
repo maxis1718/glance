@@ -589,6 +589,21 @@ html, body {
 
                         }             
                     }
+                    .polarity-wrap {
+                        .polarity-bar {
+                            float: left;
+                            height: 5px;
+                        }
+                        .polarity-positive {
+                            background: #dc3911;
+                        }
+                        .polarity-negative {
+                            background: #3366cc;
+                        }
+                        .polarity-objective {
+                            background: #768777;
+                        }
+                    }
                     svg {
                         position: relative;
                         bottom: -1px;                
