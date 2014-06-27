@@ -1,5 +1,5 @@
-import pymongo
-mc = pymongo.Connection('lost.nlpweb.org')
+import pymongo, config
+mc = pymongo.Connection(config.mongodb_server)
 db_glance_word = mc['glance_word']
 
 def position(query):
