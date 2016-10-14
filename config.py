@@ -1,6 +1,6 @@
 # -*- coding: UTF-8 -*-
 
-amazon = '54.186.98.241'
+amazon = '54.213.137.142'
 lost = 'lost.nlpweb.org'
 moon = 'moon.nlpweb.org'
 ironman = 'ironman.nlpweb.org'
