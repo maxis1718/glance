@@ -4,6 +4,6 @@ PyYAML==3.10
 Werkzeug==0.8.3
 distribute==0.6.31
 gunicorn==0.17.4
-nltk==2.0.4
+nltk==3.2.1
 pymongo==2.6.3
 wsgiref==0.1.2
