@@ -134,8 +134,7 @@ def word_genre(query):
 @app.route('/api/word/<query>/category/')
 @app.route('/api/word/<query>/category')
 def word_category(query):
-    # res = LK.query_category( query )
-    res = {}
+    res = LK.query_category( query )
     return Response(json.dumps(res), mimetype='application/json')
 
 @app.route('/pages/<string:page_name>/')
