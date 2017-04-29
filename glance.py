@@ -134,8 +134,7 @@ def word_genre(query):
 @app.route('/api/word/<query>/category/')
 @app.route('/api/word/<query>/category')
 def word_category(query):
-    # res = LK.query_category( query )
-    res = {}
+    res = LK.query_category( query )
     return Response(json.dumps(res), mimetype='application/json')
 
 @app.route('/pages/<string:page_name>/')
@@ -144,7 +143,7 @@ def static_page(page_name):
 
 if __name__ == "__main__":
     app.config.update(
-        DEBUG=True,
+        DEBUG=False,
         SEND_FILE_MAX_AGE_DEFAULT=0
     )
     app.run(host="0.0.0.0",port=55688)
