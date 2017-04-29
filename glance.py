@@ -137,6 +137,10 @@ def word_category(query):
     res = LK.query_category( query )
     return Response(json.dumps(res), mimetype='application/json')
 
+@app.route('/googlec366e247fdaa7208.html')
+def google_search_console():
+    return render_template('googlec366e247fdaa7208.html')
+
 @app.route('/pages/<string:page_name>/')
 def static_page(page_name):
     return render_template('%s.html' % page_name)
