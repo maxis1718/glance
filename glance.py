@@ -1,7 +1,4 @@
 # -*- coding: UTF-8 -*-
-
-
-
 from flask import Flask, render_template, request, redirect, Response, jsonify, url_for
 import json, os, sys
 import language_kit as LK
@@ -73,7 +70,7 @@ def translate_first_cht(query):
     return Response(json.dumps(return_data), mimetype='application/json')
 
 
-### wordnet related 
+### wordnet related
 # sense to word
 # input: sense ( e.g 'dog.n.1' )
 @app.route('/api/sense/<query>/word/')
@@ -82,13 +79,13 @@ def sense_to_word( query ):
     return LK.synset_to_words( query )
 
 # query word info
-# input: word 
+# input: word
 @app.route('/api/word/<query>/')
 @app.route('/api/word/<query>')
 def query_word_info( query ):
     return Response(json.dumps( LK.query_word( query ) ), mimetype='application/json')
 
-# query hypernym and hyponym and definition of a word 
+# query hypernym and hyponym and definition of a word
 # input: sense
 
 @app.route('/api/sense/<query>/hyponym/')
@@ -137,13 +134,17 @@ def word_genre(query):
 @app.route('/api/word/<query>/category/')
 @app.route('/api/word/<query>/category')
 def word_category(query):
-    res = LK.query_category( query )
+    # res = LK.query_category( query )
+    res = {}
     return Response(json.dumps(res), mimetype='application/json')
 
+@app.route('/pages/<string:page_name>/')
+def static_page(page_name):
+    return render_template('%s.html' % page_name)
 
 if __name__ == "__main__":
     app.config.update(
-        DEBUG=False,
+        DEBUG=True,
         SEND_FILE_MAX_AGE_DEFAULT=0
     )
     app.run(host="0.0.0.0",port=55688)
